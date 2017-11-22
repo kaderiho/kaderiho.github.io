@@ -1,0 +1,65 @@
+.sourcesList {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.sourcesList-showMore {
+    cursor: pointer;
+    margin-top: 50px;
+    width: 150px;
+    height: 25px;
+}
+
+.sourcesList-item {
+    cursor: pointer;
+    text-align: center;
+    margin: 0 5px 20px;
+    min-height: 150px;
+}
+
+@media (min-width: 960px) {
+    .app {
+        width: 960px;
+    }
+
+    .sourcesList {
+        width: 840px;
+    }
+}
+
+@media (min-width: 960px) {
+    .sourcesList-item {
+        width: calc(20% - 10px);
+    }
+}
+
+@media (max-width: 960px) {
+    .sourcesList-item {
+        width: calc(25% - 10px);
+    }
+}
+
+@media (max-width: 600px) {
+    .sourcesList-item {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .sourcesList-item {
+        width: calc(100% - 10px);
+    }
+
+    .sourceLogo {
+        width: 150px;
+    }
+}
+
+@media (min-width: 480px) {
+    .sourceLogo {
+        width: 100px;
+    }
+}

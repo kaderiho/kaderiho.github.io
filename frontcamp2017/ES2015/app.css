@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    margin: 0 auto;
+}
+
+.app h1 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.sourcesContainer {
+    text-align: center;
+    margin: 50px 0;
+}
+
+footer {
+    height: 50px;
+    border: 1px solid rgba(0,0,0, 0.2);
+    padding: 10px 10px;
+    border-radius: 3px;
+    text-align: right;
+}
