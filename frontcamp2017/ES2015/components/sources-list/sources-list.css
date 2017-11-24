@@ -20,6 +20,15 @@
     min-height: 150px;
 }
 
+.sourcesList-item:hover .sourceLogo {
+    transform: scale(1.1);
+}
+
+.sourceLogo {
+    transition: all .1s ease-out;
+    border-radius: 10px;
+}
+
 @media (min-width: 960px) {
     .app {
         width: 960px;

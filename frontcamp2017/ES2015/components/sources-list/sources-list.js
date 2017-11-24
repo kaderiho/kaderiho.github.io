@@ -1,50 +1,62 @@
-let channelsList = [{
-    title: 'ABC news',
-    key: 'abc-news',
-    logoPath: './components/sources-list/images/3.bild.png'
-}];
 
 class Channels {
-    constructor() {
-        Channels.init();
-        Channels.attachEventListeners();
-    }
+    constructor({targetElement}) {
+        Channels.init(targetElement);
 
-    static getArticles(sourceKey) {
-        APP_SERVICES.getArticles(sourceKey).then((response) => {
-
+        document.addEventListener('showSourcesList', () => {
+            Channels.init(targetElement);
         });
     }
 
-    static render() {
-        let sourcesList = ``;
+    static checkSourcesStorage() {}
+
+    static getSources() {
+        return APP_SERVICES.getSources();
+    }
+
+    static render(targetElement, sourcesList) {
+        let sourcesListOutput = ``;
 
         this.sourcesElement = document.createElement('ul');
-
         this.sourcesElement.className = 'sourcesList';
-        document.querySelector('.sourcesContainer').appendChild(this.sourcesElement);
 
-        for (let i = 0;i < 15;i++) {
-            sourcesList += `<li class="sourcesList-item" data-key="${channelsList[0].key}">
-                                <img src=${channelsList[0].logoPath} class="sourceLogo"/>
-                                <p class="sourceTitle">${channelsList[0].title}</p>
+        targetElement.innerHTML = '';
+        targetElement.appendChild(this.sourcesElement);
+
+        for (let i = 0; i < sourcesList.length; i++) {
+            let source = sourcesList[i];
+
+            sourcesListOutput += `<li class="sourcesList-item" data-key="${source.key}">
+                                <img src="${source.logoPath}" class="sourceLogo"/>
+                                <p class="sourceTitle">${source.title}</p>
                             </li>`;
         }
 
-        document.querySelector('.sourcesList').innerHTML = sourcesList;
+        this.sourcesElement.innerHTML = sourcesListOutput;
     }
 
     static attachEventListeners() {
         let sourceItems = this.sourcesElement.querySelectorAll('.sourcesList-item');
 
-        sourceItems.forEach((source, index) => {
+        sourceItems.forEach((source) => {
             source.addEventListener('click', () => {
-                Channels.getArticles(source.getAttribute('data-key'));
+                let showArticlesEvent = new CustomEvent('showArticlesList', {
+                    detail: {
+                        sourceKey: source.getAttribute('data-key')
+                    }
+                });
+
+                document.dispatchEvent(showArticlesEvent);
             });
         })
     }
 
-    static init() {
-        Channels.render();
+    static init(targetElement) {
+        Channels.getSources()
+            .then((res) => res.json())
+            .then((parsedResponse) => {
+                Channels.render(targetElement, parsedResponse.sources);
+                Channels.attachEventListeners();
+            });
     }
 }

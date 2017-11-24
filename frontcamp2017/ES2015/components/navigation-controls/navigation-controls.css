@@ -1,0 +1,21 @@
+.navigationControls {
+    width: 960px;
+    position: fixed;
+    top: 50%;
+}
+
+.navigationControls-button {
+    position: absolute;
+}
+
+.navigationControls-button--hidden {
+    display: none;
+}
+
+#backHomeButton {
+    left: -100px;
+}
+
+#scrollUpButton {
+    right: -100px;
+}
