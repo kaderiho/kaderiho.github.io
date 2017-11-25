@@ -29,35 +29,39 @@ class Articles {
         }, false);
     }
 
+    _parseArticle(articleItem) {
+        let outputItem = ``;
+        let articleAuthor = articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``;
+        let articleTitle = articleItem.title ? `<h1 class="articleTitle">${articleItem.title}</h1>` : '';
+        let articleImage = articleItem.urlToImage ? `<img src="${articleItem.urlToImage}" alt="" class="articleImage">` : ``;
+
+        outputItem += `<li class="articlesList-item">
+                            ${articleTitle}
+                            <p class="articleDate">${articleAuthor} ${Articles.formatDate(articleItem.publishedAt)}</span></p>
+                            ${articleImage}
+                            <p class="articleDescription">${articleItem.description}</p>
+                       </li>`;
+
+        return outputItem;
+    }
+
     render(articlesList) {
-        let navigationControlsElement = document.querySelector('.navigationControls');
         let outputArticlesList = ``;
 
         this.articlesListElement = document.createElement('ul');
         this.articlesListElement.className = 'articlesList';
 
-        this.targetElement.innerHTML = ``;
-        this.targetElement.appendChild(this.articlesListElement);
-
-        // TODO: add possibility to go by tab clicking
-        // TODO: read about expression in string templates
-
         for (let i = 0;i < articlesList.length;i++) {
-            let article = articlesList[i];
-            let articleAuthor = article.author ? `by <span class="articleAuthor">${article.author}</span> - ` : ``;
-
-            outputArticlesList += `<li class="articlesList-item">
-                                        <h1 class="articleTitle">${article.title ? article.title : ''}</h1>
-                                        <p class="articleDate">${articleAuthor} ${Articles.formatDate(article.publishedAt)} </span></p>
-                                        <img src="${article.urlToImage ? article.urlToImage : ''}" alt="" class="articleImage">
-                                        <p class="articleDescription">${article.description}</p>
-                                   </li>`;
+            outputArticlesList += this._parseArticle(articlesList[i]);
         }
 
+        this.targetElement.innerHTML = ``;
+        this.targetElement.appendChild(this.articlesListElement);
         this.articlesListElement.innerHTML = outputArticlesList;
         this.afterInserted();
 
-        navigationControlsElement.classList.remove('navigationControls--hidden');
+        // TODO: add possibility to go by tab clicking
+        // TODO: read about expression in string templates
         // TODO: Add view more button (show by default a configured number of articles);
     }
 }

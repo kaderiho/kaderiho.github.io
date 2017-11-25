@@ -1,5 +1,5 @@
 (function(){
-    let controlsElement = document.querySelector('.navigationControls');
+    let navigationControlsElement = document.querySelector('.navigationControls');
     let backHomeButton = document.querySelector('#backHomeButton');
     let mainElement = document.querySelector('main');
 
@@ -14,7 +14,7 @@
     let articlesConfig = {
         targetElement: mainElement,
         afterInserted() {
-            backHomeButton.classList.remove('navigationControls-button--hidden');
+            navigationControlsElement.classList.remove('navigationControls--hidden');
         }
     };
 
@@ -26,7 +26,7 @@
 
     backHomeButton.addEventListener('click',  function() {
         document.dispatchEvent(new CustomEvent('showSourcesList'));
-        controlsElement.classList.add('navigationControls--hidden');
+        navigationControlsElement.classList.add('navigationControls--hidden');
     });
 }());
 

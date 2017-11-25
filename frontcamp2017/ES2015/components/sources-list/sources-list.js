@@ -17,12 +17,7 @@ class Channels {
         targetElement.appendChild(this.sourcesElement);
 
         for (let i = 0; i < sourcesList.length; i++) {
-            let source = sourcesList[i];
-
-            sourcesListOutput += `<li class="sourcesList-item" data-key="${source.key}">
-                                    <img src="${source.logoPath}" class="sourceLogo" alt=""/>
-                                    <p class="sourceTitle">${source.title}</p>
-                                  </li>`;
+            sourcesListOutput += this._parseSource(sourcesList[i]);
         }
 
         this.sourcesElement.innerHTML = sourcesListOutput;
@@ -30,7 +25,7 @@ class Channels {
 
     _attachEventListeners(targetElement) {
         let sourceItemsList = this.sourcesElement.querySelectorAll('.sourcesList-item');
-        let showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
+        let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
 
         sourceItemsList.forEach((sourceItem) => {
             sourceItem.addEventListener('click', () => {
@@ -42,6 +37,15 @@ class Channels {
         document.addEventListener('showSourcesList', () => {
             this.init(targetElement);
         });
+    }
+
+    _parseSource(sourceItem) {
+        let outputSource = `<li class="sourcesList-item" data-key="${sourceItem.key}">
+                                <img src="${sourceItem.logoPath}" class="sourceLogo" alt=""/>
+                                <p class="sourceTitle">${sourceItem.title}</p>
+                           </li>`;
+
+        return outputSource;
     }
 
     init(targetElement) {
