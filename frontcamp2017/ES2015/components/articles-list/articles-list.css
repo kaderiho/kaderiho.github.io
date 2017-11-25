@@ -11,9 +11,26 @@
 
 .articleDescription {
     text-align: justify;
-    padding: 0 20px;
+    margin-top: 25px;
 }
 
 .articleImage {
-    width: calc(100% - 150px);
+    width: 100%;
+}
+.articleTitle {
+    font-size: 40px;
+    margin-bottom: 15px;
+    text-align: left;
+    color: #F42;
+}
+
+.articleAuthor {
+    color: #F42;
+}
+
+.articleDate {
+    text-align: left;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+    border-bottom: 1px solid #ddd;
 }

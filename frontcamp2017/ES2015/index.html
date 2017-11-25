@@ -5,8 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="app.css">
-    <link rel="stylesheet" href="components/navigation-controls/navigation-controls.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/navigation-controls.css">
     <link rel="stylesheet" href="components/articles-list/articles-list.css">
     <link rel="stylesheet" href="components/sources-list/sources-list.css">
     <title>News feed</title>
@@ -14,18 +14,30 @@
 <body>
     <div class="app">
         <header>
-            <h1>Choose any news sources</h1>
+            <h1>
+                Choose and read any news channels
+            </h1>
         </header>
 
         <main></main>
 
-        <div class="navigationControls">
-            <button class="navigationControls-button navigationControls-button--hidden" id="backHomeButton">Back</button>
+        <div class="navigationControls navigationControls--hidden">
+            <div class="navigationControls-inner">
+                <button class="navigationControls-button navigationControls-button--hidden" id="backHomeButton">
+
+                    <svg width="32px" height="32px" viewBox="0 0 314.069 314.069">
+                        <path d="M293.004 78.525C249.64 3.435 153.62-22.295 78.53 21.06 3.437 64.41-22.295 160.444 21.07 235.543c43.35 75.087 139.375 100.822 214.465 57.467 75.096-43.362 100.832-139.39 57.47-214.485zm-73.168 187.277c-60.075 34.685-136.894 14.114-171.576-45.97-34.69-60.07-14.105-136.896 45.972-171.58 60.07-34.682 136.894-14.098 171.578 45.98 34.685 60.076 14.098 136.886-45.974 171.57zm-7.85-124.474h-65.49l17.598-17.603c6.124-6.13 6.124-16.076 0-22.197-6.13-6.133-16.078-6.133-22.207 0l-44.402 44.4c-6.13 6.13-6.13 16.078 0 22.213l44.402 44.404c6.13 6.128 16.078 6.128 22.207 0 6.124-6.13 6.124-16.077 0-22.2l-17.606-17.602h65.5c8.668 0 15.696-7.04 15.696-15.7v-.008c0-8.68-7.03-15.704-15.698-15.704z"/>
+                    </svg>
+                    Back
+                </button>
+            </div>
             <!--<button class="navigationControls-button" id="scrollUpButton">Scroll up</button>-->
         </div>
 
         <footer>
-            <p>copyright newsapi.org</p>
+            <span>
+                &copy; 2017 <a href="">newsapi.org</a>
+            </span>
         </footer>
     </div>
 

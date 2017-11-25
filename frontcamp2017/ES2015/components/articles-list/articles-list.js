@@ -1,47 +1,63 @@
 class Articles {
     constructor({targetElement, afterInserted}) {
-        document.addEventListener('showArticlesList', function (e) {
-            APP_SERVICES.getArticles(e.detail.sourceKey)
-                .then((response) => response.json())
+        this.afterInserted = afterInserted || function() {};
+        this.targetElement = targetElement;
+        this._attachEventListeners();
+    }
+
+    static getArticles(sourceKey) {
+        return APP_SERVICES.getArticles(sourceKey).then((response) => response.json());
+    }
+
+    static formatDate(dateString) {
+        let date = new Date(dateString);
+        let dateOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        return date.toLocaleString('en-us', dateOptions);
+    }
+
+    _attachEventListeners() {
+        document.addEventListener('showArticlesList',(e) => {
+            Articles.getArticles(e.detail.sourceKey)
                 .then((articlesList) => {
-                    Articles.render(articlesList.articles, targetElement);
-            });
+                    this.render(articlesList.articles);
+                });
         }, false);
-
-        Articles.afterInserted = afterInserted || function() {};
     }
 
-    static formatDate(publishedDate) {
-        let date = new Date(publishedDate);
-        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-
-        return date.toLocaleString('en-us', options);
-    }
-
-    static render(articlesList, targetElement) {
-        let outputList = ``;
+    render(articlesList) {
+        let navigationControlsElement = document.querySelector('.navigationControls');
+        let outputArticlesList = ``;
 
         this.articlesListElement = document.createElement('ul');
         this.articlesListElement.className = 'articlesList';
 
-        targetElement.innerHTML = ``;
-        targetElement.appendChild(this.articlesListElement);
+        this.targetElement.innerHTML = ``;
+        this.targetElement.appendChild(this.articlesListElement);
 
+        // TODO: add possibility to go by tab clicking
         // TODO: read about expression in string templates
 
         for (let i = 0;i < articlesList.length;i++) {
             let article = articlesList[i];
-            outputList += `<li class="articlesList-item">
-                                <h1 class="articleTitle">${article.title}</h1>
-                                <img src="${article.urlToImage ? article.urlToImage : ''}" alt="" class="articleImage">
-                                <p class="articleDescription">${article.description}</p>
-                                <span class="articleDate">${Articles.formatDate(article.publishedAt)}</span>
-                          </li>`;
+            let articleAuthor = article.author ? `by <span class="articleAuthor">${article.author}</span> - ` : ``;
+
+            outputArticlesList += `<li class="articlesList-item">
+                                        <h1 class="articleTitle">${article.title ? article.title : ''}</h1>
+                                        <p class="articleDate">${articleAuthor} ${Articles.formatDate(article.publishedAt)} </span></p>
+                                        <img src="${article.urlToImage ? article.urlToImage : ''}" alt="" class="articleImage">
+                                        <p class="articleDescription">${article.description}</p>
+                                   </li>`;
         }
 
-        this.articlesListElement.innerHTML = outputList;
+        this.articlesListElement.innerHTML = outputArticlesList;
         this.afterInserted();
 
+        navigationControlsElement.classList.remove('navigationControls--hidden');
         // TODO: Add view more button (show by default a configured number of articles);
     }
 }

@@ -1,62 +1,54 @@
-
 class Channels {
     constructor({targetElement}) {
-        Channels.init(targetElement);
-
-        document.addEventListener('showSourcesList', () => {
-            Channels.init(targetElement);
-        });
+        this.init(targetElement);
     }
-
-    static checkSourcesStorage() {}
 
     static getSources() {
-        return APP_SERVICES.getSources();
+        return APP_SERVICES.getSources().then((res) => res.json());
     }
 
-    static render(targetElement, sourcesList) {
+    render(targetElement, sourcesList) {
         let sourcesListOutput = ``;
 
         this.sourcesElement = document.createElement('ul');
         this.sourcesElement.className = 'sourcesList';
 
-        targetElement.innerHTML = '';
+        targetElement.innerHTML = ``;
         targetElement.appendChild(this.sourcesElement);
 
         for (let i = 0; i < sourcesList.length; i++) {
             let source = sourcesList[i];
 
             sourcesListOutput += `<li class="sourcesList-item" data-key="${source.key}">
-                                <img src="${source.logoPath}" class="sourceLogo"/>
-                                <p class="sourceTitle">${source.title}</p>
-                            </li>`;
+                                    <img src="${source.logoPath}" class="sourceLogo" alt=""/>
+                                    <p class="sourceTitle">${source.title}</p>
+                                  </li>`;
         }
 
         this.sourcesElement.innerHTML = sourcesListOutput;
     }
 
-    static attachEventListeners() {
-        let sourceItems = this.sourcesElement.querySelectorAll('.sourcesList-item');
+    _attachEventListeners(targetElement) {
+        let sourceItemsList = this.sourcesElement.querySelectorAll('.sourcesList-item');
+        let showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
 
-        sourceItems.forEach((source) => {
-            source.addEventListener('click', () => {
-                let showArticlesEvent = new CustomEvent('showArticlesList', {
-                    detail: {
-                        sourceKey: source.getAttribute('data-key')
-                    }
-                });
-
+        sourceItemsList.forEach((sourceItem) => {
+            sourceItem.addEventListener('click', () => {
+                showArticlesEvent.detail.sourceKey = sourceItem.getAttribute('data-key');
                 document.dispatchEvent(showArticlesEvent);
             });
-        })
+        });
+
+        document.addEventListener('showSourcesList', () => {
+            this.init(targetElement);
+        });
     }
 
-    static init(targetElement) {
+    init(targetElement) {
         Channels.getSources()
-            .then((res) => res.json())
             .then((parsedResponse) => {
-                Channels.render(targetElement, parsedResponse.sources);
-                Channels.attachEventListeners();
+                this.render(targetElement, parsedResponse.sources);
+                this._attachEventListeners(targetElement);
             });
     }
 }

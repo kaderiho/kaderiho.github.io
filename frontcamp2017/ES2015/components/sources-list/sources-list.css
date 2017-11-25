@@ -1,9 +1,20 @@
+.sourcesContainer {
+    text-align: center;
+    margin: 50px 0;
+}
+
 .sourcesList {
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
+    justify-content: space-between;
     padding: 0;
+}
+
+.sourcesList:after {
+    content: '';
+    flex: auto;
 }
 
 .sourcesList-showMore {
@@ -16,8 +27,8 @@
 .sourcesList-item {
     cursor: pointer;
     text-align: center;
-    margin: 0 5px 20px;
     min-height: 150px;
+    margin: 10px;
 }
 
 .sourcesList-item:hover .sourceLogo {
@@ -29,31 +40,37 @@
     border-radius: 10px;
 }
 
-@media (min-width: 960px) {
-    .app {
-        width: 960px;
+@media (min-width: 480px) {
+    .sourceLogo {
+        width: 80px;
     }
+}
 
-    .sourcesList {
-        width: 840px;
-    }
+.sourceTitle {
+    font-family: 'Roboto-Light', 'Arial', sans-serif;
+    color: #8e8e8e;
+}
+
+.sourcesList-item:hover .sourceTitle {
+    font-family: 'Roboto-Regular', 'Arial', sans-serif;
+    color: #f42;
 }
 
 @media (min-width: 960px) {
     .sourcesList-item {
-        width: calc(20% - 10px);
+        width: calc(20% - 20px);
     }
 }
 
 @media (max-width: 960px) {
     .sourcesList-item {
-        width: calc(25% - 10px);
+        width: calc(25% - 20px);
     }
 }
 
 @media (max-width: 600px) {
     .sourcesList-item {
-        width: calc(50% - 10px);
+        width: calc(50% - 20px);
     }
 }
 
@@ -67,8 +84,3 @@
     }
 }
 
-@media (min-width: 480px) {
-    .sourceLogo {
-        width: 100px;
-    }
-}
