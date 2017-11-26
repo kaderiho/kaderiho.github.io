@@ -17,10 +17,6 @@
 
 .navigationControls-button {
     position: absolute;
-}
-
-#backHomeButton {
-    left: -75px;
     background: none;
     color: rgba(255, 68, 34, 0.6);
     border: none;
@@ -30,24 +26,38 @@
     top: 15px;
 }
 
-#backHomeButton:hover {
-    color: rgba(255, 68, 34, 1);
+.navigationControls-button--hidden {
+    display: none;
 }
 
-#backHomeButton svg {
-    margin-right: 5px;
+.navigationControls-button svg {
     fill: currentColor;
     vertical-align: middle;
 }
 
+.navigationControls-button:hover {
+    color: rgba(255, 68, 34, 1);
+}
+
+#backHomeButton {
+    left: -75px;
+}
+
+#backHomeButton svg {
+    margin-right: 5px;
+}
+
 #scrollUpButton {
-    right: -100px;
+    right: -90px;
+}
+
+#scrollUpButton svg {
+    margin-left: 5px;
 }
 
 @media (min-width: 1160px) {
     .navigationControls {
-        top: 50%;
-        transform: translateY(-50%);
+        bottom: 50px;
     }
 }
 
@@ -62,6 +72,11 @@
         left: 25px;
         top: 15px;
     }
+
+    #scrollUpButton {
+        right: 25px;
+        top: 15px;
+    }
 }
 
 @media (max-width: 960px) {
@@ -71,5 +86,9 @@
 
     #backHomeButton {
         left: 10px;
+    }
+
+    #scrollUpButton {
+        right: 10px;
     }
 }
