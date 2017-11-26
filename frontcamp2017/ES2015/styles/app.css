@@ -36,6 +36,12 @@ body {
     flex-direction: column;
 }
 
+@media (min-width: 960px) {
+    .app {
+        width: 920px;
+    }
+}
+
 header h1 {
     font-family: 'Roboto-Light', 'Arial', sans-serif;
     position: relative;
@@ -54,12 +60,6 @@ header h1:after {
     transform: translateX(-50%);
     position: absolute;
     bottom: -20px;
-}
-
-@media (min-width: 960px) {
-    .app {
-        width: 920px;
-    }
 }
 
 main {

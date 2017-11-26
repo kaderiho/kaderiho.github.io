@@ -36,10 +36,6 @@
     border-bottom: 1px solid #ddd;
 }
 
-.articlesList-showMoreButton-hidden {
-    display: none;
-}
-
 .articlesList-showMoreButton {
     font-family: 'Roboto-Medium', 'Arial', sans-serif;
     margin: 0 auto;
@@ -56,4 +52,8 @@
     background-color: rgba(255, 68, 34, 0.9);
     color: #fff;
     border-color: rgba(255, 68, 34, 0.6);
+}
+
+.articlesList-showMoreButton--hidden {
+    display: none;
 }

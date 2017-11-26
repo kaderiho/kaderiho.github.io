@@ -7,25 +7,8 @@ class Channels {
         return APP_SERVICES.getSources()
     }
 
-    render(targetElement, sourcesList) {
-        let sourcesListOutput = ``;
-
-        this.sourcesElement = document.createElement('ul');
-        this.sourcesElement.className = 'sourcesList';
-
-        targetElement.innerHTML = ``;
-        targetElement.appendChild(this.sourcesElement);
-
-        for (let i = 0; i < sourcesList.length; i++) {
-            sourcesListOutput += this._parseSource(sourcesList[i]);
-        }
-
-        this.sourcesElement.innerHTML = sourcesListOutput;
-        this._attachEventListeners(targetElement);
-    }
-
     _attachEventListeners(targetElement) {
-        let sourceItemsList = this.sourcesElement.querySelectorAll('.sourcesList-item');
+        let sourceItemsList = this.sourcesListElement.querySelectorAll('.sourcesList-item');
         let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
 
         sourceItemsList.forEach((sourceItem) => {
@@ -47,6 +30,23 @@ class Channels {
                            </li>`;
 
         return outputSource;
+    }
+
+    render(targetElement, sourcesList) {
+        let sourcesListOutput = ``;
+
+        this.sourcesListElement = document.createElement('ul');
+        this.sourcesListElement.className = 'sourcesList';
+
+        targetElement.innerHTML = ``;
+        targetElement.appendChild(this.sourcesListElement);
+
+        for (let i = 0; i < sourcesList.length; i++) {
+            sourcesListOutput += this._parseSource(sourcesList[i]);
+        }
+
+        this.sourcesListElement.innerHTML = sourcesListOutput;
+        this._attachEventListeners(targetElement);
     }
 
     init(targetElement) {

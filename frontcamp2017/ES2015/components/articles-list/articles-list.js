@@ -1,9 +1,9 @@
 class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
         this.targetElement = targetElement;
-        this.afterInserted = afterInserted;
-        this.lastItemIndex = 0;
-        this.step = step;
+        this._afterInserted = afterInserted;
+        this._lastItemIndex = 0;
+        this._step = step;
         this._subscribeOnEvents();
     }
 
@@ -27,46 +27,44 @@ class Articles {
             Articles.getArticles(e.detail.sourceKey)
                 .then((articlesList) => {
                     this.articlesList = articlesList.articles;
-                    this.lastItemIndex = 0;
+                    this._lastItemIndex = 0;
                     this.render(this.articlesList);
                 });
         }, false);
     }
 
     _attachEventListeners() {
-        if (this.showMoreElement) {
-            this.showMoreElement.addEventListener('click', () => {
-                this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
-            });
-        }
+        this.showMoreElement.addEventListener('click', () => {
+            this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
+
+            if (this._lastItemIndex === this.articlesList.length) {
+                this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
+            }
+        });
     }
 
     _parseArticle(articleItem) {
-        let articleImage = articleItem.urlToImage ? `<img src="${articleItem.urlToImage}" alt="" class="articleImage">` : ``;
-        let articleAuthor = articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``;
-        let articleDate = `<p class="articleDate">${articleAuthor} ${Articles.formatDate(articleItem.publishedAt)}</span></p>`;
-        let articleTitle = articleItem.title ? `<h1 class="articleTitle">${articleItem.title}</h1>` : '';
-        let articleDescription = `<p class="articleDescription">${articleItem.description}</p>`;
-
-        return `<li class="articlesList-item"> ${articleTitle} ${articleDate} ${articleImage} ${articleDescription}</li>`;
+        return `<li class="articlesList-item"> 
+                    <h1 class="articleTitle">${articleItem.title}</h1> 
+                    <p class="articleDate">
+                    ${articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``} 
+                    ${Articles.formatDate(articleItem.publishedAt)}</p> 
+                    <img src="${articleItem.urlToImage ? articleItem.urlToImage : ``}" alt="" class="articleImage"> 
+                    <p class="articleDescription">${articleItem.description}</p>
+                </li>`;
     }
 
     _uploadNewArticles() {
-        let limit = this.lastItemIndex + this.step;
+        let limit = this._lastItemIndex + this._step;
         let outputArticlesList = ``;
 
-        for (let i = this.lastItemIndex; i < limit; i++) {
+        for (let i = this._lastItemIndex; i < limit; i++) {
             if (this.articlesList[i]) {
                 outputArticlesList += this._parseArticle(this.articlesList[i]);
-                this.lastItemIndex++;
+                this._lastItemIndex++;
             } else {
-                this.showMoreElement.classList.add('articlesList-showMoreButton-hidden');
                 break;
             }
-        }
-
-        if (!this.articlesList[this.lastItemIndex + 1]) {
-            this.showMoreElement.classList.add('articlesList-showMoreButton-hidden');
         }
 
         return outputArticlesList;
@@ -84,8 +82,9 @@ class Articles {
         this.targetElement.appendChild(this.showMoreElement);
 
         this.articlesListElement.innerHTML = this._uploadNewArticles();
-        this.afterInserted();
+        this._afterInserted();
 
         this._attachEventListeners();
+        window.scrollTo(0, 0);
     }
 }
