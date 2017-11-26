@@ -3,10 +3,7 @@
     let backHomeButton = document.querySelector('#backHomeButton');
     let mainElement = document.querySelector('main');
 
-    /**
-     * Basic config for Articles and Channels components
-     * @type {{targetElement: Element}} - DOM entry point for initialize component
-     */
+    // Basic config for Articles and Channels components
     let channelsConfig = {
         targetElement: mainElement
     };
@@ -15,12 +12,11 @@
         targetElement: mainElement,
         afterInserted() {
             navigationControlsElement.classList.remove('navigationControls--hidden');
-        }
+        },
+        step: 5
     };
 
-    /**
-     * Initialize Articles and Channels list components
-     */
+    // Initialize Articles and Channels list components
     new Channels(channelsConfig);
     new Articles(articlesConfig);
 

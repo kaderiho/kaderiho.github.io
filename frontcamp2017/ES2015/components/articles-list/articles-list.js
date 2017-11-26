@@ -1,8 +1,10 @@
 class Articles {
-    constructor({targetElement, afterInserted}) {
-        this.afterInserted = afterInserted || function() {};
+    constructor({ targetElement, afterInserted, step = 10 }) {
         this.targetElement = targetElement;
-        this._attachEventListeners();
+        this.afterInserted = afterInserted;
+        this.lastItemIndex = 0;
+        this.step = step;
+        this._subscribeOnEvents();
     }
 
     static getArticles(sourceKey) {
@@ -20,47 +22,70 @@ class Articles {
         return date.toLocaleString('en-us', dateOptions);
     }
 
-    _attachEventListeners() {
-        document.addEventListener('showArticlesList',(e) => {
+    _subscribeOnEvents() {
+        document.addEventListener('showArticlesList', (e) => {
             Articles.getArticles(e.detail.sourceKey)
                 .then((articlesList) => {
-                    this.render(articlesList.articles);
+                    this.articlesList = articlesList.articles;
+                    this.lastItemIndex = 0;
+                    this.render(this.articlesList);
                 });
         }, false);
     }
 
+    _attachEventListeners() {
+        if (this.showMoreElement) {
+            this.showMoreElement.addEventListener('click', () => {
+                this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
+            });
+        }
+    }
+
     _parseArticle(articleItem) {
-        let outputItem = ``;
-        let articleAuthor = articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``;
-        let articleTitle = articleItem.title ? `<h1 class="articleTitle">${articleItem.title}</h1>` : '';
         let articleImage = articleItem.urlToImage ? `<img src="${articleItem.urlToImage}" alt="" class="articleImage">` : ``;
+        let articleAuthor = articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``;
+        let articleDate = `<p class="articleDate">${articleAuthor} ${Articles.formatDate(articleItem.publishedAt)}</span></p>`;
+        let articleTitle = articleItem.title ? `<h1 class="articleTitle">${articleItem.title}</h1>` : '';
+        let articleDescription = `<p class="articleDescription">${articleItem.description}</p>`;
 
-        outputItem += `<li class="articlesList-item">
-                            ${articleTitle}
-                            <p class="articleDate">${articleAuthor} ${Articles.formatDate(articleItem.publishedAt)}</span></p>
-                            ${articleImage}
-                            <p class="articleDescription">${articleItem.description}</p>
-                       </li>`;
+        return `<li class="articlesList-item"> ${articleTitle} ${articleDate} ${articleImage} ${articleDescription}</li>`;
+    }
 
-        return outputItem;
+    _uploadNewArticles() {
+        let limit = this.lastItemIndex + this.step;
+        let outputArticlesList = ``;
+
+        for (let i = this.lastItemIndex; i < limit; i++) {
+            if (this.articlesList[i]) {
+                outputArticlesList += this._parseArticle(this.articlesList[i]);
+                this.lastItemIndex++;
+            } else {
+                this.showMoreElement.classList.add('articlesList-showMoreButton-hidden');
+                break;
+            }
+        }
+
+        if (!this.articlesList[this.lastItemIndex + 1]) {
+            this.showMoreElement.classList.add('articlesList-showMoreButton-hidden');
+        }
+
+        return outputArticlesList;
     }
 
     render(articlesList) {
-        let outputArticlesList = ``;
-
-        this.articlesListElement = document.createElement('ul');
-        this.articlesListElement.className = 'articlesList';
-
-        for (let i = 0;i < articlesList.length;i++) {
-            outputArticlesList += this._parseArticle(articlesList[i]);
-        }
+        this.articlesListElement = document.createElement(`ul`);
+        this.articlesListElement.className = `articlesList`;
+        this.showMoreElement = document.createElement(`button`);
+        this.showMoreElement.className = `articlesList-showMoreButton`;
+        this.showMoreElement.innerText = `Show More`;
 
         this.targetElement.innerHTML = ``;
         this.targetElement.appendChild(this.articlesListElement);
-        this.articlesListElement.innerHTML = outputArticlesList;
+        this.targetElement.appendChild(this.showMoreElement);
+
+        this.articlesListElement.innerHTML = this._uploadNewArticles();
         this.afterInserted();
 
-        // TODO: add possibility to go by tab clicking
-        // TODO: Add view more button (show by default a configured number of articles);
+        this._attachEventListeners();
     }
 }
