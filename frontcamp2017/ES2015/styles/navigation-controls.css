@@ -2,7 +2,7 @@
     width: 100%;
     position: fixed;
     left: 0;
-    top: 50%;
+
 }
 
 .navigationControls--hidden {
@@ -29,6 +29,7 @@
     cursor: pointer;
     font-family: 'Roboto-Medium', 'Arial', sans-serif;
     font-size: 15px;
+    top: 15px;
 }
 
 #backHomeButton:hover {
@@ -43,6 +44,13 @@
 
 #scrollUpButton {
     right: -100px;
+}
+
+@media (min-width: 1160px) {
+    .navigationControls {
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 @media (max-width: 1160px) {

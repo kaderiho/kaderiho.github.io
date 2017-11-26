@@ -4,7 +4,7 @@ class Channels {
     }
 
     static getSources() {
-        return APP_SERVICES.getSources().then((res) => res.json());
+        return APP_SERVICES.getSources()
     }
 
     render(targetElement, sourcesList) {
@@ -21,6 +21,7 @@ class Channels {
         }
 
         this.sourcesElement.innerHTML = sourcesListOutput;
+        this._attachEventListeners(targetElement);
     }
 
     _attachEventListeners(targetElement) {
@@ -35,7 +36,7 @@ class Channels {
         });
 
         document.addEventListener('showSourcesList', () => {
-            this.init(targetElement);
+            this.render(targetElement, this.sources);
         });
     }
 
@@ -51,8 +52,8 @@ class Channels {
     init(targetElement) {
         Channels.getSources()
             .then((parsedResponse) => {
-                this.render(targetElement, parsedResponse.sources);
-                this._attachEventListeners(targetElement);
-            });
+                this.sources = parsedResponse.sources;
+                this.render(targetElement, this.sources);
+            })
     }
 }

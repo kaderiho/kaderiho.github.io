@@ -1,7 +1,7 @@
 {
   "sources": [
     {
-      "key": "abc-news",
+      "key": "abc-new",
       "title": "ABC News",
       "logoPath": "./images/touch-icon-ipad-retina.png"
     },

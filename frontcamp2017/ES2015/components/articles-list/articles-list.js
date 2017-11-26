@@ -6,7 +6,7 @@ class Articles {
     }
 
     static getArticles(sourceKey) {
-        return APP_SERVICES.getArticles(sourceKey).then((response) => response.json());
+        return APP_SERVICES.getArticles(sourceKey);
     }
 
     static formatDate(dateString) {
@@ -61,7 +61,6 @@ class Articles {
         this.afterInserted();
 
         // TODO: add possibility to go by tab clicking
-        // TODO: read about expression in string templates
         // TODO: Add view more button (show by default a configured number of articles);
     }
 }
