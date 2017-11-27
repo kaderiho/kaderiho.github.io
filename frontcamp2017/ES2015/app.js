@@ -1,4 +1,4 @@
-(function(){
+(function () {
     let navigationControlsElement = document.querySelector('.navigationControls');
     let backHomeButton = document.querySelector('#backHomeButton');
     let scrollUpButton = document.querySelector('#scrollUpButton');
@@ -22,18 +22,17 @@
     new Channels(channelsConfig);
     new Articles(articlesConfig);
 
-    backHomeButton.addEventListener('click',  function() {
-        document.dispatchEvent(new CustomEvent('showSourcesList'));
+    backHomeButton.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('showChannelsList'));
         navigationControlsElement.classList.add('navigationControls--hidden');
     });
 
-    scrollUpButton.addEventListener('click',  function() {
+    scrollUpButton.addEventListener('click', () => {
         window.scrollTo(0, 0);
     });
-
     document.addEventListener('scroll', () => {
-        window.pageYOffset > 500 ? scrollUpButton.classList.remove('navigationControls-button--hidden') : scrollUpButton.classList.add('navigationControls-button--hidden')
+        window.pageYOffset > 500 ?
+            scrollUpButton.classList.remove('navigationControls-button--hidden') :
+            scrollUpButton.classList.add('navigationControls-button--hidden');
     });
 }());
-
-

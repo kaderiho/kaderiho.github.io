@@ -7,8 +7,8 @@ class Articles {
         this._subscribeOnEvents();
     }
 
-    static getArticles(sourceKey) {
-        return APP_SERVICES.getArticles(sourceKey);
+    static getArticles(channelKey) {
+        return APP_SERVICES.getArticles(channelKey);
     }
 
     static formatDate(dateString) {
@@ -22,9 +22,20 @@ class Articles {
         return date.toLocaleString('en-us', dateOptions);
     }
 
+    static parseArticle(articleItem) {
+        return `<li class="articlesList-item"> 
+                    <h1 class="articleTitle">${articleItem.title}</h1> 
+                    <p class="articleDate">
+                    ${articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ''} 
+                    ${Articles.formatDate(articleItem.publishedAt)}</p> 
+                    <img src="${articleItem.urlToImage ? articleItem.urlToImage : ''}" alt="" class="articleImage"> 
+                    <p class="articleDescription">${articleItem.description ? articleItem.description : ''}</p>
+                </li>`;
+    }
+
     _subscribeOnEvents() {
         document.addEventListener('showArticlesList', (e) => {
-            Articles.getArticles(e.detail.sourceKey)
+            Articles.getArticles(e.detail.channelKey)
                 .then((articlesList) => {
                     this.articlesList = articlesList.articles;
                     this._lastItemIndex = 0;
@@ -43,24 +54,13 @@ class Articles {
         });
     }
 
-    _parseArticle(articleItem) {
-        return `<li class="articlesList-item"> 
-                    <h1 class="articleTitle">${articleItem.title}</h1> 
-                    <p class="articleDate">
-                    ${articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ``} 
-                    ${Articles.formatDate(articleItem.publishedAt)}</p> 
-                    <img src="${articleItem.urlToImage ? articleItem.urlToImage : ``}" alt="" class="articleImage"> 
-                    <p class="articleDescription">${articleItem.description}</p>
-                </li>`;
-    }
-
     _uploadNewArticles() {
         let limit = this._lastItemIndex + this._step;
-        let outputArticlesList = ``;
+        let outputArticlesList = '';
 
         for (let i = this._lastItemIndex; i < limit; i++) {
             if (this.articlesList[i]) {
-                outputArticlesList += this._parseArticle(this.articlesList[i]);
+                outputArticlesList += Articles.parseArticle(this.articlesList[i]);
                 this._lastItemIndex++;
             } else {
                 break;
@@ -70,14 +70,14 @@ class Articles {
         return outputArticlesList;
     }
 
-    render(articlesList) {
-        this.articlesListElement = document.createElement(`ul`);
-        this.articlesListElement.className = `articlesList`;
-        this.showMoreElement = document.createElement(`button`);
-        this.showMoreElement.className = `articlesList-showMoreButton`;
-        this.showMoreElement.innerText = `Show More`;
+    render() {
+        this.articlesListElement = document.createElement('ul');
+        this.articlesListElement.className = 'articlesList';
+        this.showMoreElement = document.createElement('button');
+        this.showMoreElement.className = 'articlesList-showMoreButton';
+        this.showMoreElement.innerText = 'Show More';
 
-        this.targetElement.innerHTML = ``;
+        this.targetElement.innerHTML = '';
         this.targetElement.appendChild(this.articlesListElement);
         this.targetElement.appendChild(this.showMoreElement);
 
