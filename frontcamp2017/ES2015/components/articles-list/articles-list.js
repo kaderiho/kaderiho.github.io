@@ -8,12 +8,12 @@ class Articles {
     }
 
     static getArticles(channelKey) {
-        return APP_SERVICES.getArticles(channelKey);
+        return ARTICLES_SERVICE.getArticles(channelKey);
     }
 
     static formatDate(dateString) {
-        let date = new Date(dateString);
-        let dateOptions = {
+        const date = new Date(dateString);
+        const dateOptions = {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -55,7 +55,7 @@ class Articles {
     }
 
     _uploadNewArticles() {
-        let limit = this._lastItemIndex + this._step;
+        const limit = this._lastItemIndex + this._step;
         let outputArticlesList = '';
 
         for (let i = this._lastItemIndex; i < limit; i++) {

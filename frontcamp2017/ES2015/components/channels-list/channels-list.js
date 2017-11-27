@@ -6,7 +6,7 @@ class Channels {
     }
 
     static getChannels() {
-        return APP_SERVICES.getChannels();
+        return CHANNELS_SERVICE.getChannels();
     }
 
     static parseChannel(channelItem) {
@@ -23,7 +23,7 @@ class Channels {
     }
 
     _attachActionHandlers() {
-        let channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
+        const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
         let showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
 
         channelsList.forEach((channelItem) => {
@@ -43,8 +43,8 @@ class Channels {
         targetElement.innerHTML = '';
         targetElement.appendChild(this.channesListElement);
 
-        for (let i = 0; i < channelsList.length; i++) {
-            channelsListOutput += Channels.parseChannel(channelsList[i]);
+        for (let channel of channelsList) {
+            channelsListOutput += Channels.parseChannel(channel);
         }
 
         this.channesListElement.innerHTML = channelsListOutput;

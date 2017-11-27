@@ -1,15 +1,15 @@
 (function () {
-    let navigationControlsElement = document.querySelector('.navigationControls');
-    let backHomeButton = document.querySelector('#backHomeButton');
-    let scrollUpButton = document.querySelector('#scrollUpButton');
-    let mainElement = document.querySelector('main');
+    const navigationControlsElement = document.querySelector('.navigationControls');
+    const backHomeButton = document.querySelector('#backHomeButton');
+    const scrollUpButton = document.querySelector('#scrollUpButton');
+    const mainElement = document.querySelector('main');
 
     // Basic config for Articles and Channels components
-    let channelsConfig = {
+    const channelsConfig = {
         targetElement: mainElement
     };
 
-    let articlesConfig = {
+    const articlesConfig = {
         targetElement: mainElement,
         afterInserted() {
             navigationControlsElement.classList.remove('navigationControls--hidden');
