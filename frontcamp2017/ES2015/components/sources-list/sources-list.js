@@ -1,13 +1,21 @@
 class Channels {
     constructor({targetElement}) {
+        this.targetElement = targetElement;
         this.init(targetElement);
+        this._subscribeOnEvents();
     }
 
     static getSources() {
-        return APP_SERVICES.getSources()
+        return APP_SERVICES.getSources();
     }
 
-    _attachEventListeners(targetElement) {
+    _subscribeOnEvents() {
+        document.addEventListener('showSourcesList', () => {
+            this.render(this.targetElement, this.sources);
+        });
+    }
+
+    _attachActionHandlers() {
         let sourceItemsList = this.sourcesListElement.querySelectorAll('.sourcesList-item');
         let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
 
@@ -17,19 +25,13 @@ class Channels {
                 document.dispatchEvent(showArticlesEvent);
             });
         });
-
-        document.addEventListener('showSourcesList', () => {
-            this.render(targetElement, this.sources);
-        });
     }
 
     _parseSource(sourceItem) {
-        let outputSource = `<li class="sourcesList-item" data-key="${sourceItem.key}">
-                                <img src="${sourceItem.logoPath}" class="sourceLogo" alt=""/>
-                                <p class="sourceTitle">${sourceItem.title}</p>
-                           </li>`;
-
-        return outputSource;
+        return `<li class="sourcesList-item" data-key="${sourceItem.key}">
+                    <img src="${sourceItem.logoPath}" class="sourceLogo" alt=""/>
+                    <p class="sourceTitle">${sourceItem.title}</p>
+                 </li>`;
     }
 
     render(targetElement, sourcesList) {
@@ -46,7 +48,7 @@ class Channels {
         }
 
         this.sourcesListElement.innerHTML = sourcesListOutput;
-        this._attachEventListeners(targetElement);
+        this._attachActionHandlers(targetElement);
     }
 
     init(targetElement) {

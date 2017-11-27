@@ -33,7 +33,7 @@ class Articles {
         }, false);
     }
 
-    _attachEventListeners() {
+    _attachActionHandlers() {
         this.showMoreElement.addEventListener('click', () => {
             this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
 
@@ -84,7 +84,7 @@ class Articles {
         this.articlesListElement.innerHTML = this._uploadNewArticles();
         this._afterInserted();
 
-        this._attachEventListeners();
+        this._attachActionHandlers();
         window.scrollTo(0, 0);
     }
 }
