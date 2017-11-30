@@ -1,3 +1,5 @@
+import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE.js';
+
 class Channels {
     constructor({ targetElement }) {
         this.targetElement = targetElement;
@@ -26,12 +28,12 @@ class Channels {
         const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
         let showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
 
-        channelsList.forEach((channelItem) => {
+        for (let channelItem of channelsList) {
             channelItem.addEventListener('click', () => {
                 showArticlesEvent.detail.channelKey = channelItem.getAttribute('data-key');
                 document.dispatchEvent(showArticlesEvent);
             });
-        });
+        }
     }
 
     render(targetElement, channelsList) {
@@ -58,3 +60,5 @@ class Channels {
             });
     }
 }
+
+export default Channels;

@@ -13,3 +13,5 @@ class CHANNELS_SERVICE {
             });
     }
 }
+
+export default CHANNELS_SERVICE;

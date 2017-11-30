@@ -1,3 +1,5 @@
+import ARTICLES_SERVICE from '../../services/ARTICLES_SERVICE.js';
+
 class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
         this.targetElement = targetElement;
@@ -88,3 +90,5 @@ class Articles {
         window.scrollTo(0, 0);
     }
 }
+
+export default Articles;

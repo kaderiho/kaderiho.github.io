@@ -5,13 +5,19 @@
   "main": "app.js",
   "scripts": {
     "test": "",
-    "compile-sources": "babel src --out-file sources.js",
-    "compile-app": "babel app.js --out-file app.compiled.js --source-maps"
+    "compile-app": "browserify ./src/app.js -o bundle.js -t babelify --presets env --source-maps"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "promise-polyfill": "^6.1.0"
+  },
+  "dependencies": {
+    "whatwg-fetch": "^2.0.3"
   }
 }
