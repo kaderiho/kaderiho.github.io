@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
-import Promise from 'promise-polyfill';
 import ARTICLES_SERVICE from './services/ARTICLES_SERVICE.js';
 import CHANNELS_SERVICE from './services/CHANNELS_SERVICE.js';
 import Articles from './components/articles-list/articles-list.js';
@@ -8,12 +7,12 @@ import Channels from './components/channels-list/channels-list.js';
 
 (function () {
 
-    if ( typeof window.CustomEvent === "function" ) return false;
+    if (typeof window.CustomEvent === "function") return false;
 
-    function CustomEvent ( event, params ) {
-        params = params || { bubbles: false, cancelable: false, detail: undefined };
-        var evt = document.createEvent( 'CustomEvent' );
-        evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    function CustomEvent(event, params) {
+        params = params || {bubbles: false, cancelable: false, detail: undefined};
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
     }
 
@@ -29,7 +28,7 @@ const mainElement = document.querySelector('main');
 
 // Basic config for Articles and Channels components
 const channelsConfig = {
-   targetElement: mainElement
+    targetElement: mainElement
 };
 
 const articlesConfig = {

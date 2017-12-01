@@ -1,3 +1,3 @@
 .gitignore
-ES2015/node_modules/
+/frontcamp2017/ES2015/node_modules/
 .idea/
