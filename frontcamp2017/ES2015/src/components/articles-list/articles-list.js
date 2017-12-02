@@ -1,6 +1,6 @@
 import ARTICLES_SERVICE from '../../services/ARTICLES_SERVICE.js';
 
-class Articles {
+export default class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
         this.targetElement = targetElement;
         this._afterInserted = afterInserted;
@@ -90,5 +90,3 @@ class Articles {
         window.scrollTo(0, 0);
     }
 }
-
-export default Articles;

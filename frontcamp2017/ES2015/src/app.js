@@ -1,25 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
-import ARTICLES_SERVICE from './services/ARTICLES_SERVICE.js';
-import CHANNELS_SERVICE from './services/CHANNELS_SERVICE.js';
 import Articles from './components/articles-list/articles-list.js';
 import Channels from './components/channels-list/channels-list.js';
-
-(function () {
-
-    if (typeof window.CustomEvent === "function") return false;
-
-    function CustomEvent(event, params) {
-        params = params || {bubbles: false, cancelable: false, detail: undefined};
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
-    }
-
-    CustomEvent.prototype = window.Event.prototype;
-
-    window.CustomEvent = CustomEvent;
-})();
 
 const navigationControlsElement = document.querySelector('.navigationControls');
 const backHomeButton = document.querySelector('#backHomeButton');

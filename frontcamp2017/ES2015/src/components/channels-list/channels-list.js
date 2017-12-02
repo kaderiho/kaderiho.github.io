@@ -1,6 +1,6 @@
 import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE.js';
 
-class Channels {
+export default class Channels {
     constructor({ targetElement }) {
         this.targetElement = targetElement;
         this.init(targetElement);
@@ -60,5 +60,3 @@ class Channels {
             });
     }
 }
-
-export default Channels;
