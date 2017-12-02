@@ -1,6 +1,4 @@
-import ARTICLES_SERVICE from '../../services/ARTICLES_SERVICE.js';
-
-export default class Articles {
+class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
         this.targetElement = targetElement;
         this._afterInserted = afterInserted;

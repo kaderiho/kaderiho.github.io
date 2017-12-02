@@ -13,5 +13,3 @@ class ARTICLES_SERVICE {
             });
     }
 }
-
-export default ARTICLES_SERVICE;
