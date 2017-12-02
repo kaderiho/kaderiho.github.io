@@ -1,4 +1,3 @@
-// import 'whatwg-fetch';
 const navigationControlsElement = document.querySelector('.navigationControls');
 const backHomeButton = document.querySelector('#backHomeButton');
 const scrollUpButton = document.querySelector('#scrollUpButton');
@@ -21,6 +20,8 @@ const articlesConfig = {
 // Initialize Articles and Channels list components
 new Channels(channelsConfig);
 new Articles(articlesConfig);
+
+// console.log();
 
 backHomeButton.addEventListener('click', () => {
     document.dispatchEvent(new CustomEvent('showChannelsList'));

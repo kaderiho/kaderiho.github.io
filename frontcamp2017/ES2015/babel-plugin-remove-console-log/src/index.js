@@ -2,8 +2,15 @@ module.exports = function () {
     return {
         visitor: {
             ExpressionStatement(path) {
-                // remove ONLY not oommented console.log
-                if (path.node.expression.callee.object.name && path.node.expression.callee.property.name) {
+                if (!path.node.expression.callee) {
+                    return;
+                }
+
+                if (!path.node.expression.callee.object || !path.node.expression.callee.property) {
+                    return;
+                }
+
+                if (path.node.expression.callee.object.name === 'console' && path.node.expression.callee.property.name === 'log') {
                     path.remove();
                 }
             }

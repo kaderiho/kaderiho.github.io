@@ -4,7 +4,7 @@
   "description": "The practic example of using ES6 features",
   "main": "app.js",
   "scripts": {
-    "compile": "babel app.js --out-file entry.js"
+    "compile": "babel ./src/ --out-file sources.js && babel app.js --out-file entry.js"
   },
   "author": "Kanstantsin_Adzerykha@epam.com",
   "license": "ISC",
