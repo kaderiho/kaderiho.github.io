@@ -15,8 +15,6 @@
     "babel-preset-env": "^1.6.1"
   },
   "dependencies": {
-    "babylon": "^7.0.0-beta.33",
-    "from": "^0.1.7",
     "whatwg-fetch": "^2.0.3"
   }
 }
