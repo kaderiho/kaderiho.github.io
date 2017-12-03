@@ -1,8 +1,9 @@
 class Channels {
     constructor({ targetElement }) {
         this.targetElement = targetElement;
-        this.init(targetElement);
-        this._subscribeOnEvents();
+        this.init(targetElement).then(() => {
+            this._subscribeOnEvents();
+        });
     }
 
     static getChannels() {
@@ -24,7 +25,7 @@ class Channels {
 
     _attachActionHandlers() {
         const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
-        let showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
+        let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
 
         for (let channelItem of channelsList) {
             channelItem.addEventListener('click', () => {
@@ -50,11 +51,9 @@ class Channels {
         this.channesListElement.innerHTML = channelsListOutput;
         this._attachActionHandlers();
     }
-    init(targetElement) {
-        Channels.getChannels()
-            .then((parsedResponse) => {
-                this.channels = parsedResponse.channels;
-                this.render(targetElement, this.channels);
-            });
+
+    async init(targetElement) {
+        this.channels = (await Channels.getChannels()).channels;
+        this.render(targetElement, this.channels);
     }
 }

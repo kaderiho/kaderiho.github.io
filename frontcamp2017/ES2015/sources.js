@@ -112,26 +112,31 @@ var Articles = function () {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Channels = function () {
     function Channels(_ref) {
+        var _this = this;
+
         var targetElement = _ref.targetElement;
 
         _classCallCheck(this, Channels);
 
         this.targetElement = targetElement;
-        this.init(targetElement);
-        this._subscribeOnEvents();
+        this.init(targetElement).then(function () {
+            _this._subscribeOnEvents();
+        });
     }
 
     _createClass(Channels, [{
         key: '_subscribeOnEvents',
         value: function _subscribeOnEvents() {
-            var _this = this;
+            var _this2 = this;
 
             document.addEventListener('showChannelsList', function () {
-                _this.render(_this.targetElement, _this.channels);
+                _this2.render(_this2.targetElement, _this2.channels);
             });
         }
     }, {
@@ -213,14 +218,34 @@ var Channels = function () {
         }
     }, {
         key: 'init',
-        value: function init(targetElement) {
-            var _this2 = this;
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(targetElement) {
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return Channels.getChannels();
 
-            Channels.getChannels().then(function (parsedResponse) {
-                _this2.channels = parsedResponse.channels;
-                _this2.render(targetElement, _this2.channels);
-            });
-        }
+                            case 2:
+                                this.channels = _context.sent.channels;
+
+                                this.render(targetElement, this.channels);
+
+                            case 4:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function init(_x) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return init;
+        }()
     }], [{
         key: 'getChannels',
         value: function getChannels() {
