@@ -2,5 +2,5 @@
   "presets": [
     "env"
   ],
-  "plugins": ["./babel-plugin-remove-console-log/src/index.js"]
+  "plugins": ["./plugins/babel-plugin-remove-console-log/src/index.js"]
 }
