@@ -3,102 +3,102 @@
 		{
 			"key": "abc-new",
 			"title": "ABC News",
-			"logoPath": "./build/images/touch-icon-ipad-retina.png"
+			"logoPath": "./src/images/touch-icon-ipad-retina.png"
 		},
 		{
 			"key": "abc-news-au",
 			"title": "ABC News(AU)",
-			"logoPath": "./build/images/apple-touch-icon-144x144.png"
+			"logoPath": "./src/images/apple-touch-icon-144x144.png"
 		},
 		{
 			"key": "aftenposten",
 			"title": "Aftenposten",
-			"logoPath": "./build/images/apple-touch-icon-120x120.png"
+			"logoPath": "./src/images/apple-touch-icon-120x120.png"
 		},
 		{
 			"key": "al-jazeera-english",
 			"title": "Al Jazeera English",
-			"logoPath": "./build/images/touch-icon-iphone-retina.png"
+			"logoPath": "./src/images/touch-icon-iphone-retina.png"
 		},
 		{
 			"key": "ansa",
 			"title": "ANSA.it",
-			"logoPath": "./build/images/ansa-144-precomposed.png"
+			"logoPath": "./src/images/ansa-144-precomposed.png"
 		},
 		{
 			"key": "argaam",
 			"title": "Argaam",
-			"logoPath": "./build/images/apple-touch-icon-precomposed.png"
+			"logoPath": "./src/images/apple-touch-icon-precomposed.png"
 		},
 		{
 			"key": "ars-technica",
 			"title": "Ars Technica",
-			"logoPath": "./build/images/apple-touch-icon.png"
+			"logoPath": "./src/images/apple-touch-icon.png"
 		},
 		{
 			"key": "australian-financial-review",
 			"title": "Australian Financial Review",
-			"logoPath": "./build/images/apple-touch-icon-144x144-precomposed.png"
+			"logoPath": "./src/images/apple-touch-icon-144x144-precomposed.png"
 		},
 		{
 			"key": "axios",
 			"title": "Axios",
-			"logoPath": "./build/images/apple-touch-icon-120x120-axiros.png"
+			"logoPath": "./src/images/apple-touch-icon-120x120-axiros.png"
 		},
 		{
 			"key": "bbc-news",
 			"title": "BCC News",
-			"logoPath": "./build/images/B-120-3091b8.png"
+			"logoPath": "./src/images/B-120-3091b8.png"
 		},
 		{
 			"key": "bbc-sport",
 			"title": "BCC Sport",
-			"logoPath": "./build/images/B-120-3091b8.png"
+			"logoPath": "./src/images/B-120-3091b8.png"
 		},
 		{
 			"key": "bild",
 			"title": "Bild",
-			"logoPath": "./build/images/3.bild.png"
+			"logoPath": "./src/images/3.bild.png"
 		},
 		{
 			"key": "blasting-news-br",
 			"title": "Blasting News Br",
-			"logoPath": "./build/images/touch-icon-iphone-retina-blasting.png"
+			"logoPath": "./src/images/touch-icon-iphone-retina-blasting.png"
 		},
 		{
 			"key": "bleacher-report",
 			"title": "Bleacher Report",
-			"logoPath": "./build/images/appleTouchIcon.png"
+			"logoPath": "./src/images/appleTouchIcon.png"
 		},
 		{
 			"key": "bloomberg",
 			"title": "Bloomberg",
-			"logoPath": "./build/images/apple-touch-icon-120x120-ef3226f2bd.png"
+			"logoPath": "./src/images/apple-touch-icon-120x120-ef3226f2bd.png"
 		},
 		{
 			"key": "breitbart-news",
 			"title": "Breitbart News",
-			"logoPath": "./build/images/apple-touch-icon-152x152.png"
+			"logoPath": "./src/images/apple-touch-icon-152x152.png"
 		},
 		{
 			"key": "business-insider",
 			"title": "Business Insider",
-			"logoPath": "./build/images/apple-touch-icon-precomposed-1.png"
+			"logoPath": "./src/images/apple-touch-icon-precomposed-1.png"
 		},
 		{
 			"key": "business-insider-uk",
 			"title": "Business Insider (UK)",
-			"logoPath": "./build/images/apple-touch-icon-precomposed-1.png"
+			"logoPath": "./src/images/apple-touch-icon-precomposed-1.png"
 		},
 		{
 			"key": "buzzfeed",
 			"title": "Buzzfeed",
-			"logoPath": "./build/images/touch-icon-ios_120.208a0e329cd6e8d831b21ae17fb6aabb.png"
+			"logoPath": "./src/images/touch-icon-ios_120.208a0e329cd6e8d831b21ae17fb6aabb.png"
 		},
 		{
 			"key": "cbc-news",
 			"title": "CBC News",
-			"logoPath": "./build/images/apple-touch-icon-2.png"
+			"logoPath": "./src/images/apple-touch-icon-2.png"
 		}
 	]
 }
