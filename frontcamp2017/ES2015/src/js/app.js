@@ -1,3 +1,9 @@
+import 'babel-polyfill';
+import 'whatwg-fetch';
+import Articles from './components/articles-list/articles-list';
+import Channels from './components/channels-list/channels-list';
+import './polyfills/custom-event';
+
 const navigationControlsElement = document.querySelector('.navigationControls');
 const backHomeButton = document.querySelector('#backHomeButton');
 const scrollUpButton = document.querySelector('#scrollUpButton');

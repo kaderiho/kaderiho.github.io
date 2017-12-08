@@ -1,4 +1,4 @@
-class CHANNELS_SERVICE {
+export default class CHANNELS_SERVICE {
     static getChannels() {
         return fetch('./data/channels-list.json')
             .then((response) => {

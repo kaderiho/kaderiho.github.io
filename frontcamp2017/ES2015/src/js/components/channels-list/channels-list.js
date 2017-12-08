@@ -1,4 +1,6 @@
-class Channels {
+import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE';
+
+export default class Channels {
     constructor({ targetElement }) {
         this.targetElement = targetElement;
         this.init(targetElement).then(() => {
