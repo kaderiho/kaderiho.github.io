@@ -4,7 +4,9 @@
 	"description": "The practic example of using ES6 features",
 	"main": "app.js",
 	"scripts": {
-		"build:dev": "webpack --config webpack.config.js"
+		"build:dev": "webpack --config webpack.config.dev.js",
+		"build:prod": "webpack --config webpack.config.prod.js",
+		"server:dev": "webpack-dev-server --config webpack.config.dev.js --hot"
 	},
 	"author": "Kanstantsin_Adzerykha@epam.com",
 	"license": "ISC",
@@ -20,7 +22,8 @@
 		"sass-loader": "^6.0.6",
 		"style-loader": "^0.19.0",
 		"uglifyjs-webpack-plugin": "^1.1.2",
-		"webpack": "^3.10.0"
+		"webpack": "^3.10.0",
+		"webpack-dev-server": "^2.9.7"
 	},
 	"dependencies": {
 		"webpack-merge": "^4.1.1",
