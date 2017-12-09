@@ -1,11 +1,15 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: './js/app.js',
+    entry: {
+        app: './js/app.js'
+    },
     output: {
+        filename: '[name].bundle.js',
+        chunkFilename: 'channels.bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js'
     },
     module: {
         rules: [
@@ -51,5 +55,16 @@ module.exports = {
                     }
                 }
             }]
-    }
+    },
+
+    plugins: [
+
+        /**
+         * Put to the output directory html file with already attached entry points
+         */
+        new HtmlWebpackPlugin({
+            title: 'News feed',
+            template: 'index.html'
+        })
+    ]
 };

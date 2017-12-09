@@ -37,21 +37,7 @@
 }
 
 .articlesList-showMoreButton {
-    font-family: 'Roboto-Medium', 'Arial', sans-serif;
     margin: 0 auto;
-    cursor: pointer;
-    display: inherit;
-    background: none;
-    border-radius: 3px;
-    padding: 10px 30px;
-    color: rgba(255, 68, 34, 0.6);
-    border: 2px solid rgba(255, 68, 34, 0.6);
-
-    &:hover {
-        background-color: rgba(255, 68, 34, 0.9);
-        color: #fff;
-        border-color: rgba(255, 68, 34, 0.6);
-    }
 }
 
 .articlesList-showMoreButton--hidden {

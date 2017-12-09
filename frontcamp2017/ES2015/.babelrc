@@ -1,6 +1,9 @@
 {
-  "presets": [
-    "env"
-  ],
-  "plugins": ["./plugins/babel-plugin-remove-console-log/src/index.js"]
+	"presets": [
+		"env"
+	],
+	"plugins": [
+		"./plugins/babel-plugin-remove-console-log/src/index.js",
+		"dynamic-import-webpack"
+	]
 }

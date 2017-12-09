@@ -3,13 +3,22 @@ import 'whatwg-fetch';
 import '../styles/app.scss';
 import '../styles/navigation-controls.scss';
 import Articles from './components/articles-list/articles-list';
-import Channels from './components/channels-list/channels-list';
 import './polyfills/custom-event';
 
+const getNewsListAssetsButton = document.querySelector('.getNewsListAssetsButton');
 const navigationControlsElement = document.querySelector('.navigationControls');
 const backHomeButton = document.querySelector('#backHomeButton');
 const scrollUpButton = document.querySelector('#scrollUpButton');
 const mainElement = document.querySelector('main');
+
+// Lazy loading static for NEWS LIST component
+getNewsListAssetsButton.addEventListener('click', () => {
+    import(/* webpackChunkName : "channels-list" */
+           /* webpackMode: "lazy" */
+           './components/channels-list/channels-list').then(channels => {
+        new channels.default(channelsConfig);
+    });
+});
 
 // Basic config for Articles and Channels components
 const channelsConfig = {
@@ -26,7 +35,6 @@ const articlesConfig = {
 };
 
 // Initialize Articles and Channels list components
-new Channels(channelsConfig);
 new Articles(articlesConfig);
 
 backHomeButton.addEventListener('click', () => {
@@ -42,3 +50,5 @@ document.addEventListener('scroll', () => {
         scrollUpButton.classList.remove('navigationControls-button--hidden') :
         scrollUpButton.classList.add('navigationControls-button--hidden');
 });
+
+

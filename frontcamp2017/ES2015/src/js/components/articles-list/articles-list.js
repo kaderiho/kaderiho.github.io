@@ -77,7 +77,7 @@ export default class Articles {
         this.articlesListElement = document.createElement('ul');
         this.articlesListElement.className = 'articlesList';
         this.showMoreElement = document.createElement('button');
-        this.showMoreElement.className = 'articlesList-showMoreButton';
+        this.showMoreElement.className = 'btn articlesList-showMoreButton';
         this.showMoreElement.innerText = 'Show More';
 
         this.targetElement.innerHTML = '';
@@ -91,3 +91,7 @@ export default class Articles {
         window.scrollTo(0, 0);
     }
 }
+
+require.ensure([], function(require){
+
+}, "jQueryStuff");
