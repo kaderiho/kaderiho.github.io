@@ -3698,61 +3698,62 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 /***/ }),
 /* 124 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_polyfill__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_polyfill__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_whatwg_fetch__ = __webpack_require__(327);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_whatwg_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_articles_list_articles_list__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_channels_list_channels_list__ = __webpack_require__(330);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__polyfills_custom_event__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__polyfills_custom_event___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__polyfills_custom_event__);
 
 
+__webpack_require__(125);
 
+__webpack_require__(327);
 
+var _articlesList = __webpack_require__(328);
 
+var _articlesList2 = _interopRequireDefault(_articlesList);
 
-const navigationControlsElement = document.querySelector('.navigationControls');
-const backHomeButton = document.querySelector('#backHomeButton');
-const scrollUpButton = document.querySelector('#scrollUpButton');
-const mainElement = document.querySelector('main');
+var _channelsList = __webpack_require__(330);
+
+var _channelsList2 = _interopRequireDefault(_channelsList);
+
+__webpack_require__(332);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var navigationControlsElement = document.querySelector('.navigationControls');
+var backHomeButton = document.querySelector('#backHomeButton');
+var scrollUpButton = document.querySelector('#scrollUpButton');
+var mainElement = document.querySelector('main');
 
 // Basic config for Articles and Channels components
-const channelsConfig = {
+var channelsConfig = {
     targetElement: mainElement
 };
 
-const articlesConfig = {
+var articlesConfig = {
     targetElement: mainElement,
-    afterInserted() {
+    afterInserted: function afterInserted() {
         navigationControlsElement.classList.remove('navigationControls--hidden');
         backHomeButton.classList.remove('navigationControls-button--hidden');
     },
+
     step: 5
 };
 
 // Initialize Articles and Channels list components
-new __WEBPACK_IMPORTED_MODULE_3__components_channels_list_channels_list__["a" /* default */](channelsConfig);
-new __WEBPACK_IMPORTED_MODULE_2__components_articles_list_articles_list__["a" /* default */](articlesConfig);
+new _channelsList2.default(channelsConfig);
+new _articlesList2.default(articlesConfig);
 
-backHomeButton.addEventListener('click', () => {
+backHomeButton.addEventListener('click', function () {
     document.dispatchEvent(new CustomEvent('showChannelsList'));
     navigationControlsElement.classList.add('navigationControls--hidden');
 });
 
-scrollUpButton.addEventListener('click', () => {
+scrollUpButton.addEventListener('click', function () {
     window.scrollTo(0, 0);
 });
-document.addEventListener('scroll', () => {
-    window.pageYOffset > 500 ?
-        scrollUpButton.classList.remove('navigationControls-button--hidden') :
-        scrollUpButton.classList.add('navigationControls-button--hidden');
+document.addEventListener('scroll', function () {
+    window.pageYOffset > 500 ? scrollUpButton.classList.remove('navigationControls-button--hidden') : scrollUpButton.classList.add('navigationControls-button--hidden');
 });
-
 
 /***/ }),
 /* 125 */
@@ -9532,14 +9533,34 @@ module.exports = function (regExp, replace) {
 
 /***/ }),
 /* 328 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ARTICLES_SERVICE__ = __webpack_require__(329);
 
 
-class Articles {
-    constructor({ targetElement, afterInserted, step = 10 }) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ARTICLES_SERVICE = __webpack_require__(329);
+
+var _ARTICLES_SERVICE2 = _interopRequireDefault(_ARTICLES_SERVICE);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Articles = function () {
+    function Articles(_ref) {
+        var targetElement = _ref.targetElement,
+            afterInserted = _ref.afterInserted,
+            _ref$step = _ref.step,
+            step = _ref$step === undefined ? 10 : _ref$step;
+
+        _classCallCheck(this, Articles);
+
         this.targetElement = targetElement;
         this._afterInserted = afterInserted;
         this._lastItemIndex = 0;
@@ -9547,219 +9568,359 @@ class Articles {
         this._subscribeOnEvents();
     }
 
-    static getArticles(channelKey) {
-        return __WEBPACK_IMPORTED_MODULE_0__services_ARTICLES_SERVICE__["a" /* default */].getArticles(channelKey);
-    }
+    _createClass(Articles, [{
+        key: '_subscribeOnEvents',
+        value: function _subscribeOnEvents() {
+            var _this = this;
 
-    static formatDate(dateString) {
-        const date = new Date(dateString);
-        const dateOptions = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-
-        return date.toLocaleString('en-us', dateOptions);
-    }
-
-    static parseArticle(articleItem) {
-        return `<li class="articlesList-item"> 
-                    <h1 class="articleTitle">${articleItem.title}</h1> 
-                    <p class="articleDate">
-                    ${articleItem.author ? `by <span class="articleAuthor">${articleItem.author}</span> - ` : ''} 
-                    ${Articles.formatDate(articleItem.publishedAt)}</p> 
-                    <img src="${articleItem.urlToImage ? articleItem.urlToImage : ''}" alt="" class="articleImage"> 
-                    <p class="articleDescription">${articleItem.description ? articleItem.description : ''}</p>
-                </li>`;
-    }
-
-    _subscribeOnEvents() {
-        document.addEventListener('showArticlesList', (e) => {
-            Articles.getArticles(e.detail.channelKey)
-                .then((articlesList) => {
-                    this.articlesList = articlesList.articles;
-                    this._lastItemIndex = 0;
-                    this.render(this.articlesList);
+            document.addEventListener('showArticlesList', function (e) {
+                Articles.getArticles(e.detail.channelKey).then(function (articlesList) {
+                    _this.articlesList = articlesList.articles;
+                    _this._lastItemIndex = 0;
+                    _this.render(_this.articlesList);
                 });
-        }, false);
-    }
-
-    _attachActionHandlers() {
-        this.showMoreElement.addEventListener('click', () => {
-            this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
-
-            if (this._lastItemIndex === this.articlesList.length) {
-                this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
-            }
-        });
-    }
-
-    _uploadNewArticles() {
-        const limit = this._lastItemIndex + this._step;
-        let outputArticlesList = '';
-
-        for (let i = this._lastItemIndex; i < limit; i++) {
-            if (this.articlesList[i]) {
-                outputArticlesList += Articles.parseArticle(this.articlesList[i]);
-                this._lastItemIndex++;
-            } else {
-                break;
-            }
+            }, false);
         }
+    }, {
+        key: '_attachActionHandlers',
+        value: function _attachActionHandlers() {
+            var _this2 = this;
 
-        return outputArticlesList;
-    }
+            this.showMoreElement.addEventListener('click', function () {
+                _this2.articlesListElement.innerHTML = _this2.articlesListElement.innerHTML + _this2._uploadNewArticles();
 
-    render() {
-        this.articlesListElement = document.createElement('ul');
-        this.articlesListElement.className = 'articlesList';
-        this.showMoreElement = document.createElement('button');
-        this.showMoreElement.className = 'articlesList-showMoreButton';
-        this.showMoreElement.innerText = 'Show More';
+                if (_this2._lastItemIndex === _this2.articlesList.length) {
+                    _this2.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
+                }
+            });
+        }
+    }, {
+        key: '_uploadNewArticles',
+        value: function _uploadNewArticles() {
+            var limit = this._lastItemIndex + this._step;
+            var outputArticlesList = '';
 
-        this.targetElement.innerHTML = '';
-        this.targetElement.appendChild(this.articlesListElement);
-        this.targetElement.appendChild(this.showMoreElement);
+            for (var i = this._lastItemIndex; i < limit; i++) {
+                if (this.articlesList[i]) {
+                    outputArticlesList += Articles.parseArticle(this.articlesList[i]);
+                    this._lastItemIndex++;
+                } else {
+                    break;
+                }
+            }
 
-        this.articlesListElement.innerHTML = this._uploadNewArticles();
-        this._afterInserted();
+            return outputArticlesList;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            this.articlesListElement = document.createElement('ul');
+            this.articlesListElement.className = 'articlesList';
+            this.showMoreElement = document.createElement('button');
+            this.showMoreElement.className = 'articlesList-showMoreButton';
+            this.showMoreElement.innerText = 'Show More';
 
-        this._attachActionHandlers();
-        window.scrollTo(0, 0);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Articles;
+            this.targetElement.innerHTML = '';
+            this.targetElement.appendChild(this.articlesListElement);
+            this.targetElement.appendChild(this.showMoreElement);
 
+            this.articlesListElement.innerHTML = this._uploadNewArticles();
+            this._afterInserted();
 
+            this._attachActionHandlers();
+            window.scrollTo(0, 0);
+        }
+    }], [{
+        key: 'getArticles',
+        value: function getArticles(channelKey) {
+            return _ARTICLES_SERVICE2.default.getArticles(channelKey);
+        }
+    }, {
+        key: 'formatDate',
+        value: function formatDate(dateString) {
+            var date = new Date(dateString);
+            var dateOptions = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            return date.toLocaleString('en-us', dateOptions);
+        }
+    }, {
+        key: 'parseArticle',
+        value: function parseArticle(articleItem) {
+            return '<li class="articlesList-item"> \n                    <h1 class="articleTitle">' + articleItem.title + '</h1> \n                    <p class="articleDate">\n                    ' + (articleItem.author ? 'by <span class="articleAuthor">' + articleItem.author + '</span> - ' : '') + ' \n                    ' + Articles.formatDate(articleItem.publishedAt) + '</p> \n                    <img src="' + (articleItem.urlToImage ? articleItem.urlToImage : '') + '" alt="" class="articleImage"> \n                    <p class="articleDescription">' + (articleItem.description ? articleItem.description : '') + '</p>\n                </li>';
+        }
+    }]);
+
+    return Articles;
+}();
+
+exports.default = Articles;
 
 /***/ }),
 /* 329 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-const API_KEY = '277b31345f3f4e5cb68a51e07666bd34';
 
-class ARTICLES_SERVICE {
-    static getArticles(channelKey) {
-        return fetch(`https://newsapi.org/v2/everything?sources=${channelKey}&apiKey=${API_KEY}`)
-            .then((response) => {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var API_KEY = '277b31345f3f4e5cb68a51e07666bd34';
+
+var ARTICLES_SERVICE = function () {
+    function ARTICLES_SERVICE() {
+        _classCallCheck(this, ARTICLES_SERVICE);
+    }
+
+    _createClass(ARTICLES_SERVICE, null, [{
+        key: 'getArticles',
+        value: function getArticles(channelKey) {
+            return fetch('https://newsapi.org/v2/everything?sources=' + channelKey + '&apiKey=' + API_KEY).then(function (response) {
                 if (response.ok) {
                     return response.json();
                 }
-            })
-            .catch((err) => {
+            }).catch(function (err) {
                 throw new TypeError(err);
             });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = ARTICLES_SERVICE;
+        }
+    }]);
 
+    return ARTICLES_SERVICE;
+}();
 
+exports.default = ARTICLES_SERVICE;
 
 /***/ }),
 /* 330 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_CHANNELS_SERVICE__ = __webpack_require__(331);
 
 
-class Channels {
-    constructor({ targetElement }) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _CHANNELS_SERVICE = __webpack_require__(331);
+
+var _CHANNELS_SERVICE2 = _interopRequireDefault(_CHANNELS_SERVICE);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Channels = function () {
+    function Channels(_ref) {
+        var _this = this;
+
+        var targetElement = _ref.targetElement;
+
+        _classCallCheck(this, Channels);
+
         this.targetElement = targetElement;
-        this.init(targetElement).then(() => {
-            this._subscribeOnEvents();
+        this.init(targetElement).then(function () {
+            _this._subscribeOnEvents();
         });
     }
 
-    static getChannels() {
-        return __WEBPACK_IMPORTED_MODULE_0__services_CHANNELS_SERVICE__["a" /* default */].getChannels();
-    }
+    _createClass(Channels, [{
+        key: '_subscribeOnEvents',
+        value: function _subscribeOnEvents() {
+            var _this2 = this;
 
-    static parseChannel(channelItem) {
-        return `<li class="channelsList-item" data-key="${channelItem.key}">
-                    <img src="${channelItem.logoPath}" class="channelLogo" alt=""/>
-                    <p class="channelTitle">${channelItem.title}</p>
-                 </li>`;
-    }
-
-    _subscribeOnEvents() {
-        document.addEventListener('showChannelsList', () => {
-            this.render(this.targetElement, this.channels);
-        });
-    }
-
-    _attachActionHandlers() {
-        const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
-        let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
-
-        for (let channelItem of channelsList) {
-            channelItem.addEventListener('click', () => {
-                showArticlesEvent.detail.channelKey = channelItem.getAttribute('data-key');
-                document.dispatchEvent(showArticlesEvent);
+            document.addEventListener('showChannelsList', function () {
+                _this2.render(_this2.targetElement, _this2.channels);
             });
         }
-    }
+    }, {
+        key: '_attachActionHandlers',
+        value: function _attachActionHandlers() {
+            var channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
+            var showArticlesEvent = new CustomEvent('showArticlesList', { detail: {} });
 
-    render(targetElement, channelsList) {
-        let channelsListOutput = '';
+            var _loop = function _loop(channelItem) {
+                channelItem.addEventListener('click', function () {
+                    showArticlesEvent.detail.channelKey = channelItem.getAttribute('data-key');
+                    document.dispatchEvent(showArticlesEvent);
+                });
+            };
 
-        this.channesListElement = document.createElement('ul');
-        this.channesListElement.className = 'channelsList';
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
 
-        targetElement.innerHTML = '';
-        targetElement.appendChild(this.channesListElement);
+            try {
+                for (var _iterator = channelsList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var channelItem = _step.value;
 
-        for (let channel of channelsList) {
-            channelsListOutput += Channels.parseChannel(channel);
+                    _loop(channelItem);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
         }
+    }, {
+        key: 'render',
+        value: function render(targetElement, channelsList) {
+            var channelsListOutput = '';
 
-        this.channesListElement.innerHTML = channelsListOutput;
-        this._attachActionHandlers();
-    }
+            this.channesListElement = document.createElement('ul');
+            this.channesListElement.className = 'channelsList';
 
-    async init(targetElement) {
-        this.channels = (await Channels.getChannels()).channels;
-        this.render(targetElement, this.channels);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Channels;
+            targetElement.innerHTML = '';
+            targetElement.appendChild(this.channesListElement);
 
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
 
+            try {
+                for (var _iterator2 = channelsList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var channel = _step2.value;
+
+                    channelsListOutput += Channels.parseChannel(channel);
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+
+            this.channesListElement.innerHTML = channelsListOutput;
+            this._attachActionHandlers();
+        }
+    }, {
+        key: 'init',
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(targetElement) {
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return Channels.getChannels();
+
+                            case 2:
+                                this.channels = _context.sent.channels;
+
+                                this.render(targetElement, this.channels);
+
+                            case 4:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function init(_x) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return init;
+        }()
+    }], [{
+        key: 'getChannels',
+        value: function getChannels() {
+            return _CHANNELS_SERVICE2.default.getChannels();
+        }
+    }, {
+        key: 'parseChannel',
+        value: function parseChannel(channelItem) {
+            return '<li class="channelsList-item" data-key="' + channelItem.key + '">\n                    <img src="' + channelItem.logoPath + '" class="channelLogo" alt=""/>\n                    <p class="channelTitle">' + channelItem.title + '</p>\n                 </li>';
+        }
+    }]);
+
+    return Channels;
+}();
+
+exports.default = Channels;
 
 /***/ }),
 /* 331 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-class CHANNELS_SERVICE {
-    static getChannels() {
-        return fetch('./data/channels-list.json')
-            .then((response) => {
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CHANNELS_SERVICE = function () {
+    function CHANNELS_SERVICE() {
+        _classCallCheck(this, CHANNELS_SERVICE);
+    }
+
+    _createClass(CHANNELS_SERVICE, null, [{
+        key: 'getChannels',
+        value: function getChannels() {
+            return fetch('./data/channels-list.json').then(function (response) {
                 if (response.ok) {
                     return response.json();
                 }
 
-                throw new TypeError(`${response.status} Failed to upload resources: `);
-            })
-            .catch((err) => {
+                throw new TypeError(response.status + ' Failed to upload resources: ');
+            }).catch(function (err) {
                 throw new TypeError(err);
             });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = CHANNELS_SERVICE;
+        }
+    }]);
 
+    return CHANNELS_SERVICE;
+}();
 
+exports.default = CHANNELS_SERVICE;
 
 /***/ }),
 /* 332 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
     if (typeof window.CustomEvent === "function") return false;
 
     function CustomEvent(event, params) {
-        params = params || {bubbles: false, cancelable: false, detail: undefined};
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
