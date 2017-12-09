@@ -8,21 +8,21 @@ body {
 
 @font-face {
     font-family: 'Roboto-Light';
-    src: url('font/Roboto-Light.woff') format('woff'), url('font/Roboto-Light.ttf') format('truetype');
+    src: url('fonts/Roboto-Light.woff') format('woff'), url('fonts/Roboto-Light.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'Roboto-Regular';
-    src: url('font/Roboto-Regular.woff') format('woff'), url('font/Roboto-Regular.ttf') format('truetype');
+    src: url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'Roboto-Medium';
-    src: url('font/Roboto-Medium.woff') format('woff'), url('font/Roboto-Medium.ttf') format('truetype');
+    src: url('fonts/Roboto-Medium.woff') format('woff'), url('fonts/Roboto-Medium.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
 }
@@ -53,17 +53,17 @@ header h1 {
     text-align: center;
     margin-top: 50px;
     color: #000;
-}
 
-header h1:after {
-    content: '';
-    display: block;
-    width: 100px;
-    border-top: 1px solid #a9a9a9;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: -20px;
+    &:after {
+        content: '';
+        display: block;
+        width: 100px;
+        border-top: 1px solid #a9a9a9;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        bottom: -20px;
+    }
 }
 
 main {

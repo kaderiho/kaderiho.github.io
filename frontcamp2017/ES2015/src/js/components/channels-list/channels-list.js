@@ -1,4 +1,5 @@
 import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE';
+import './channels-list.scss';
 
 export default class Channels {
     constructor({ targetElement }) {

@@ -24,35 +24,35 @@
     font-family: 'Roboto-Medium', 'Arial', sans-serif;
     font-size: 15px;
     top: 15px;
+
+    &:hover {
+        color: rgba(255, 68, 34, 1);
+    }
+
+    svg {
+        fill: currentColor;
+        vertical-align: middle;
+    }
 }
 
 .navigationControls-button--hidden {
     display: none;
 }
 
-.navigationControls-button svg {
-    fill: currentColor;
-    vertical-align: middle;
-}
-
-.navigationControls-button:hover {
-    color: rgba(255, 68, 34, 1);
-}
-
 #backHomeButton {
     left: -75px;
-}
 
-#backHomeButton svg {
-    margin-right: 5px;
+    svg {
+        margin-right: 5px;
+    }
 }
 
 #scrollUpButton {
     right: -90px;
-}
 
-#scrollUpButton svg {
-    margin-left: 5px;
+    svg {
+        margin-left: 5px;
+    }
 }
 
 @media (min-width: 1160px) {

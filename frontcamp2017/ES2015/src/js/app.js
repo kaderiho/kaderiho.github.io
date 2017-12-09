@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
+import '../styles/app.scss';
+import '../styles/navigation-controls.scss';
 import Articles from './components/articles-list/articles-list';
 import Channels from './components/channels-list/channels-list';
 import './polyfills/custom-event';
