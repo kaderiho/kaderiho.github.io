@@ -1,10 +1,10 @@
 module.exports = function(source) {
     let parsedSourceJSON = JSON.parse(source);
 
-    function eachRecursive(obj) {
+    function loopThroughObjectProps(obj) {
         for (var k in obj) {
             if (typeof obj[k] == "object" && obj[k] !== null){
-                eachRecursive(obj[k]);
+                loopThroughObjectProps(obj[k]);
             } else {
                 // Remove property if its a number
                 if (!isNaN(+k)) {
@@ -16,7 +16,7 @@ module.exports = function(source) {
         return obj;
     }
 
-    parsedSourceJSON = eachRecursive(parsedSourceJSON);
+    parsedSourceJSON = loopThroughObjectProps(parsedSourceJSON);
 
     return JSON.stringify(parsedSourceJSON);
 };

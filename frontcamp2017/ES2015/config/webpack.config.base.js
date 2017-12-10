@@ -64,7 +64,7 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        publicPath: 'src/styles/fonts/'
+                        publicPath: './'
                     }
                 }
             }]
