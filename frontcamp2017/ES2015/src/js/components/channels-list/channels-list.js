@@ -1,4 +1,5 @@
 import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE';
+import '../../../data/channels-list.json';
 import '../channels-list/channels-list.scss';
 
 export default class Channels {

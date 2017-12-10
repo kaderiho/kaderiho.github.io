@@ -11,14 +11,26 @@ module.exports = {
         chunkFilename: 'channels.bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
+    resolveLoader: {
+        modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+    },
     module: {
         rules: [
+            {
+                test: /\.json$/,
+                use: [{
+                    loader: 'json-loader'
+                }, {
+                    loader: 'remove-number-attributes-webpack-loader'
+                }]
+            },
+
             /**
-             * Bundling CSS files:
+             * Bundling CSS files (bundling starts from the last item in use):
              *
              * sass-loader  : compile SASS to CSS
-             * style-loader : creates styles nodes
              * css-loader   : resolve import inside of js files
+             * style-loader : creates styles nodes
              *
              */
             {
