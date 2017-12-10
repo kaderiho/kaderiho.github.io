@@ -1,7 +1,6 @@
 const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.base');
+const baseConfig = require('./webpack.config.base.js');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = merge(baseConfig, {
@@ -14,16 +13,6 @@ module.exports = merge(baseConfig, {
         /**
          * Minification js files
          */
-        new UglifyJsPlugin(),
-
-        /**
-         * Copy mocha data to the dist folder
-         */
-        new CopyWebpackPlugin([
-            {
-                from: 'data/',
-                to: '../dist/data'
-            }
-        ])
+        new UglifyJsPlugin()
     ]
 });

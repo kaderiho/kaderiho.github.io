@@ -1,18 +1,19 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    context: path.resolve(__dirname, 'src'),
+    context: path.resolve(__dirname, '../src'),
     entry: {
         app: './js/app.js'
     },
     output: {
         filename: '[name].bundle.js',
         chunkFilename: 'channels.bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
     },
     resolveLoader: {
-        modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+        modules: ['node_modules', path.resolve(__dirname, '../loaders')]
     },
     module: {
         rules: [
@@ -77,6 +78,16 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'News feed',
             template: 'index.html'
-        })
+        }),
+
+        /**
+         * Copy mocha data to the dist folder
+         */
+        new CopyWebpackPlugin([
+            {
+                from: 'data/',
+                to: '../dist/data'
+            }
+        ])
     ]
 };
