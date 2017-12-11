@@ -1,9 +1,9 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
-import '../styles/app.scss';
-import '../styles/navigation-controls.scss';
-import Articles from './components/articles-list/articles-list';
-import './polyfills/custom-event';
+import 'styles/app.scss';
+import 'styles/navigation-controls.scss';
+import Articles from 'js/components/articles-list/articles-list';
+import 'js/polyfills/custom-event';
 
 const getNewsListAssetsButton = document.querySelector('.getNewsListAssetsButton');
 const navigationControlsElement = document.querySelector('.navigationControls');

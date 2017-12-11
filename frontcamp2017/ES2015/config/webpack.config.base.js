@@ -15,10 +15,18 @@ module.exports = {
     resolveLoader: {
         modules: ['node_modules', path.resolve(__dirname, '../loaders')]
     },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        modules: ['src', 'node_modules']
+    },
     module: {
         rules: [
+            /**
+             * Remove number attributes in JSON files
+             */
             {
                 test: /\.json$/,
+                exclude: /node_modules/,
                 use: [{
                     loader: 'json-loader'
                 }, {
@@ -36,6 +44,7 @@ module.exports = {
              */
             {
                 test: /\.scss$/,
+                exclude: /node_modules/,
                 use: [{
                     loader: 'style-loader'
                 }, {

@@ -1,5 +1,5 @@
-import ARTICLES_SERVICE from '../../services/ARTICLES_SERVICE';
-import '../articles-list/articles-list.scss';
+import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
+import 'js/components/articles-list/articles-list.scss';
 
 export default class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
@@ -91,7 +91,3 @@ export default class Articles {
         window.scrollTo(0, 0);
     }
 }
-
-require.ensure([], function(require){
-
-}, "jQueryStuff");

@@ -1,6 +1,6 @@
-import CHANNELS_SERVICE from '../../services/CHANNELS_SERVICE';
-import '../../../data/channels-list.json';
-import '../channels-list/channels-list.scss';
+import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
+import 'js/components/channels-list/channels-list.scss';
+import 'data/channels-list.json';
 
 export default class Channels {
     constructor({ targetElement }) {
