@@ -1,5 +1,5 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
-import 'js/components/articles-list/articles-list.scss';
+import './articles-list.scss';
 
 export default class Articles {
     constructor({ targetElement, afterInserted, step = 10 }) {
