@@ -16,7 +16,7 @@ module.exports = {
         modules: ['node_modules', path.resolve(__dirname, '../loaders')]
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js'],
         modules: ['src', 'node_modules']
     },
     module: {
