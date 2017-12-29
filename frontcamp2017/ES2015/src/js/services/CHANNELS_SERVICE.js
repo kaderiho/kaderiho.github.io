@@ -1,8 +1,9 @@
-import Cache from './CACHE_SERVICE';
+import cacheDecorator from '../decorators/cacheDecorator';
 
+@cacheDecorator('channelsList')
 class CHANNELS_SERVICE {
     static getChannels() {
-        let storageData = this.getCachedData();
+        let storageData = this.getCachedData('channelsList');
 
         // Check local storage cache firstly
         if (storageData) {
@@ -22,14 +23,6 @@ class CHANNELS_SERVICE {
 
     static retrieveChannels() {
         return fetch('./data/channels-list.json')
-    }
-
-    static getCachedData() {
-        return Cache.getItem('channelsList');
-    }
-
-    static setCacheData(channelsList) {
-        Cache.setItem('channelsList', channelsList);
     }
 }
 
