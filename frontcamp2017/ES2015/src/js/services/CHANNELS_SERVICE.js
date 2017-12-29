@@ -9,19 +9,18 @@ class CHANNELS_SERVICE {
             return storageData;
         }
 
-        return CHANNELS_SERVICE.getChannelsFromServer().then((response) => {
-
+        return CHANNELS_SERVICE.retrieveChannels().then((response) => {
             if (response.ok) {
                 return response.json().then((channelsList) => {
-                    CHANNELS_SERVICE.setCacheData(channelsList);
-                    return CHANNELS_SERVICE.getCachedData();
+                    CHANNELS_SERVICE.setCacheData(channelsList.channels);
+
+                    return channelsList.channels;
                 });
             }
-
         });
     }
 
-    static getChannelsFromServer() {
+    static retrieveChannels() {
         return fetch('./data/channels-list.json')
     }
 
@@ -29,8 +28,8 @@ class CHANNELS_SERVICE {
         return Cache.getItem('channelsList');
     }
 
-    static setCacheData(data) {
-        Cache.setItem('channelsList', data);
+    static setCacheData(channelsList) {
+        Cache.setItem('channelsList', channelsList);
     }
 }
 

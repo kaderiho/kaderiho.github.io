@@ -3,6 +3,7 @@
 		"env"
 	],
 	"plugins": [
-		"dynamic-import-webpack"
+		"dynamic-import-webpack",
+		"transform-decorators-legacy"
 	]
 }

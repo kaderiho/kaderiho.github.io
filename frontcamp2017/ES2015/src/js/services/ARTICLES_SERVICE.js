@@ -1,42 +1,46 @@
 import Cache from './CACHE_SERVICE';
 const API_KEY = '277b31345f3f4e5cb68a51e07666bd34';
 
+function myDecorator(target) {
+    target.val = 1;
+    target.val2 = 2;
+}
+
+@myDecorator
 class ARTICLES_SERVICE {
     static getArticles(channelKey) {
-        let cachedArticles = this.getCachedArticlesByChannelKey(channelKey);
+        let cachedArticles = this.getCachedData(channelKey);
 
-        // Check local storage cache firstly
+        // Check local store cache firstly
         if (cachedArticles) {
-
             return Promise.resolve(cachedArticles);
         }
 
-        return ARTICLES_SERVICE.getArticlesFromServer(channelKey).then((response) => {
-
+        return ARTICLES_SERVICE.retrieveArticles(channelKey).then((response) => {
             if (response.ok) {
                 return response.json().then((articlesList) => {
-                    ARTICLES_SERVICE.setCacheData(channelKey, articlesList.articles);
-                    return ARTICLES_SERVICE.getCachedArticlesByChannelKey(channelKey);
+                    let storeData = { channelKey, articles: articlesList.articles };
+                        ARTICLES_SERVICE.setCacheData(storeData);
+
+                    return storeData;
                 });
             }
-
         })
     }
 
-    static getArticlesFromServer(channelKey) {
+    static retrieveArticles(channelKey) {
         return fetch(`https://newsapi.org/v2/everything?sources=${channelKey}&apiKey=${API_KEY}`)
     }
 
-    static getCachedData() {
-        return Cache.getItem('articlesList');
-    }
-
-    static getCachedArticlesByChannelKey(channelKey) {
+    static getCachedData(channelKey) {
         let cachedData = Cache.getItem('articlesList');
-
 
         if (!cachedData) {
             return;
+        }
+
+        if (!channelKey) {
+            return cachedData;
         }
 
         for (let i = 0;i < cachedData.length;i++) {
@@ -48,11 +52,8 @@ class ARTICLES_SERVICE {
         return false;
     }
 
-    static setCacheData(channelKey, articlesList) {
-        let outputCache = ARTICLES_SERVICE.getCachedData() || [];
-            outputCache.push({channelKey, articles: articlesList});
-
-        Cache.setItem('articlesList', outputCache)
+    static setCacheData(storeData) {
+        Cache.setItem('articlesList', storeData)
     }
 }
 

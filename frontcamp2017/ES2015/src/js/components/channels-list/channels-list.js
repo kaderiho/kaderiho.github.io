@@ -22,7 +22,7 @@ export default class Channels {
     }
 
     async init(targetElement) {
-        this.channels = (await Channels.getChannels()).channels;
+        this.channels = (await Channels.getChannels());
         this.render(targetElement, this.channels);
     }
 }
