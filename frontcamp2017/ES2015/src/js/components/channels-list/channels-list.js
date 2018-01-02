@@ -1,4 +1,5 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
+import EVENT_MANAGER from 'js/services/EVENT_MANAGER';
 import 'data/channels-list.json';
 import './channels-list.scss';
 
@@ -28,19 +29,20 @@ export default class Channels {
 }
 
 Channels.prototype._subscribeOnEvents = function() {
-    document.addEventListener('showChannelsList', () => {
+    EVENT_MANAGER.subscribe('showChannelsList', () => {
         this.render(this.targetElement, this.channels);
     });
 };
 
 Channels.prototype._attachActionHandlers = function() {
     const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
-    let showArticlesEvent = new CustomEvent('showArticlesList', {detail: {}});
 
     for (let channelItem of channelsList) {
         channelItem.addEventListener('click', () => {
-            showArticlesEvent.detail.channelKey = channelItem.getAttribute('data-key');
-            document.dispatchEvent(showArticlesEvent);
+            let showArticlesEvent = {detail: {}};
+                showArticlesEvent.detail.channelKey = channelItem.getAttribute('data-key');
+
+            EVENT_MANAGER.publish('showArticlesList', showArticlesEvent);
         });
     }
 };

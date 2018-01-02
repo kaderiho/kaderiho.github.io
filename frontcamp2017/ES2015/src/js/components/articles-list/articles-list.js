@@ -1,4 +1,5 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
+import EVENT_MANAGER from 'js/services/EVENT_MANAGER';
 import './articles-list.scss';
 
 export default class Articles {
@@ -56,8 +57,8 @@ Articles.prototype.render = function() {
 };
 
 Articles.prototype._subscribeOnEvents = function() {
-    document.addEventListener('showArticlesList', (e) => {
-        Articles.getArticles(e.detail.channelKey)
+    EVENT_MANAGER.subscribe('showArticlesList', (ev) => {
+        Articles.getArticles(ev.detail.channelKey)
             .then((articlesList) => {
                 this.articlesList = articlesList.articles;
                 this._lastItemIndex = 0;

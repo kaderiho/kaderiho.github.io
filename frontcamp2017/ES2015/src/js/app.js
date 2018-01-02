@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import 'styles/app.scss';
 import 'styles/navigation-controls.scss';
 import Articles from 'js/components/articles-list/articles-list';
-import 'js/polyfills/custom-event';
+import EVENT_MANAGER from 'js/services/EVENT_MANAGER';
 
 const getNewsListAssetsButton = document.querySelector('.getNewsListAssetsButton');
 const navigationControlsElement = document.querySelector('.navigationControls');
@@ -38,7 +38,7 @@ const articlesConfig = {
 new Articles(articlesConfig);
 
 backHomeButton.addEventListener('click', () => {
-    document.dispatchEvent(new CustomEvent('showChannelsList'));
+    EVENT_MANAGER.publish('showChannelsList');
     navigationControlsElement.classList.add('navigationControls--hidden');
 });
 
