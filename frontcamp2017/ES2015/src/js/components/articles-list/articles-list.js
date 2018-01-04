@@ -1,14 +1,14 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
-import EVENT_MANAGER from 'js/services/EVENT_MANAGER';
+import Store from 'js/lib/store';
 import './articles-list.scss';
 
 export default class Articles {
-    constructor({ targetElement, afterInserted, step = 10 }) {
-        this.targetElement = targetElement;
+    constructor({ initElement, afterInserted, step = 10 }) {
         this._afterInserted = afterInserted;
+        this.initElement = initElement;
         this._lastItemIndex = 0;
         this._step = step;
-        this._subscribeOnEvents();
+        this._storeSubscribe();
     }
 
     static getArticles(channelKey) {
@@ -26,7 +26,7 @@ export default class Articles {
         return date.toLocaleString('en-us', dateOptions);
     }
 
-    static parseArticle(articleItem) {
+    static getArticleHTML(articleItem) {
         return `<li class="articlesList-item"> 
                     <h1 class="articleTitle">${articleItem.title}</h1> 
                     <p class="articleDate">
@@ -45,31 +45,34 @@ Articles.prototype.render = function() {
     this.showMoreElement.className = 'btn articlesList-showMoreButton';
     this.showMoreElement.innerText = 'Show More';
 
-    this.targetElement.innerHTML = '';
-    this.targetElement.appendChild(this.articlesListElement);
-    this.targetElement.appendChild(this.showMoreElement);
+    this.initElement.innerHTML = '';
+    this.initElement.appendChild(this.articlesListElement);
 
-    this.articlesListElement.innerHTML = this._uploadNewArticles();
-    this._afterInserted();
+    if (this.articlesList.length) {
+        this.initElement.appendChild(this.showMoreElement);
+    }
 
-    this._attachActionHandlers();
+    this.articlesListElement.innerHTML = this._retrieveArticles();
+
+    this._attachHandlers();
     window.scrollTo(0, 0);
 };
 
-Articles.prototype._subscribeOnEvents = function() {
-    EVENT_MANAGER.subscribe('showArticlesList', (ev) => {
-        Articles.getArticles(ev.detail.channelKey)
-            .then((articlesList) => {
-                this.articlesList = articlesList.articles;
-                this._lastItemIndex = 0;
-                this.render(this.articlesList);
-            });
-    }, false);
+Articles.prototype._storeSubscribe = function() {
+    Store.subscribe(() => {
+        this.articlesList = Store.getState().selectedChannelArticles;
+
+        if (!this.articlesList) {
+            return;
+        }
+
+        this.render();
+    });
 };
 
-Articles.prototype._attachActionHandlers = function() {
+Articles.prototype._attachHandlers = function() {
     this.showMoreElement.addEventListener('click', () => {
-        this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._uploadNewArticles();
+        this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._retrieveArticles();
 
         if (this._lastItemIndex === this.articlesList.length) {
             this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
@@ -77,13 +80,13 @@ Articles.prototype._attachActionHandlers = function() {
     });
 };
 
-Articles.prototype._uploadNewArticles = function() {
+Articles.prototype._retrieveArticles = function() {
     const limit = this._lastItemIndex + this._step;
     let outputArticlesList = '';
 
     for (let i = this._lastItemIndex; i < limit; i++) {
         if (this.articlesList[i]) {
-            outputArticlesList += Articles.parseArticle(this.articlesList[i]);
+            outputArticlesList += Articles.getArticleHTML(this.articlesList[i]);
             this._lastItemIndex++;
         } else {
             break;
