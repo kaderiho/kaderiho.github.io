@@ -1,7 +1,9 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import 'styles/app.scss';
+import 'js/components/subscribe/subscribe.scss';
 import Articles from 'js/components/articles-list/articles-list';
+import Subscribe, { DailySubscribe, WeeklySubscribe, MonthlySubscribe } from 'js/components/subscribe/subscribe';
 import Navigation from 'js/components/navigation-controls/navigation-controls';
 
 const getChannelsAssetsButton = document.querySelector('.getNewsListAssetsButton');
@@ -31,6 +33,11 @@ new Articles({
 
 new Navigation({
     initElement: document.querySelector('navigation-controls')
+});
+
+new Subscribe({
+    strategy: new DailySubscribe(),
+    initElement: document.querySelector('subscribe')
 });
 
 

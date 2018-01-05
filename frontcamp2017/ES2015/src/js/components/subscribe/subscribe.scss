@@ -1,0 +1,50 @@
+.subscribeContainer {
+  width: 500px;
+  border: 2px solid rgba(255, 68, 34, 0.6);
+  padding: 20px;
+  border-radius: 3px;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+
+  h1 {
+    font-family: 'Roboto-Light', 'Arial', sans-serif;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+  }
+}
+
+.subscribeContainer--hidden {
+  display: none;
+}
+
+.subscribe-closeButton {
+  border: none;
+  position: absolute;
+  background: none;
+  right: 10px;
+  font-size: 15px;
+  top: 10px;
+  font-weight: bold;
+  color: rgba(255, 68, 34, 0.6);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.subscribe-input,
+.subscribe-submit {
+  display: inline-block;
+}
+
+.subscribe-input {
+  height: 42px;
+  box-sizing: border-box;
+  vertical-align: top;
+  width: 365px;
+  border: 2px solid rgba(255, 68, 34, 0.6);
+  padding-left: 10px;
+  font-size: 14px;
+}
