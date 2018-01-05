@@ -19,8 +19,8 @@ Subscribe.prototype._attachHandlers = function() {
 Subscribe.prototype.render = function() {
     this.element = document.createElement('div');
     this.element.className = 'subscribeContainer';
-    this.element.innerHTML = `<h1>Subscribe on news</h1>
-                                <input class="subscribe-input" type="text">
+    this.element.innerHTML = `<h1>Subscribe To Our Newsletter</h1>
+                                <input class="subscribe-input" type="text" placeholder="Enter your email here">
                                 <button class="subscribe-submit btn">Subscribe</button>
                                 <button class="subscribe-closeButton">x</button>`;
 
@@ -33,13 +33,13 @@ class WeeklySubscribe {}
 class DailySubscribe {}
 
 MonthlySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-MonthlySubscribe.prototype.subscription = 2; // every month;
+MonthlySubscribe.prototype.subscription = 2; // get newsletter every month;
 
 WeeklySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-WeeklySubscribe.prototype.subscription = 1; // every week;
+WeeklySubscribe.prototype.subscription = 1; // get newsletter every week;
 
 DailySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-DailySubscribe.prototype.subscription = 0; // every day;
+DailySubscribe.prototype.subscription = 0; // get newsletter every day;
 
 export { DailySubscribe, WeeklySubscribe, MonthlySubscribe };
 export default Subscribe;

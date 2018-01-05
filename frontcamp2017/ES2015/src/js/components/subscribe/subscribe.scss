@@ -1,6 +1,7 @@
 .subscribeContainer {
-  width: 500px;
-  border: 2px solid rgba(255, 68, 34, 0.6);
+  width: 550px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
   padding: 20px;
   border-radius: 3px;
   transform: translate(-50%, -50%);
@@ -12,8 +13,23 @@
   h1 {
     font-family: 'Roboto-Light', 'Arial', sans-serif;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 25px;
+    margin-bottom: 40px;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .subscribeContainer {
+    width: 100%;
+  }
+
+  .subscribe-input,
+  .subscribe-submit {
+    width: 100% !important;
+  }
+
+  .subscribe-input {
+    margin-bottom: 10px;
   }
 }
 
@@ -39,12 +55,18 @@
   display: inline-block;
 }
 
+.subscribe-submit {
+  background-color: rgba(255, 68, 34, 1);
+  color: #fff;
+}
+
 .subscribe-input {
+  border-radius: 3px;
   height: 42px;
   box-sizing: border-box;
   vertical-align: top;
   width: 365px;
-  border: 2px solid rgba(255, 68, 34, 0.6);
+  border: 1px solid #ddd;
   padding-left: 10px;
   font-size: 14px;
 }
