@@ -1,4 +1,4 @@
-import Channel from '../channels-list/channels-list';
+import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import './navigation-controls.scss';
 import Store from 'js/store';
 
@@ -11,11 +11,9 @@ export default class Navigation {
 }
 
 const backButtonHandler = function() {
+    Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: CHANNELS_SERVICE.getChannels() });
     Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: false });
     Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: [] });
-    new Channel({
-        initElement: document.querySelector('channels-list')
-    });
     this.element.classList.add('navigationControls--hidden');
 };
 
