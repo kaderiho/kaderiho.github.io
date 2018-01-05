@@ -4,7 +4,7 @@ const InitialState = {
     channels: [],
 };
 
-function Reducer(state = InitialState, action) {
+function NewsApp(state = InitialState, action) {
     switch (action.type) {
         case 'CHANNELS_LIST_INIT':
             return Object.assign({}, state, {
@@ -23,4 +23,4 @@ function Reducer(state = InitialState, action) {
     }
 }
 
-export default Reducer;
+export default NewsApp;

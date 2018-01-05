@@ -1,5 +1,6 @@
+import Channel from '../channels-list/channels-list';
 import './navigation-controls.scss';
-import Store from 'js/lib/store';
+import Store from 'js/store';
 
 export default class Navigation {
     constructor({ initElement }) {
@@ -9,6 +10,25 @@ export default class Navigation {
     }
 }
 
+const backButtonHandler = function() {
+    Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: false });
+    Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: [] });
+    new Channel({
+        initElement: document.querySelector('channels-list')
+    });
+    this.element.classList.add('navigationControls--hidden');
+};
+
+const documentScrollHandler = function() {
+    window.pageYOffset > 500 ?
+        this.scrollUpButton.classList.remove('navigationControls-button--hidden') :
+        this.scrollUpButton.classList.add('navigationControls-button--hidden');
+};
+
+const scrollUpButtonHandler = function() {
+    window.scrollTo(0, 0);
+};
+
 Navigation.prototype._storeSubscribe = function() {
     Store.subscribe(() => {
         this.isNavigationVisible = Store.getState().isNavigationVisible;
@@ -17,22 +37,9 @@ Navigation.prototype._storeSubscribe = function() {
 };
 
 Navigation.prototype._attachHandlers = function() {
-    this.backButton.addEventListener('click', () => {
-        Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: false });
-        Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: [] });
-        // TODO: Show channels list
-        this.element.classList.add('navigationControls--hidden');
-    });
-
-    this.scrollUpButton.addEventListener('click', () => {
-        window.scrollTo(0, 0);
-    });
-
-    document.addEventListener('scroll', () => {
-        window.pageYOffset > 500 ?
-            this.scrollUpButton.classList.remove('navigationControls-button--hidden') :
-            this.scrollUpButton.classList.add('navigationControls-button--hidden');
-    });
+    this.scrollUpButton.addEventListener('click', scrollUpButtonHandler);
+    document.addEventListener('scroll', documentScrollHandler.bind(this));
+    this.backButton.addEventListener('click', backButtonHandler.bind(this));
 };
 
 Navigation.prototype.render = function () {

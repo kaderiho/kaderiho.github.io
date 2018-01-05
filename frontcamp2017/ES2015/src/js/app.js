@@ -4,9 +4,9 @@ import 'styles/app.scss';
 import Articles from 'js/components/articles-list/articles-list';
 import Navigation from 'js/components/navigation-controls/navigation-controls';
 
-const getNewsListAssetsButton = document.querySelector('.getNewsListAssetsButton');
+const getChannelsAssetsButton = document.querySelector('.getNewsListAssetsButton');
 
-const retrieveChannelsAssets = function() {
+const lazyImportChannelsAssets = function() {
     return import(/* webpackChunkName : "channels-list" */
         /* webpackMode: "lazy" */
         './components/channels-list/channels-list');
@@ -15,14 +15,14 @@ const retrieveChannelsAssets = function() {
 const getChannelsAssetsHandler = function() {
     this.classList.add('btn--hidden');
 
-    retrieveChannelsAssets().then(Channel => {
+    lazyImportChannelsAssets().then(Channel => {
         new Channel.default({
             initElement: document.querySelector('channels-list')
         });
     });
 };
 
-getNewsListAssetsButton.addEventListener('click', getChannelsAssetsHandler);
+getChannelsAssetsButton.addEventListener('click', getChannelsAssetsHandler);
 
 new Articles({
     initElement: document.querySelector('articles-list'),

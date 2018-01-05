@@ -1,7 +1,7 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
-import Store from 'js/lib/store';
 import 'data/channels-list.json';
+import Store from 'js/store';
 import './channels-list.scss';
 
 export default class Channels {

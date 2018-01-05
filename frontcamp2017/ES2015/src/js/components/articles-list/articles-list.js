@@ -1,6 +1,6 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
-import Store from 'js/lib/store';
 import './articles-list.scss';
+import Store from 'js/store';
 
 export default class Articles {
     constructor({ initElement, afterInserted, step = 10 }) {
@@ -66,6 +66,7 @@ Articles.prototype._storeSubscribe = function() {
             return;
         }
 
+        this._lastItemIndex = 0;
         this.render();
     });
 };
