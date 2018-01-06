@@ -36,7 +36,7 @@ new Navigation({
 });
 
 new Subscribe({
-    strategy: new DailySubscribe(),
+    strategy: new WeeklySubscribe(),
     initElement: document.querySelector('subscribe')
 });
 

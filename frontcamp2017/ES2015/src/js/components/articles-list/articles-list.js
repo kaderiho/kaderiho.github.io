@@ -38,12 +38,18 @@ export default class Articles {
     }
 }
 
+const initShowMoreButton = function() {
+    const showMoreElement = document.createElement('button');
+    showMoreElement.className = 'btn articlesList-showMoreButton';
+    showMoreElement.innerText = 'Show More';
+
+    return showMoreElement;
+};
+
 Articles.prototype.render = function() {
     this.articlesListElement = document.createElement('ul');
     this.articlesListElement.className = 'articlesList';
-    this.showMoreElement = document.createElement('button');
-    this.showMoreElement.className = 'btn articlesList-showMoreButton';
-    this.showMoreElement.innerText = 'Show More';
+    this.showMoreElement = initShowMoreButton();
 
     this.initElement.innerHTML = '';
     this.initElement.appendChild(this.articlesListElement);
@@ -71,14 +77,16 @@ Articles.prototype._storeSubscribe = function() {
     });
 };
 
-Articles.prototype._attachHandlers = function() {
-    this.showMoreElement.addEventListener('click', () => {
-        this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._retrieveArticles();
+const showMoreHandler = function() {
+    this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._retrieveArticles();
 
-        if (this._lastItemIndex === this.articlesList.length) {
-            this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
-        }
-    });
+    if (this._lastItemIndex === this.articlesList.length) {
+        this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
+    }
+};
+
+Articles.prototype._attachHandlers = function() {
+    this.showMoreElement.addEventListener('click', showMoreHandler.bind(this));
 };
 
 Articles.prototype._retrieveArticles = function() {

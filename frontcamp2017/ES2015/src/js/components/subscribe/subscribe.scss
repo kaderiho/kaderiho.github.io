@@ -9,13 +9,6 @@
   top: 50%;
   left: 50%;
   position: absolute;
-
-  h1 {
-    font-family: 'Roboto-Light', 'Arial', sans-serif;
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 30px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -31,6 +24,19 @@
   .subscribe-input {
     margin-bottom: 10px;
   }
+}
+
+.subscribe-title {
+  font-family: 'Roboto-Light', 'Arial', sans-serif;
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 30px;
+}
+
+.subscribe-description {
+  text-align: center;
+  color: #aaaaaa;
+  margin-bottom: 30px;
 }
 
 .subscribeContainer--hidden {

@@ -28,8 +28,8 @@ export default class Channels {
     }
 }
 
-const channelClickHandler = function(channelItem) {
-    const channelKey = channelItem.getAttribute('data-key');
+const channelClickHandler = function() {
+    const channelKey = this.getAttribute('data-key');
 
     Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: []});
     Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: true});
@@ -50,9 +50,7 @@ Channels.prototype._attachHandlers = function() {
     const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
 
     for (let channelItem of channelsList) {
-        channelItem.addEventListener('click', () => {
-            channelClickHandler(channelItem);
-        });
+        channelItem.addEventListener('click', channelClickHandler);
     }
 };
 
