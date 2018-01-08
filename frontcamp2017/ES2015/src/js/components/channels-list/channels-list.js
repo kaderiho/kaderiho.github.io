@@ -4,6 +4,17 @@ import 'data/channels-list.json';
 import Store from 'js/appStore';
 import './channels-list.scss';
 
+const channelClickHandler = function() {
+    const channelKey = this.getAttribute('data-key');
+
+    Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: []});
+    Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: true});
+
+    ARTICLES_SERVICE.getArticles(channelKey).then((channelObject) => {
+        Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: channelObject.articles });
+    });
+};
+
 export default class Channels {
     constructor({ initElement }) {
         this.initElement = initElement;
@@ -26,47 +37,36 @@ export default class Channels {
         this.channels = (await Channels.getChannels());
         Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: this.channels });
     }
+
+    _storeSubscribe() {
+        Store.subscribe(() => {
+            let channels = Store.getState().channels;
+            this.render(this.initElement, channels);
+        });
+    }
+
+    _attachHandlers() {
+        const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
+
+        for (let channelItem of channelsList) {
+            channelItem.addEventListener('click', channelClickHandler);
+        }
+    }
+
+    render(initElement, channelsList) {
+        let channelsListOutput = '';
+
+        this.channesListElement = document.createElement('ul');
+        this.channesListElement.className = 'channelsList';
+
+        initElement.innerHTML = '';
+        initElement.appendChild(this.channesListElement);
+
+        for (let channel of channelsList) {
+            channelsListOutput += Channels.getChannelHTML(channel);
+        }
+
+        this.channesListElement.innerHTML = channelsListOutput;
+        this._attachHandlers();
+    }
 }
-
-const channelClickHandler = function() {
-    const channelKey = this.getAttribute('data-key');
-
-    Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: []});
-    Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: true});
-
-    ARTICLES_SERVICE.getArticles(channelKey).then((channelObject) => {
-        Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: channelObject.articles });
-    });
-};
-
-Channels.prototype._storeSubscribe = function() {
-    Store.subscribe(() => {
-        let channels = Store.getState().channels;
-        this.render(this.initElement, channels);
-    });
-};
-
-Channels.prototype._attachHandlers = function() {
-    const channelsList = this.channesListElement.querySelectorAll('.channelsList-item');
-
-    for (let channelItem of channelsList) {
-        channelItem.addEventListener('click', channelClickHandler);
-    }
-};
-
-Channels.prototype.render = function(initElement, channelsList) {
-    let channelsListOutput = '';
-
-    this.channesListElement = document.createElement('ul');
-    this.channesListElement.className = 'channelsList';
-
-    initElement.innerHTML = '';
-    initElement.appendChild(this.channesListElement);
-
-    for (let channel of channelsList) {
-        channelsListOutput += Channels.getChannelHTML(channel);
-    }
-
-    this.channesListElement.innerHTML = channelsListOutput;
-    this._attachHandlers();
-};

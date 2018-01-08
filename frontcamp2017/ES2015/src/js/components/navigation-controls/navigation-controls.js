@@ -2,14 +2,6 @@ import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import './navigation-controls.scss';
 import Store from 'js/appStore';
 
-export default class Navigation {
-    constructor({ initElement }) {
-        this.initElement = initElement;
-        this.render();
-        this._storeSubscribe();
-    }
-}
-
 const backButtonHandler = function() {
     Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: CHANNELS_SERVICE.getChannels() });
     Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: false });
@@ -27,23 +19,30 @@ const scrollUpButtonHandler = function() {
     window.scrollTo(0, 0);
 };
 
-Navigation.prototype._storeSubscribe = function() {
-    Store.subscribe(() => {
-        this.isNavigationVisible = Store.getState().isNavigationVisible;
+export default class Navigation {
+    constructor({ initElement }) {
+        this.initElement = initElement;
         this.render();
-    });
-};
+        this._storeSubscribe();
+    }
 
-Navigation.prototype._attachHandlers = function() {
-    this.scrollUpButton.addEventListener('click', scrollUpButtonHandler);
-    document.addEventListener('scroll', documentScrollHandler.bind(this));
-    this.backButton.addEventListener('click', backButtonHandler.bind(this));
-};
+    _storeSubscribe() {
+        Store.subscribe(() => {
+            this.isNavigationVisible = Store.getState().isNavigationVisible;
+            this.render();
+        });
+    }
 
-Navigation.prototype.render = function () {
-    this.element = document.createElement('div');
-    this.element.className = this.isNavigationVisible ? 'navigationControls' : 'navigationControls navigationControls--hidden';
-    this.element.innerHTML = `<div class="navigationControls-inner">
+    _attachHandlers() {
+        this.scrollUpButton.addEventListener('click', scrollUpButtonHandler);
+        document.addEventListener('scroll', documentScrollHandler.bind(this));
+        this.backButton.addEventListener('click', backButtonHandler.bind(this));
+    }
+
+    render() {
+        this.element = document.createElement('div');
+        this.element.className = this.isNavigationVisible ? 'navigationControls' : 'navigationControls navigationControls--hidden';
+        this.element.innerHTML = `<div class="navigationControls-inner">
                                 <button class="navigationControls-button" id="backHomeButton">
                                     <svg width="32" height="32" viewBox="0 0 314.069 314.069">
                                         <path d="M293.004 78.525C249.64 3.435 153.62-22.295 78.53 21.06 3.437 64.41-22.295 160.444 21.07 235.543c43.35 75.087 139.375 100.822 214.465 57.467 75.096-43.362 100.832-139.39 57.47-214.485zm-73.168 187.277c-60.075 34.685-136.894 14.114-171.576-45.97-34.69-60.07-14.105-136.896 45.972-171.58 60.07-34.682 136.894-14.098 171.578 45.98 34.685 60.076 14.098 136.886-45.974 171.57zm-7.85-124.474h-65.49l17.598-17.603c6.124-6.13 6.124-16.076 0-22.197-6.13-6.133-16.078-6.133-22.207 0l-44.402 44.4c-6.13 6.13-6.13 16.078 0 22.213l44.402 44.404c6.13 6.128 16.078 6.128 22.207 0 6.124-6.13 6.124-16.077 0-22.2l-17.606-17.602h65.5c8.668 0 15.696-7.04 15.696-15.7v-.008c0-8.68-7.03-15.704-15.698-15.704z"/>
@@ -58,11 +57,12 @@ Navigation.prototype.render = function () {
                                 </button>
                             </div>`;
 
-    this.initElement.innerHTML = '';
-    this.initElement.appendChild(this.element);
+        this.initElement.innerHTML = '';
+        this.initElement.appendChild(this.element);
 
-    this.scrollUpButton = this.element.querySelector('#scrollUpButton');
-    this.backButton = this.element.querySelector('#backHomeButton');
+        this.scrollUpButton = this.element.querySelector('#scrollUpButton');
+        this.backButton = this.element.querySelector('#backHomeButton');
 
-    this._attachHandlers();
-};
+        this._attachHandlers();
+    }
+}

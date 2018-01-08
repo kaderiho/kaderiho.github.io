@@ -1,4 +1,4 @@
-import Reducer from './appStore';
+import Reducer from './appReducer';
 import createStore from './lib/store';
 
 const Store = createStore(Reducer);
