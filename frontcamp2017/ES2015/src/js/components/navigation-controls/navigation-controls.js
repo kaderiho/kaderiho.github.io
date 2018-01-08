@@ -1,6 +1,6 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import './navigation-controls.scss';
-import Store from 'js/store';
+import Store from 'js/appStore';
 
 export default class Navigation {
     constructor({ initElement }) {

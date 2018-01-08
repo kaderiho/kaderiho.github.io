@@ -1,6 +1,6 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
 import './articles-list.scss';
-import Store from 'js/store';
+import Store from 'js/appStore';
 
 export default class Articles {
     constructor({ initElement, afterInserted, step = 10 }) {

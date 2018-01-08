@@ -1,5 +1,3 @@
-import Reducer from './reducer';
-
 const createStore = (reducer) => {
     let state;
     let listeners = [];
@@ -20,6 +18,4 @@ const createStore = (reducer) => {
     return { getState, dispatch, subscribe }
 };
 
-const Store = createStore(Reducer);
-
-export default Store;
+export default createStore;
