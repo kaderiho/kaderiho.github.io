@@ -20,7 +20,7 @@ class Cache {
      * @param data - the stored data
      */
     setItem (itemName, data) {
-        let cache = Cache.prototype.getItem(itemName);
+        let cache = this.getItem(itemName);
         let outputData = [];
 
         // Check if store wasn't created for this item

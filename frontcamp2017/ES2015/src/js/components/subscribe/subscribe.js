@@ -39,22 +39,24 @@ class Subscribe {
     }
 }
 
-class SubscribeStrategy {}
-class MonthlySubscribe {}
-class WeeklySubscribe {}
-class DailySubscribe {}
-
-MonthlySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-MonthlySubscribe.prototype.subscription = 2; // get newsletter every month;
-MonthlySubscribe.prototype.subscriptionText = 'every month'; // get newsletter every month;
-
-WeeklySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-WeeklySubscribe.prototype.subscription = 1; // get newsletter every week;
-WeeklySubscribe.prototype.subscriptionText = 'every week'; // get newsletter every week;
-
-DailySubscribe.prototype = Object.create(SubscribeStrategy.prototype);
-DailySubscribe.prototype.subscription = 0; // get newsletter every day;
-DailySubscribe.prototype.subscriptionText = 'every day'; // get newsletter every day;
+class MonthlySubscribe {
+    constructor() {
+        this.subscription = 2;
+        this.subscriptionText = 'every month';
+    }
+}
+class WeeklySubscribe {
+    constructor() {
+        this.subscription = 1;
+        this.subscriptionText = 'every week';
+    }
+}
+class DailySubscribe {
+    constructor() {
+        this.subscription = 0;
+        this.subscriptionText = 'every day';
+    }
+}
 
 export { DailySubscribe, WeeklySubscribe, MonthlySubscribe };
 export default Subscribe;
