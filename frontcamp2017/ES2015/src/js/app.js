@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 import 'styles/app.scss';
 import 'js/components/subscribe/subscribe.scss';
 import Articles from 'js/components/articles-list/articles-list';
+import EVENT_MANAGER from 'js/lib/publish-subscribe';
 import Subscribe, { DailySubscribe, WeeklySubscribe, MonthlySubscribe } from 'js/components/subscribe/subscribe';
 import Navigation from 'js/components/navigation-controls/navigation-controls';
 
@@ -25,6 +26,8 @@ const getChannelsAssetsHandler = function() {
 };
 
 getChannelsAssetsButton.addEventListener('click', getChannelsAssetsHandler);
+
+document.addEventListener('scroll', () => { EVENT_MANAGER.publish({type: 'documentScroll'}) });
 
 new Articles({
     initElement: document.querySelector('articles-list'),

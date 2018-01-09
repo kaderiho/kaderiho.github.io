@@ -1,4 +1,5 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
+import EVENT_MANAGER from 'js/lib/publish-subscribe';
 import './navigation-controls.scss';
 import Store from 'js/appStore';
 
@@ -35,8 +36,8 @@ export default class Navigation {
 
     _attachHandlers() {
         this.scrollUpButton.addEventListener('click', scrollUpButtonHandler);
-        document.addEventListener('scroll', documentScrollHandler.bind(this));
         this.backButton.addEventListener('click', backButtonHandler.bind(this));
+        EVENT_MANAGER.subscribe({ type: 'documentScroll', handler: documentScrollHandler.bind(this) });
     }
 
     render() {
