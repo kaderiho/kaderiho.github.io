@@ -16,37 +16,39 @@ class EVENT_MANAGER {
             return false;
         }
 
-        for (let i = 0, l = this.listeners[type].length;i < l;i++) {
+        for (let i = 0, l = listeners.length;i < l;i++) {
             listeners[i](eventData);
-            break;
         }
     }
 
     subscribe({ type, handler }) {
-        if (typeof this.listeners[type] === 'undefined') {
-            this.listeners[type] = [];
+        let listeners = this.listeners;
+
+        if (typeof listeners[type] === 'undefined') {
+            listeners[type] = [];
         }
 
+
         // Prevent attaching the same handler
-        let listenerExist = !!this.listeners[type].filter((listener) => ''+listener == ''+handler).length;
+        let listenerExist = !!listeners[type].filter((listener) => ''+listener == ''+handler).length;
 
         if (listenerExist) {
             return;
         }
 
-        this.listeners[type].push(handler);
+        listeners[type].push(handler);
     }
 
     unsubscribe({ type, handler }) {
-        let listeners = this.listeners[type];
+        let listeners = this.listeners;
 
-        if (typeof listeners === 'undefined') {
+        if (typeof listeners[type] === 'undefined') {
             return false;
         }
 
-        for (let i = 0, l = listeners.length;i < l;i++) {
-            if (''+listeners[i] == ''+handler) {
-                listeners.splice(i, 1);
+        for (let i = 0, l = listeners[type].length;i < l;i++) {
+            if (''+listeners[type][i] == ''+handler) {
+                listeners[type].splice(i, 1);
                 break;
             }
         }
