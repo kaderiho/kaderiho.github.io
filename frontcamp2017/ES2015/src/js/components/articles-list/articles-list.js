@@ -1,4 +1,5 @@
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
+import Control from 'js/components/controls/controls';
 import Store from 'js/appStore';
 import './articles-list.scss';
 
@@ -12,6 +13,7 @@ const initShowMoreButton = function() {
 
 const showMoreHandler = function() {
     this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._retrieveArticles();
+    this._attachControls();
 
     if (this._lastItemIndex === this.articlesList.length) {
         this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
@@ -50,6 +52,7 @@ export default class Articles {
                     ${Articles.formatDate(articleItem.publishedAt)}</p> 
                     <img src="${articleItem.urlToImage ? articleItem.urlToImage : ''}" alt="" class="articleImage"> 
                     <p class="articleDescription">${articleItem.description ? articleItem.description : ''}</p>
+                    <div class="controlsHolder btn-block"></div>
                 </li>`;
     }
     _storeSubscribe() {
@@ -63,6 +66,16 @@ export default class Articles {
             this._lastItemIndex = 0;
             this.render();
         });
+    }
+
+    _attachControls() {
+        const articlesList = this.articlesListElement.querySelectorAll('.articlesList-item');
+
+        for (let i = 0;i < articlesList.length;i++) {
+            let controlsHolder = articlesList[i].querySelector('.controlsHolder');
+            controlsHolder.appendChild(Control.createControl('comment').button);
+            controlsHolder.appendChild(Control.createControl('print').button);
+        }
     }
 
     _attachHandlers() {
@@ -98,6 +111,7 @@ export default class Articles {
         }
 
         this.articlesListElement.innerHTML = this._retrieveArticles();
+        this._attachControls();
 
         this._attachHandlers();
         window.scrollTo(0, 0);

@@ -6,7 +6,6 @@ import Articles from 'js/components/articles-list/articles-list';
 import EVENT_MANAGER from 'js/lib/publish-subscribe';
 import Subscribe, { DailySubscribe, WeeklySubscribe, MonthlySubscribe } from 'js/components/subscribe/subscribe';
 import Navigation from 'js/components/navigation-controls/navigation-controls';
-
 const getChannelsAssetsButton = document.querySelector('.getNewsListAssetsButton');
 
 const lazyImportChannelsAssets = function() {
