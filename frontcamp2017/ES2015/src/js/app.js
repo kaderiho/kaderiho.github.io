@@ -18,16 +18,14 @@ const lazyImportChannelsAssets = function() {
 const getChannelsAssetsHandler = function() {
     this.classList.add('btn--hidden');
 
-    lazyImportChannelsAssets().then(Channel => {
-        new Channel.default({
-            initElement: document.querySelector('channels-list')
-        });
-    });
+    lazyImportChannelsAssets().then(Channel => new Channel.default({
+        initElement: document.querySelector('channels-list')
+    }));
 };
 
 getChannelsAssetsButton.addEventListener('click', getChannelsAssetsHandler);
 
-document.addEventListener('scroll', () => { EVENT_MANAGER.publish({type: 'documentScroll'}) });
+document.addEventListener('scroll', () => EVENT_MANAGER.publish({ type: 'documentScroll' }));
 
 new Articles({
     initElement: document.querySelector('articles-list'),
@@ -42,6 +40,3 @@ new Subscribe({
     strategy: new WeeklySubscribe(),
     initElement: document.querySelector('subscribe')
 });
-
-
-
