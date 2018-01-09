@@ -17,6 +17,7 @@ const documentScrollHandler = function() {
 };
 
 const scrollUpButtonHandler = function() {
+    EVENT_MANAGER.unsubscribe({ type: 'documentScroll', handler: documentScrollHandler});
     window.scrollTo(0, 0);
 };
 

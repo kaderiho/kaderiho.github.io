@@ -10,37 +10,43 @@ class EVENT_MANAGER {
     }
 
     publish({ type, eventData }) {
-        if (typeof this.listeners[type] === 'undefined') {
+        let listeners = this.listeners[type];
+
+        if (typeof listeners === 'undefined') {
             return false;
         }
 
         for (let i = 0, l = this.listeners[type].length;i < l;i++) {
-            this.listeners[type][i](eventData);
+            listeners[i](eventData);
+            break;
         }
     }
 
-    subscribe(subscriber) {
-        if (typeof this.listeners[subscriber.type] === 'undefined') {
-            this.listeners[subscriber.type] = [];
+    subscribe({ type, handler }) {
+        if (typeof this.listeners[type] === 'undefined') {
+            this.listeners[type] = [];
         }
 
-        let listenerExist = !!this.listeners[subscriber.type].filter((listener) => ''+listener == ''+subscriber.handler).length;
+        // Prevent attaching the same handler
+        let listenerExist = !!this.listeners[type].filter((listener) => ''+listener == ''+handler).length;
 
         if (listenerExist) {
             return;
         }
 
-        this.listeners[subscriber.type].push(subscriber.handler);
+        this.listeners[type].push(handler);
     }
 
-    unsubscribe(subscriber) {
-        if (typeof this.listeners[subscriber.type] === 'undefined') {
+    unsubscribe({ type, handler }) {
+        let listeners = this.listeners[type];
+
+        if (typeof listeners === 'undefined') {
             return false;
         }
 
-        for (let i = 0, l = this.listeners[subscriber.type].length;i < l;i++) {
-            if (this.listeners[subscriber.type][i] === subscriber.type) {
-                this.listeners[subscriber.type].splice(i, 1);
+        for (let i = 0, l = listeners.length;i < l;i++) {
+            if (''+listeners[i] == ''+handler) {
+                listeners.splice(i, 1);
                 break;
             }
         }
