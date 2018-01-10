@@ -1,12 +1,13 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import EVENT_MANAGER from 'js/lib/publish-subscribe';
+import actionTypes from 'js/constans/action-types';
 import './navigation-controls.scss';
 import Store from 'js/appStore';
 
 const backButtonHandler = function() {
-    Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: CHANNELS_SERVICE.getChannels() });
-    Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: false });
-    Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: [] });
+    Store.dispatch({ type: actionTypes.CHANNELS_LIST_INIT, channels: CHANNELS_SERVICE.getChannels() });
+    Store.dispatch({ type: actionTypes.NAVIGATION_VISIBILITY, isNavigationVisible: false });
+    Store.dispatch({ type: actionTypes.ARTICLES_LIST_INIT, articles: [] });
     this.element.classList.add('navigationControls--hidden');
 };
 

@@ -1,5 +1,6 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import ARTICLES_SERVICE from 'js/services/ARTICLES_SERVICE';
+import actionTypes from 'js/constants/action-types';
 import 'data/channels-list.json';
 import Store from 'js/appStore';
 import './channels-list.scss';
@@ -7,11 +8,11 @@ import './channels-list.scss';
 const channelClickHandler = function() {
     const channelKey = this.getAttribute('data-key');
 
-    Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: []});
-    Store.dispatch({ type: 'NAVIGATION_VISIBILITY', isNavigationVisible: true});
+    Store.dispatch({ type: actionTypes.CHANNELS_LIST_INIT, channels: []});
+    Store.dispatch({ type: actionTypes.NAVIGATION_VISIBILITY, isNavigationVisible: true});
 
     ARTICLES_SERVICE.getArticles(channelKey).then((channelObject) => {
-        Store.dispatch({ type: 'ARTICLES_LIST_INIT', articles: channelObject.articles });
+        Store.dispatch({ type: actionTypes.ARTICLES_LIST_INIT, articles: channelObject.articles });
     });
 };
 
@@ -35,7 +36,7 @@ export default class Channels {
 
     async init() {
         this.channels = (await Channels.getChannels());
-        Store.dispatch({ type: 'CHANNELS_LIST_INIT', channels: this.channels });
+        Store.dispatch({ type: actionTypes.CHANNELS_LIST_INIT, channels: this.channels });
     }
 
     _storeSubscribe() {

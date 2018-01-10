@@ -18,7 +18,7 @@ class Control {
 }
 
 class commentControl extends Control {
-    constructor({controlText = 'Add a comment'}) {
+    constructor({ controlText = 'Add a comment' }) {
         super();
         this.controlText = controlText;
         this.render();
@@ -31,7 +31,7 @@ class commentControl extends Control {
 }
 
 class printControl extends Control {
-    constructor({controlText = 'Print'}) {
+    constructor({ controlText = 'Print' }) {
         super();
         this.controlText = controlText;
         this.render();

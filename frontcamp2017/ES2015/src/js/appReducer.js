@@ -1,22 +1,22 @@
+import actionTypes from 'js/constants/action-types';
+
 const InitialState = {
     selectedChannelArticles: {},
     isNavigationVisible: false,
     channels: [],
 };
 
-const ACTION_TYPES = ['CHANNELS_LIST_INIT', 'ARTICLES_LIST_INIT', 'NAVIGATION_VISIBILITY'];
-
 function NewsApp(state = InitialState, action) {
     switch (action.type) {
-        case ACTION_TYPES[0]:
+        case actionTypes.CHANNELS_LIST_INIT:
             return Object.assign({}, state, {
                 channels: action.channels
             });
-        case ACTION_TYPES[1]:
+        case actionTypes.ARTICLES_LIST_INIT:
             return Object.assign({}, state, {
                 selectedChannelArticles: action.articles
             });
-        case ACTION_TYPES[2]:
+        case actionTypes.NAVIGATION_VISIBILITY:
             return Object.assign({}, state, {
                 isNavigationVisible: action.isNavigationVisible
             });
