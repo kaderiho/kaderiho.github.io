@@ -1,6 +1,6 @@
 import CHANNELS_SERVICE from 'js/services/CHANNELS_SERVICE';
 import EVENT_MANAGER from 'js/lib/publish-subscribe';
-import actionTypes from 'js/constans/action-types';
+import actionTypes from 'js/constants/action-types';
 import './navigation-controls.scss';
 import Store from 'js/appStore';
 
