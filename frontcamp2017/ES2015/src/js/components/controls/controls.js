@@ -26,6 +26,7 @@ class commentControl extends Control {
 
     handler() {
         // Add a comment to the article
+        // TODO: comment component will be implemented in the future
     }
 }
 
@@ -38,6 +39,7 @@ class printControl extends Control {
 
     handler() {
         // Prepare article to the print
+        // TODO: print functionality will be implemented in the future
     }
 }
 
