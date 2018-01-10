@@ -30,7 +30,7 @@ class commentControl extends Control {
 }
 
 class printControl extends Control {
-    constructor({controlText = 'Print a text'}) {
+    constructor({controlText = 'Print'}) {
         super();
         this.controlText = controlText;
         this.render();

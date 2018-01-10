@@ -13,7 +13,11 @@ const initShowMoreButton = function() {
 
 const showMoreHandler = function() {
     this.articlesListElement.innerHTML = this.articlesListElement.innerHTML + this._retrieveArticles();
-    this._attachControls();
+
+    let addedArticlesList = Array.prototype.slice.call(this.articlesListElement.querySelectorAll('.articlesList-item'), -(this._step));
+        addedArticlesList = addedArticlesList.filter((article) => article.querySelector('.controlsHolder').innerText === '');
+
+    this._attachControls(addedArticlesList);
 
     if (this._lastItemIndex === this.articlesList.length) {
         this.showMoreElement.classList.add('articlesList-showMoreButton--hidden');
@@ -68,9 +72,7 @@ export default class Articles {
         });
     }
 
-    _attachControls() {
-        const articlesList = this.articlesListElement.querySelectorAll('.articlesList-item');
-
+    _attachControls(articlesList) {
         for (let i = 0;i < articlesList.length;i++) {
             let controlsHolder = articlesList[i].querySelector('.controlsHolder');
             controlsHolder.appendChild(Control.createControl('comment').button);
@@ -111,7 +113,7 @@ export default class Articles {
         }
 
         this.articlesListElement.innerHTML = this._retrieveArticles();
-        this._attachControls();
+        this._attachControls(this.articlesListElement.querySelectorAll('.articlesList-item'));
 
         this._attachHandlers();
         window.scrollTo(0, 0);
