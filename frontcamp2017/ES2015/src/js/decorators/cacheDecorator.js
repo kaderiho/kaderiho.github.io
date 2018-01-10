@@ -17,9 +17,9 @@ export default function cacheDecorator(storeName) {
                 return cachedData;
             }
 
-            for (let i = 0;i < cachedData.length;i++) {
-                if (cachedData[i].channelKey === storeKey) {
-                    return cachedData[i];
+            for (let cacheItem of cachedData) {
+                if (cacheItem.channelKey === storeKey) {
+                    return cacheItem;
                 }
             }
 

@@ -4,17 +4,19 @@ const InitialState = {
     channels: [],
 };
 
+const ACTION_TYPES = ['CHANNELS_LIST_INIT', 'ARTICLES_LIST_INIT', 'NAVIGATION_VISIBILITY'];
+
 function NewsApp(state = InitialState, action) {
     switch (action.type) {
-        case 'CHANNELS_LIST_INIT':
+        case ACTION_TYPES[0]:
             return Object.assign({}, state, {
                 channels: action.channels
             });
-        case 'ARTICLES_LIST_INIT':
+        case ACTION_TYPES[1]:
             return Object.assign({}, state, {
                 selectedChannelArticles: action.articles
             });
-        case 'NAVIGATION_VISIBILITY':
+        case ACTION_TYPES[2]:
             return Object.assign({}, state, {
                 isNavigationVisible: action.isNavigationVisible
             });
