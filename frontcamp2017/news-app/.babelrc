@@ -1,0 +1,9 @@
+{
+	"presets": [
+		"env"
+	],
+	"plugins": [
+		"dynamic-import-webpack",
+		"transform-decorators-legacy"
+	]
+}
