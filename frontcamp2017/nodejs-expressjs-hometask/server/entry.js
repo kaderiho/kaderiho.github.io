@@ -1,10 +1,29 @@
-var bodyParser = require('body-parser');
-var express = require('express');
-var fs = require('fs');
-var app = express();
+var bodyParser  = require('body-parser');
+var express     = require('express');
+var winston     = require('winston');
+var router      = express.Router();
+var fs          = require('fs');
+var app         = express();
 
-app.use(bodyParser.json());
+// Logging configuration
+winston.configure({
+    transports: [
+        new (winston.transports.File)({ filename: 'logs.log' })
+    ]
+});
 
+// Server-side HTML rendering
+app.set('views', './server/views');
+app.set('view engine', 'pug');
+
+router.get('/*', (req, res) => {
+    winston.info('URL', `${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    res.render('index', { title: 'Hey', message: 'Hello there!'});
+});
+
+app.use('/', router);
+
+// CRUD requests API
 app.get('/blogs', (req, res, next) => {
     fs.readFile('./data/articles.json', 'utf8', (err, data) => {
         if (err) {
