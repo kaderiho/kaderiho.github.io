@@ -1,53 +1,44 @@
 var articlesList = require('../models/articleModel.js');
 
-const getArticles = function(req, res, next) {
+const getArticles = function(req, res) {
     res.send(JSON.stringify(articlesList));
-    next();
 };
 
-const getArticle = function(req, res, next) {
-    let articleId = +req.originalUrl.split('/').slice(-1)[0];
-
+const getArticle = function(req, res) {
     let article = articlesList.find((article) => {
-        return article.id === articleId;
+        return article.id === +req.params.id;
     });
 
     article ? res.send(article) : res.send('There is no such article');
-    next();
 };
 
-const updateArticle = function(req, res, next) {
-    let updatedArticleId = +req.originalUrl.split('/').slice(-1)[0];
+const updateArticle = function(req, res) {
     let articleIsChanged = false;
 
     articlesList = articlesList.map((article) => {
-        if (article.id === updatedArticleId) {
-            articleIsChanged = true;
-            article.title = req.body.title;
+        if (article.id === +req.params.id) {
             article.description = req.body.description;
+            article.title = req.body.title;
+            articleIsChanged = true;
         }
 
         return article;
     });
 
     articleIsChanged ? res.send('Article has been updated') : res.send('Article has not been updated');
-    next();
 };
 
-const createArticle = function(req, res, next) {
+const createArticle = function(req, res) {
     let createdArticle = req.body;
 
     createdArticle.id = articlesList.length + 1;
     articlesList.push(createdArticle);
 
     res.send('Article has been saved');
-    next();
 };
 
 const deleteArticle = function(req, res, next) {
-    let deleteArticleId = +req.originalUrl.split('/').slice(-1)[0];
-
-    articlesList = articlesList.filter((article) => article.id !== deleteArticleId);
+    articlesList = articlesList.filter((article) => article.id !== +req.params.id);
     res.send('Article has been deleted');
     next();
 };
