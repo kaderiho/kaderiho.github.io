@@ -9,7 +9,7 @@ const getArticle = function(req, res) {
         return article.id === +req.params.id;
     });
 
-    article ? res.send(article) : res.send('There is no such article');
+    article ? res.send(article) : res.status(404).send('Not found');
 };
 
 const updateArticle = function(req, res) {
@@ -25,7 +25,7 @@ const updateArticle = function(req, res) {
         return article;
     });
 
-    articleIsChanged ? res.send('Article has been updated') : res.send('Article has not been updated');
+    articleIsChanged ? res.send('Article has been updated') : res.status(404).send('Article has not been updated');
 };
 
 const createArticle = function(req, res) {
