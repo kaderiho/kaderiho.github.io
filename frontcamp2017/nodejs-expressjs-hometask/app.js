@@ -1,7 +1,7 @@
-var blogsRoute      = require('./routes/blogs.js');
-var express         = require('express');
-var winston         = require('winston');
-var app             = express();
+const blogsRoute      = require('./routes/blogs');
+const express         = require('express');
+const winston         = require('winston');
+const app             = express();
 
 const loggingHandler = function(req, res, next) {
     winston.info('URL', `${req.protocol}://${req.get('host')}${req.originalUrl}`);

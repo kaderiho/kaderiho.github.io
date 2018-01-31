@@ -1,4 +1,4 @@
-var articlesList = require('../models/articleModel.js');
+let articlesList = require('../models/articleModel');
 
 const getArticles = function(req, res) {
     res.send(JSON.stringify(articlesList));
