@@ -36,8 +36,8 @@ app.use(loggingHandler);
 app.use('/blogs/', blogsRoute);
 
 // Errors handling
-app.use(function(req, res, next) {
-    let err = new Error('Page not Found');
+app.use((req, res, next) => {
+    let err = new Error('Page was not Found');
         err.status = 404;
         next(err);
 });
