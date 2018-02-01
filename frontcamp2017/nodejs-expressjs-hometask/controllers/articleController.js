@@ -1,46 +1,59 @@
-let articlesList = require('../models/articleModel');
+const articleModel = require('../models/articleModel');
 
 const getArticles = function(req, res) {
-    res.send(JSON.stringify(articlesList));
+    articleModel.find({}, (err, data) => {
+        if (err) {
+            res.status(404).send(err);
+        } else {
+            res.send(JSON.stringify(data));
+        }
+    });
 };
 
 const getArticle = function(req, res) {
-    let article = articlesList.find((article) => {
-        return article.id === +req.params.id;
+    articleModel.find({id: +req.params.id}, (err, data) => {
+       if (err) {
+           res.status(404).send(err);
+       } else {
+           res.send(data);
+       }
     });
-
-    article ? res.send(article) : res.status(404).send('Not found');
 };
 
 const updateArticle = function(req, res) {
-    let articleIsChanged = false;
-
-    articlesList = articlesList.map((article) => {
-        if (article.id === +req.params.id) {
-            article.description = req.body.description;
-            article.title = req.body.title;
-            articleIsChanged = true;
-        }
-
-        return article;
+    articleModel.findByIdAndUpdate(
+        { id: +req.params.id },
+        { description: req.body.description, title: req.body.title },
+        (err, data) => {
+            if (err) {
+                res.status(404).send(err);
+            } else {
+                res.send(data);
+            }
     });
-
-    articleIsChanged ? res.send('Article has been updated') : res.status(404).send('Article has not been updated');
 };
 
 const createArticle = function(req, res) {
-    let createdArticle = req.body;
-
-    createdArticle.id = articlesList.length + 1;
-    articlesList.push(createdArticle);
-
-    res.send('Article has been saved');
+    articleModel.create({
+        title: req.body.title,
+        description: req.body.description
+    }, (err, data) => {
+        if (err) {
+            res.status(404).send(err);
+        } else {
+            res.send(data);
+        }
+    });
 };
 
-const deleteArticle = function(req, res, next) {
-    articlesList = articlesList.filter((article) => article.id !== +req.params.id);
-    res.send('Article has been deleted');
-    next();
+const deleteArticle = function(req, res) {
+    articleModel.findByIdAndRemove(req.params.id, (err, data) => {
+        if (err) {
+            res.status(404).send(err);
+        } else {
+            res.send(data);
+        }
+    });
 };
 
 module.exports.deleteArticle = deleteArticle;
