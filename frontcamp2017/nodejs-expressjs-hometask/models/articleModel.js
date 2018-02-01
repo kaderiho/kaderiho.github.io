@@ -4,7 +4,7 @@ const ArticlesSchema = new mongoose.Schema({
     title: String,
     description: String
 });
-const ArticlesModel = mongoose.model('ArticlesModel', ArticlesSchema );
+const ArticlesModel = mongoose.model('ArticlesModel', ArticlesSchema);
 
 module.exports = ArticlesModel;
 
