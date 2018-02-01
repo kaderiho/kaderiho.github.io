@@ -1,20 +1,25 @@
 const blogsRoute    = require('./routes/blogs');
+const mongoose      = require('mongoose');
 const express       = require('express');
 const winston       = require('winston');
-const mongoose      = require('mongoose');
+const DBName        = 'frontcamp';
 const app           = express();
 
-mongoose.connect('mongodb://127.0.0.1/frontcamp');
+mongoose.connect(`mongodb://127.0.0.1/${DBName}`);
 
 const loggingHandler = function(req, res, next) {
     winston.info('URL', `${req.protocol}://${req.get('host')}${req.originalUrl}`);
     next();
 };
 
-const errorsHandler = function(err, req, res) {
+const errorHandler = function(err, req, res) {
+    if (res.headersSent) {
+        return next(err);
+    }
+
     res.status(err.status || 500);
     res.format({
-        'text/plain': () => res.send('Page was not found'),
+        'text/plain': () => res.send(err.message || 'Page was not found'),
         'text/html': () => res.render('index', {
             title: 'Hello there',
             message: 'Hello there!'
@@ -44,6 +49,6 @@ app.use((req, res, next) => {
         err.status = 404;
         next(err);
 });
-app.use(errorsHandler);
+app.use(errorHandler);
 
 app.listen('3000');
