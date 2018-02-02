@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
     res.status(err.status || 500);
     res.format({
         'text/plain': () => res.send(err.message || 'Page was not found'),
-        'text/html': () => res.render('home'),
+        'text/html': () => res.render('index'),
         'application/json': () => res.json({ error: 'Page was not found' })
     });
 };

@@ -14,5 +14,6 @@ html
                         a(href="/auth/logout") Logout
         main
             h1 Its a homepage!
-            p You logged in as: #{user.username}
+            if user
+                p You logged in as: #{user.username}
 
