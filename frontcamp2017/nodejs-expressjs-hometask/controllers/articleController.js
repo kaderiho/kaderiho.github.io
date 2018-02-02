@@ -1,6 +1,6 @@
 const Article = require('../models/ArticleModel');
 
-const getArticles = function(req, res) {
+const getArticles = (req, res) => {
     Article.find({}, (err, data) => {
         if (err) {
             res.status(404).send(err);
@@ -10,7 +10,7 @@ const getArticles = function(req, res) {
     });
 };
 
-const getArticle = function(req, res) {
+const getArticle = (req, res) => {
     Article.find({id: +req.params.id}, (err, data) => {
        if (err) {
            res.status(404).send(err);
@@ -20,7 +20,7 @@ const getArticle = function(req, res) {
     });
 };
 
-const updateArticle = function(req, res) {
+const updateArticle = (req, res) => {
     Article.findByIdAndUpdate(
         { id: +req.params.id },
         { description: req.body.description, title: req.body.title },
@@ -33,7 +33,7 @@ const updateArticle = function(req, res) {
     });
 };
 
-const createArticle = function(req, res) {
+const createArticle = (req, res) => {
     Article.create({
         title: req.body.title,
         description: req.body.description
@@ -46,7 +46,7 @@ const createArticle = function(req, res) {
     });
 };
 
-const deleteArticle = function(req, res) {
+const deleteArticle = (req, res) => {
     Article.findByIdAndRemove(req.params.id, (err, data) => {
         if (err) {
             res.status(404).send(err);

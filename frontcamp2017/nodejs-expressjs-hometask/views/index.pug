@@ -1,0 +1,18 @@
+html
+    head
+        title!= title
+    body
+        nav
+            ul
+                li
+                    a(href="/blogs") Articles
+                if !user
+                    li
+                        a(href="/auth/login") Login
+                else
+                    li
+                        a(href="/auth/logout") Logout
+        main
+            h1 Its a homepage!
+            p You logged in as: #{user.username}
+
