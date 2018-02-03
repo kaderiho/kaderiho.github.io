@@ -26,11 +26,11 @@ passport.use('local-login', new LocalStrategy({
             }
 
             if (!user) {
-                return done(null, false);
+                return done(null, false, req.flash('loginMessage', 'There is no such user'));
             }
 
             if (!user.validPassword(password)) {
-                return done(null, false);
+                return done(null, false, req.flash('loginMessage', 'The password is incorrect'));
             }
 
             return done(null, user);
@@ -50,7 +50,7 @@ passport.use('local-signup', new LocalStrategy({
                 return done(err);
 
             if (user) {
-                return done(null, false);
+                return done(null, false,req.flash('signupMessage', 'The user already exists'));
             }
 
             let newUser = new User();

@@ -2,11 +2,11 @@ const router    = require('express').Router();
 const passport  = require('passport');
 
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { message: req.flash('loginMessage') });
 });
 
 router.get('/signup', (req, res) => {
-    res.render('signup');
+    res.render('signup', { message: req.flash('signupMessage') });
 });
 
 router.get('/logout', (req, res) => {
