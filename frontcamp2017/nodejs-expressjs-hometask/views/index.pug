@@ -15,5 +15,6 @@ html
         main
             h1 Its a homepage!
             if user
-                p You logged in as: #{user.username}
+                if user.google
+                    p You logged in as: #{user.google.username}
 

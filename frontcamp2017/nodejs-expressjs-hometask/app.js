@@ -1,9 +1,9 @@
-const passportSetup = require('./config/passport.setup');
 const blogsRoute    = require('./routes/blogs');
 const indexRoute    = require('./routes/index');
 const cookieSession = require('cookie-session');
 const authRoutes    = require('./routes/auth');
 const keys          = require('./config/keys');
+const flash         = require('connect-flash');
 const COOKIE_AGE    = 24 * 60 * 60 * 1000;
 const mongoose      = require('mongoose');
 const passport      = require('passport');
@@ -45,6 +45,7 @@ winston.configure({
 mongoose.connect(keys.mongodb.dbURI, () => {
     console.dir('Connected to mongo DB');
 });
+require('./config/passport.setup')(passport);
 
 // Server-side rendering output pages
 app.set('views', './views');
@@ -59,17 +60,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(loggingHandler);
-app.use('/', indexRoute);
+app.use(flash());
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        user: req.user
+    });
+});
+
+app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect : '/profile', // redirect to the secure profile section
+    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+}));
+
 app.use('/auth/', authRoutes);
 app.use('/blogs/', loginHandler, blogsRoute);
 
 // Errors handling
-app.use((req, res, next) => {
-    let err = new Error('Page was not Found');
-        err.status = 404;
-        next(err);
-});
-app.use(errorHandler);
+// app.use((req, res, next) => {
+//     let err = new Error('Page was not Found');
+//         err.status = 404;
+//         next(err);
+// });
+// app.use(errorHandler);
 
 app.listen('3000', () => {
     console.dir('App is listening for request on port 3000')
