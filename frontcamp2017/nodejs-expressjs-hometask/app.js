@@ -1,5 +1,4 @@
 const blogsRoute    = require('./routes/blogs');
-const indexRoute    = require('./routes/index');
 const cookieSession = require('cookie-session');
 const authRoutes    = require('./routes/auth');
 const keys          = require('./config/keys');
@@ -29,7 +28,11 @@ const errorHandler = (err, req, res, next) => {
     res.status(err.status || 500);
     res.format({
         'text/plain': () => res.send(err.message || 'Page was not found'),
-        'text/html': () => res.render('index'),
+        'text/html': () => res.render('index', (req, res) => {
+            res.send({
+                user: req.user
+            })
+        }),
         'application/json': () => res.json({ error: 'Page was not found' })
     });
 };
@@ -55,12 +58,16 @@ app.use(cookieSession({
     keys: [keys.session.cookieKey],
     maxAge: COOKIE_AGE
 }));
-
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.json());
 app.use(loggingHandler);
 app.use(flash());
+
+app.use('/auth/', authRoutes);
+app.use('/blogs/', loginHandler, blogsRoute);
 
 app.get('/', (req, res) => {
     res.render('index', {
@@ -69,21 +76,24 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
-    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    successRedirect : '/',
+    failureRedirect : '/auth/signup',
     failureFlash : true // allow flash messages
 }));
 
-app.use('/auth/', authRoutes);
-app.use('/blogs/', loginHandler, blogsRoute);
+app.post('/login', passport.authenticate('local-login', {
+    successRedirect : '/',
+    failureRedirect : '/auth/login',
+    failureFlash : true
+}));
 
 // Errors handling
-// app.use((req, res, next) => {
-//     let err = new Error('Page was not Found');
-//         err.status = 404;
-//         next(err);
-// });
-// app.use(errorHandler);
+app.use((req, res, next) => {
+    let err = new Error('Page was not Found');
+        err.status = 404;
+        next(err);
+});
+app.use(errorHandler);
 
 app.listen('3000', () => {
     console.dir('App is listening for request on port 3000')
