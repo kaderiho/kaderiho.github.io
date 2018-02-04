@@ -55,7 +55,26 @@ app.use(flash());
 
 app.use('/auth/', authRoutes);
 app.use('/blogs/', loggedInHandler, blogsRoute);
-require('./routes/index')(app, passport);
+
+// Routes on application level
+app.get('/', (req, res) => {
+    res.render('index', {
+        user: req.user
+    });
+});
+
+app.route('/signup')
+    // Login form authorization
+    .post(passport.authenticate('local-signup', {
+        successRedirect : '/',
+        failureRedirect : '/signup',
+        failureFlash : true
+    }))
+
+    // Login form page
+    .get((req, res) => {
+        res.render('signup', { message: req.flash('signupMessage') });
+    });
 
 // Attach errors handlers
 app.use(errorHandlers.notFound);

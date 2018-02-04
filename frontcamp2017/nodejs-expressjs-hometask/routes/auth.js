@@ -5,9 +5,11 @@ router.get('/login', (req, res) => {
     res.render('login', { message: req.flash('loginMessage') });
 });
 
-router.get('/signup', (req, res) => {
-    res.render('signup', { message: req.flash('signupMessage') });
-});
+router.post('/login', passport.authenticate('local-login', {
+    successRedirect : '/',
+    failureRedirect : '/auth/login',
+    failureFlash : true
+}));
 
 router.get('/logout', (req, res) => {
     req.logout();
