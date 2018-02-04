@@ -1,35 +1,32 @@
 const Article = require('../models/ArticleModel');
 
-const getArticles = (req, res) => {
+const getArticles = (req, res, next) => {
     Article.find({}, (err, data) => {
         if (err) {
-            res.status(404).send(err);
-        } else {
-            res.send(JSON.stringify(data));
+            next(err);
         }
+        res.send(JSON.stringify(data));
     });
 };
 
-const getArticle = (req, res) => {
+const getArticle = (req, res, next) => {
     Article.find({id: +req.params.id}, (err, data) => {
-       if (err) {
-           res.status(404).send(err);
-       } else {
-           res.send(data);
-       }
+        if (err) {
+            next(err);
+        }
+        res.send(data);
     });
 };
 
-const updateArticle = (req, res) => {
+const updateArticle = (req, res, next) => {
     Article.findByIdAndUpdate(
         { id: +req.params.id },
         { description: req.body.description, title: req.body.title },
         (err, data) => {
             if (err) {
-                res.status(404).send(err);
-            } else {
-                res.send(data);
+                next(err);
             }
+            res.send(data);
     });
 };
 
@@ -39,20 +36,18 @@ const createArticle = (req, res) => {
         description: req.body.description
     }, (err, data) => {
         if (err) {
-            res.status(404).send(err);
-        } else {
-            res.send(data);
+            next(err);
         }
+        res.send(data);
     });
 };
 
-const deleteArticle = (req, res) => {
+const deleteArticle = (req, res, next) => {
     Article.findByIdAndRemove(req.params.id, (err, data) => {
         if (err) {
-            res.status(404).send(err);
-        } else {
-            res.send(data);
+            next(err);
         }
+        res.send(data);
     });
 };
 
