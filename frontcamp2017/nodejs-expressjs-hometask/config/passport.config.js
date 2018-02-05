@@ -25,7 +25,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-// User authorization via local credentials
+// User authorization with local credentials
 passport.use('local-login', new LocalStrategy({
         usernameField : 'email',
         passReqToCallback : true,
@@ -61,7 +61,7 @@ passport.use('local-signup', new LocalStrategy({
                 return done(err);
 
             if (user) {
-                return done(null, false,req.flash('signupMessage', 'The user already exists'));
+                return done(null, false, req.flash('signupMessage', 'The user already exists'));
             }
 
             createUser({ email, password }).then((newUser) => {
