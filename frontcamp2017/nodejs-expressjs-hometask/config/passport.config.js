@@ -4,6 +4,17 @@ const User              = require('../models/userModel');
 const passport          = require('passport');
 const keys              = require('./keys');
 
+const createUser = function({ password, email, username, googleId }) {
+    let newUser = new User();
+
+    newUser.local.password = newUser.generateHash(password);
+    newUser.local.email = email;
+    newUser.google.username = username;
+    newUser.google.googleId = googleId;
+
+    return newUser.save()
+};
+
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
@@ -45,7 +56,7 @@ passport.use('local-signup', new LocalStrategy({
         passwordField : 'password'
     },
     (req, email, password, done) => {
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        User.findOne({ 'local.email' :  email }, (err, user) => {
             if (err)
                 return done(err);
 
@@ -53,36 +64,34 @@ passport.use('local-signup', new LocalStrategy({
                 return done(null, false,req.flash('signupMessage', 'The user already exists'));
             }
 
-            let newUser = new User();
-
-            newUser.local.password = newUser.generateHash(password);
-            newUser.local.email = email;
-
-            newUser.save().then((newUser) => {
+            createUser({ email, password }).then((newUser) => {
                 return done(null, newUser)
-            })
+            }, (err) => {
+                return done(err);
+            });
         });
     }));
 
 // User authorization by Google
 passport.use(new GoogleStrategy({
         clientSecret: keys.google.clientSecret,
-        callbackURL: '/auth/google/redirect',
+        callbackURL: keys.google.callbackURL,
         clientID: keys.google.clientID
     },
     (accessToken, refreshToken, profile, done) => {
-        User.findOne({ 'google.googleId' : profile.id }).then((currentUser) => {
+        User.findOne({ 'google.googleId' : profile.id }, (err, currentUser) => {
+            if (err) {
+                return done(err);
+            }
+
             if (currentUser) {
                 done(null, currentUser);
             }
 
-            new User({
-                google: {
-                    username: profile.displayName,
-                    googleId: profile.id
-                }
-            }).save().then((createdUser) => {
-                done(null, createdUser);
+            createUser({ username: profile.displayName, googleId: profile.id }).then((newUser) => {
+                return done(null, newUser)
+            }, (err) => {
+                return done(err);
             });
         });
 }));
