@@ -14,12 +14,14 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Method for generating password hash
-UserSchema.methods.generateHash = (password) => {
+UserSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // Checking if password is valid
-UserSchema.methods.validPassword = (password) => {
+UserSchema.methods.validPassword = function (password) {
+    console.log(`Password validation! ${password}`);
+    console.log(this);
     return bcrypt.compareSync(password, this.local.password);
 };
 
