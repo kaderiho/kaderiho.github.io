@@ -31,21 +31,22 @@ passport.use('local-login', new LocalStrategy({
         passReqToCallback : true,
         passwordField : 'password'
     }, (req, email, password, done) => {
-        User.findOne({ 'local.email' : email}, (err, user) => {
-            if (err) {
-                return done(err);
-            }
+        User.findOne({ 'local.email' : email})
+            .then((user) => {
+                if (!user) {
+                    return done(null, false, req.flash('loginMessage', 'There is no such user'));
+                }
 
-            if (!user) {
-                return done(null, false, req.flash('loginMessage', 'There is no such user'));
-            }
+                if (!user.validPassword(password)) {
+                    return done(null, false, req.flash('loginMessage', 'The password is incorrect'));
+                }
 
-            if (!user.validPassword(password)) {
-                return done(null, false, req.flash('loginMessage', 'The password is incorrect'));
-            }
-
-            return done(null, user);
-        })
+                return done(null, user);
+            }, (err) => {
+                if (err) {
+                    return done(err);
+                }
+            });
     }
 ));
 
@@ -56,21 +57,23 @@ passport.use('local-signup', new LocalStrategy({
         passwordField : 'password'
     },
     (req, email, password, done) => {
-        User.findOne({ 'local.email' :  email }, (err, user) => {
-            if (err)
-                return done(err);
+        User.findOne({ 'local.email' :  email })
+            .then((user) => {
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'The user already exists'));
+                }
 
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'The user already exists'));
-            }
+                createUser({ email, password }).then((newUser) => {
+                    return done(null, newUser)
+                }, (err) => {
+                    return done(err);
+                });
 
-            createUser({ email, password }).then((newUser) => {
-                return done(null, newUser)
             }, (err) => {
                 return done(err);
-            });
-        });
-    }));
+            })
+    }
+));
 
 // User authorization by Google
 passport.use(new GoogleStrategy({
@@ -79,19 +82,19 @@ passport.use(new GoogleStrategy({
         clientID: keys.google.clientID
     },
     (accessToken, refreshToken, profile, done) => {
-        User.findOne({ 'google.googleId' : profile.id }, (err, currentUser) => {
-            if (err) {
-                return done(err);
-            }
+        User.findOne({ 'google.googleId' : profile.id })
+            .then((user) => {
+                if (user) {
+                    done(null, user);
+                }
 
-            if (currentUser) {
-                done(null, currentUser);
-            }
-
-            createUser({ username: profile.displayName, googleId: profile.id }).then((newUser) => {
-                return done(null, newUser)
+                createUser({ username: profile.displayName, googleId: profile.id }).then((newUser) => {
+                    return done(null, newUser)
+                }, (err) => {
+                    return done(err);
+                });
             }, (err) => {
                 return done(err);
-            });
-        });
-}));
+            })
+    }
+));
