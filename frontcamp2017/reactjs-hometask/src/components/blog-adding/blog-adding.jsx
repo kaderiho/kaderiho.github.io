@@ -5,31 +5,43 @@ class BlogAdding extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.inputMessageHandler = this.inputMessageHandler.bind(this);
+        this.submitMessageHandler = this.submitMessageHandler.bind(this);
+        this.inputMessageAuthorHandler = this.inputMessageAuthorHandler.bind(this);
 
         this.state = {
             isSubmitButtonEnabled: false
         }
     }
 
-    handleChange(event) {
-        this.props.onBlogInputChange(event.target.value);
+    inputMessageHandler(event) {
+        this.props.inputMessageHandler(event.target.value);
     }
 
-    handleSubmit(event) {
-        this.props.onBlogSubmitHandle();
+    inputMessageAuthorHandler(event) {
+        this.props.inputMessageAuthorHandler(event.target.value);
+    }
+
+    submitMessageHandler(event) {
+        this.props.submitMessageHandler();
         event.preventDefault();
     }
 
     render(){
-        const blogText = this.props.addingBlogText;
+        const typingPostMessage = this.props.typingPostMessage;
+        const postAuthor = this.props.postAuthor;
+
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.submitMessageHandler}>
                 <label>
-                    <input type="text" value={blogText} onChange={this.handleChange} placeholder="Put post message there"/>
+                    Post message:
+                    <input type="text" value={typingPostMessage} onChange={this.inputMessageHandler} placeholder="Put post message there"/>
                 </label>
-                <button type="submit" value="Submit" disabled={!this.props.addingBlogText.length}>Add</button>
+                <label>
+                    Author name:
+                    <input type="text" value={postAuthor} onChange={this.inputMessageAuthorHandler} placeholder="Put post message there"/>
+                </label>
+                <button type="submit" value="Submit" disabled={!this.props.typingPostMessage.length}>Add</button>
             </form>
         );
     }

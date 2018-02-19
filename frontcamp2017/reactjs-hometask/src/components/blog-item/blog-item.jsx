@@ -19,6 +19,9 @@ class BlogItem extends React.Component {
                 </p>
                 <span className="blogDate">{this.props.blog.date.toString()}</span>
                 <input type="button" value="x" onClick={this.removeBlogItem.bind(this)}/>
+                <p>
+                    <b>Author: {this.props.blog.author}</b>
+                </p>
             </article>
         )
     }

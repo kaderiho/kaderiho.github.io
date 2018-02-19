@@ -24,30 +24,41 @@ class BlogApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            addingBlogText: '',
-            blogsList: []
+            typingPostMessage: '',
+            postAuthor: '',
+            blogsList: [],
+            filter: ''
         };
 
-        this.onBlogInputChange = this.onBlogInputChange.bind(this);
-        this.onBlogSubmitHandle = this.onBlogSubmitHandle.bind(this);
+        this.inputMessageHandler = this.inputMessageHandler.bind(this);
+        this.submitMessageHandler = this.submitMessageHandler.bind(this);
         this.removeBlogItemHandler = this.removeBlogItemHandler.bind(this);
+        this.inputMessageAuthorHandler = this.inputMessageAuthorHandler.bind(this);
     }
 
-    onBlogInputChange(addingBlogText) {
+    inputMessageHandler(typingPostMessage) {
         this.setState({
-            addingBlogText: addingBlogText
+            typingPostMessage: typingPostMessage
         });
     }
 
-    onBlogSubmitHandle() {
+    inputMessageAuthorHandler(postAuhtor) {
+        this.setState({
+            postAuthor: postAuhtor
+        });
+    }
+
+    submitMessageHandler() {
         this.setState((prevState) => {
             return {
-                addingBlogText: '',
                 blogsList: prevState.blogsList.concat([{
-                    text: this.state.addingBlogText,
+                    text: this.state.typingPostMessage,
                     id: this.state.blogsList.length + 1,
+                    author: this.state.postAuthor,
                     date: new Date()
-                }])
+                }]),
+                addingBlogText: '',
+                postAuthor: ''
             }
         });
     }
@@ -63,8 +74,14 @@ class BlogApp extends React.Component {
     render() {
         return (
             <div>
-                <BlogAdding addingBlogText={this.state.addingBlogText} onBlogInputChange={this.onBlogInputChange} onBlogSubmitHandle={this.onBlogSubmitHandle}/>
-                <BlogsList blogs={this.state.blogsList} removeBlogItem={this.removeBlogItemHandler}/>
+                <BlogAdding inputMessageAuthorHandler={this.inputMessageAuthorHandler}
+                            submitMessageHandler={this.submitMessageHandler}
+                            typingPostMessage={this.state.typingPostMessage}
+                            inputMessageHandler={this.inputMessageHandler}
+                            postAuthor={this.state.postAuthor} />
+                <BlogsList removeBlogItem={this.removeBlogItemHandler}
+                           blogs={this.state.blogsList} />
+                <BlogsFilter />
             </div>
         )
     }
