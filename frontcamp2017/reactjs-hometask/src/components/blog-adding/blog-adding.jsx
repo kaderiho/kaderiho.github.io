@@ -4,26 +4,27 @@ import { render } from 'react-dom';
 class BlogAdding extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {blogText: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({blogText: event.target.value});
+        this.props.onBlogInputChange(event.target.value);
     }
 
     handleSubmit(event) {
+        this.props.onBlogSubmitHandle();
         event.preventDefault();
     }
 
     render(){
+        const blogText = this.props.addingBlogText;
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Name:
-                    <input type="text" value={this.state.blogText} onChange={this.handleChange} />
+                    <input type="text" value={blogText} onChange={this.handleChange} placeholder="Put post message there"/>
                 </label>
                 <input type="submit" value="Submit" />
             </form>

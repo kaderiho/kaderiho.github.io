@@ -23,13 +23,48 @@ let blogs = [{
 class BlogApp extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            addingBlogText: '',
+            blogsList: []
+        };
+
+        this.onBlogInputChange = this.onBlogInputChange.bind(this);
+        this.onBlogSubmitHandle = this.onBlogSubmitHandle.bind(this);
+        this.removeBlogItemHandler = this.removeBlogItemHandler.bind(this);
+    }
+
+    onBlogInputChange(addingBlogText) {
+        this.setState({
+            addingBlogText: addingBlogText
+        });
+    }
+
+    onBlogSubmitHandle() {
+        this.setState((prevState) => {
+            return {
+                addingBlogText: '',
+                blogsList: prevState.blogsList.concat([{
+                    text: this.state.addingBlogText,
+                    id: this.state.blogsList.length + 1,
+                    date: new Date()
+                }])
+            }
+        });
+    }
+
+    removeBlogItemHandler(removedItemId) {
+        this.setState((prevState) => {
+            return {
+                blogsList: prevState.blogsList.filter((blogItem) => blogItem.id !== removedItemId)
+            }
+        })
     }
 
     render() {
         return (
             <div>
-                <BlogAdding />
-                <BlogsList blogs={blogs}/>
+                <BlogAdding addingBlogText={this.state.addingBlogText} onBlogInputChange={this.onBlogInputChange} onBlogSubmitHandle={this.onBlogSubmitHandle}/>
+                <BlogsList blogs={this.state.blogsList} removeBlogItem={this.removeBlogItemHandler}/>
             </div>
         )
     }
