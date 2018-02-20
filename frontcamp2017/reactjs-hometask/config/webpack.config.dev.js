@@ -4,7 +4,7 @@ const baseConfig = require('./webpack.config.base.js');
 
 module.exports = webpackMerge(baseConfig, {
     devServer: {
-        contentBase: path.resolve(__dirname, 'src/'),
+        contentBase: path.resolve(__dirname, 'src/client/'),
         host: 'localhost',
         port: 3000
     }

@@ -600,8 +600,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (app) {
-    return "<!doctype html>\n            <html lang=\"en\">\n            <head>\n                <meta charset=\"UTF-8\">\n                <meta name=\"viewport\"\n                content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n                <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n                <title>Basic ReactJS application</title>\n            </head>\n            \n            <body>\n                <div id=\"app\">" + app + "</div>\n                <script src='/client/index.bundle.js'></script>\n            </body>\n        </html>";
+exports.default = function (appComponent) {
+    return "<!doctype html>\n            <html lang=\"en\">\n            <head>\n                <meta charset=\"UTF-8\">\n                <meta name=\"viewport\"\n                content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n                <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n                <title>Basic ReactJS application</title>\n            </head>\n            \n            <body>\n                <div id=\"app\">" + appComponent + "</div>\n                <script src='/client/index.bundle.js'></script>\n            </body>\n        </html>";
 };
 
 /***/ })

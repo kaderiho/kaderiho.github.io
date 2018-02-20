@@ -1,6 +1,6 @@
-const nodeExternals = require('webpack-node-externals');
-const webpack       = require('webpack');
-const path          = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack           = require('webpack');
+const path              = require('path');
 
 module.exports = {
     context: path.resolve(__dirname, '../src/client'),
@@ -34,5 +34,13 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Basic ReactJS app',
+            template: 'index.html',
+            inject: 'body'
+        })
+    ]
 };
