@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server:dev": "webpack --config config/webpack.config.base.js & node src/server/server.bundle.js",
-    "build:prod": "webpack --config config/webpack.config.prod.js",
-    "build:dev": "webpack --config config/webpack.config.dev.js",
+    "server:dev": "webpack --config config/webpack.config.server.js & node dist/server.bundle.js",
+    "build:dev": "webpack --config config/webpack.config.base.js",
     "test": ""
   },
   "author": "",

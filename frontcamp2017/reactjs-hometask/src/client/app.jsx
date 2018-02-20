@@ -91,4 +91,3 @@ class BlogApp extends React.Component {
 }
 
 export default BlogApp;
-{/*render(<BlogApp/>, document.getElementById('app'));*/}

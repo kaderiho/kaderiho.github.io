@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 2);
@@ -96,12 +96,22 @@ var _app = __webpack_require__(5);
 
 var _app2 = _interopRequireDefault(_app);
 
+var _index = __webpack_require__(10);
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var port = 3000;
 var app = (0, _express2.default)();
 
-app.get('*', function (req, res) {
-    res.send('<!doctype html>\n            <html lang="en">\n            <head>\n            <meta charset="UTF-8">\n            <meta name="viewport"\n            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">\n            <meta http-equiv="X-UA-Compatible" content="ie=edge">\n            <title>Basic ReactJS app</title>\n            </head>\n            <body>\n            <div id="app">' + (0, _server.renderToString)(_react2.default.createElement(_app2.default, null)) + '</div>\n            </body>\n        </html>');
+app.use(_express2.default.static('dist'));
+
+app.get('/', function (req, res) {
+    var appTemplate = (0, _server.renderToString)(_react2.default.createElement(_app2.default, null));
+    var outputTemplate = (0, _index2.default)(appTemplate);
+
+    res.send(outputTemplate);
 });
 
 app.listen(3000, function () {
@@ -266,8 +276,6 @@ var BlogApp = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = BlogApp;
-
-{/*render(<BlogApp/>, document.getElementById('app'));*/}
 
 /***/ }),
 /* 6 */
@@ -580,6 +588,21 @@ var BlogItem = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = BlogItem;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (app) {
+    return "<!doctype html>\n            <html lang=\"en\">\n            <head>\n                <meta charset=\"UTF-8\">\n                <meta name=\"viewport\"\n                content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n                <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n                <title>Basic ReactJS application</title>\n            </head>\n            \n            <body>\n                <div id=\"app\">" + app + "</div>\n                <script src='/client/index.bundle.js'></script>\n            </body>\n        </html>";
+};
 
 /***/ })
 /******/ ]);

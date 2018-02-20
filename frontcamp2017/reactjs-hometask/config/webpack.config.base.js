@@ -3,24 +3,36 @@ const webpack       = require('webpack');
 const path          = require('path');
 
 module.exports = {
-    context: path.resolve(__dirname, '../src/server'),
+    context: path.resolve(__dirname, '../src/client'),
 
     entry: {
-        app: './server.js'
+        app: './app.jsx',
+        index: './index.js'
     },
 
     output: {
-        filename: 'server.bundle.js',
-        path: path.resolve(__dirname, '../src/server'),
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, '../dist/client'),
     },
-
-    target: 'node',
-    externals: nodeExternals(),
 
     module: {
         rules: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx/, loader: 'babel-loader', exclude: /node_modules/ },
+            {
+                test: /\.jsx$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['react']
+                }
+            },
+            {
+                test: /\.js/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['react']
+                }
+            }
         ]
     }
 };
