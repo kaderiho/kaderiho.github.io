@@ -4,15 +4,14 @@ import { render } from 'react-dom';
 import BlogsFilter from './components/blogs-filter/blogs-filter.jsx';
 import BlogAdding from './components/blog-adding/blog-adding.jsx';
 import BlogsList from './components/blogs-list/blogs-list.jsx';
-import BlogItem from './components/blog-item/blog-item.jsx';
 
 class BlogApp extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            typingPostMessage: '',
-            postAuthor: '',
+            inputPostMessage: '',
+            inputPostAuthor: '',
             filterText: '',
             blogsList: []
         };
@@ -24,15 +23,15 @@ class BlogApp extends React.Component {
         this.filterHandler = this.filterHandler.bind(this);
     }
 
-    inputMessageHandler(typingPostMessage) {
+    inputMessageHandler(inputPostMessage) {
         this.setState({
-            typingPostMessage: typingPostMessage
+            inputPostMessage: inputPostMessage
         });
     }
 
-    inputMessageAuthorHandler(postAuhtor) {
+    inputMessageAuthorHandler(inputPostAuthor) {
         this.setState({
-            postAuthor: postAuhtor
+            inputPostAuthor: inputPostAuthor
         });
     }
 
@@ -46,13 +45,13 @@ class BlogApp extends React.Component {
         this.setState((prevState) => {
             return {
                 blogsList: prevState.blogsList.concat([{
-                    text: this.state.typingPostMessage,
+                    text: this.state.inputPostMessage,
                     id: this.state.blogsList.length + 1,
-                    author: this.state.postAuthor,
+                    author: this.state.inputPostAuthor,
                     date: new Date()
                 }]),
-                typingPostMessage: '',
-                postAuthor: ''
+                inputPostMessage: '',
+                inputPostAuthor: ''
             }
         });
     }
@@ -66,24 +65,24 @@ class BlogApp extends React.Component {
     }
 
     render() {
-        let filteredBlogsList;
+        let filteredBlogList;
 
         if (!this.state.filterText.length) {
-            filteredBlogsList = this.state.blogsList;
+            filteredBlogList = this.state.blogsList;
         } else {
-            filteredBlogsList = this.state.blogsList.filter((blogItem) => blogItem.author.indexOf(this.state.filterText) !== -1);
+            filteredBlogList = this.state.blogsList.filter((blogItem) => blogItem.author.indexOf(this.state.filterText) !== -1);
         }
 
         return (
             <div>
                 <BlogAdding inputMessageAuthorHandler={this.inputMessageAuthorHandler}
                             submitMessageHandler={this.submitMessageHandler}
-                            typingPostMessage={this.state.typingPostMessage}
+                            inputPostMessage={this.state.inputPostMessage}
                             inputMessageHandler={this.inputMessageHandler}
-                            postAuthor={this.state.postAuthor} />
+                            inputPostAuthor={this.state.inputPostAuthor} />
 
-                <BlogsList removeBlogItem={this.removeBlogItemHandler}
-                           blogs={filteredBlogsList} />
+                <BlogsList removeBlogItemHandler={this.removeBlogItemHandler}
+                           blogList={filteredBlogList} />
 
                 <BlogsFilter filterText={this.state.filterText} filterHandler={this.filterHandler}/>
             </div>

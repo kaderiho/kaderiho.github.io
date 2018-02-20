@@ -6,17 +6,17 @@ class BlogsList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.removeBlogItem = this.removeBlogItem.bind(this);
+        this.removeBlogItemHandler = this.removeBlogItemHandler.bind(this);
     }
 
-    removeBlogItem(removedItemId) {
-        this.props.removeBlogItem(removedItemId);
+    removeBlogItemHandler(removedItemId) {
+        this.props.removeBlogItemHandler(removedItemId);
     }
 
     render(){
         return(
             <div className="blogsList">
-                {this.props.blogs.map((blog) => <BlogItem key={blog.id} blog={blog} removeBlogItem={this.removeBlogItem}/>)}
+                {this.props.blogList.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem} removeBlogItemHandler={this.removeBlogItemHandler}/>)}
             </div>
         )
     }

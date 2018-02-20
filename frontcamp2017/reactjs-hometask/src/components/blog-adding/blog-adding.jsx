@@ -28,20 +28,24 @@ class BlogAdding extends React.Component {
     }
 
     render(){
-        const typingPostMessage = this.props.typingPostMessage;
-        const postAuthor = this.props.postAuthor;
+        const inputPostMessage = this.props.inputPostMessage;
+        const inputPostAuthor = this.props.inputPostAuthor;
 
         return (
             <form onSubmit={this.submitMessageHandler}>
-                <label>
-                    Post message:
-                    <input type="text" value={typingPostMessage} onChange={this.inputMessageHandler} placeholder="Put post message there"/>
-                </label>
-                <label>
-                    Author name:
-                    <input type="text" value={postAuthor} onChange={this.inputMessageAuthorHandler} placeholder="Put post message there"/>
-                </label>
-                <button type="submit" value="Submit" disabled={!this.props.typingPostMessage.length}>Add</button>
+                <p>
+                    <label>
+                        Put your message there: <br/>
+                        <input type="text" value={inputPostMessage} onChange={this.inputMessageHandler} placeholder="Your message"/>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Author name: <br/>
+                        <input type="text" value={inputPostAuthor} onChange={this.inputMessageAuthorHandler} placeholder="Author nickname"/>
+                    </label>
+                </p>
+                <button type="submit" value="Submit" disabled={!this.props.inputPostMessage.length || !this.props.inputPostAuthor.length}>Add</button>
             </form>
         );
     }

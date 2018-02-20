@@ -17,7 +17,7 @@ class BlogItem extends React.Component {
                 <p className="blogText">
                     {this.props.blog.text}
                 </p>
-                <span className="blogDate">{this.props.blog.date.toString()}</span>
+                <span className="blogDate">{this.props.blog.date.toLocaleTimeString()}</span>
                 <input type="button" value="x" onClick={this.removeBlogItem.bind(this)}/>
                 <p>
                     <b>Author: {this.props.blog.author}</b>
