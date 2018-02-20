@@ -1,30 +1,26 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const webpack       = require('webpack');
+const path          = require('path');
 
 module.exports = {
-    context: path.resolve(__dirname, '../src'),
+    context: path.resolve(__dirname, '../src/server'),
 
     entry: {
-        app: './app.jsx'
+        app: './server.js'
     },
 
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../dist'),
+        filename: 'server.bundle.js',
+        path: path.resolve(__dirname, '../src/server'),
     },
+
+    target: 'node',
+    externals: nodeExternals(),
 
     module: {
         rules: [
             { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+            { test: /\.jsx/, loader: 'babel-loader', exclude: /node_modules/ },
         ]
-    },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-            title: 'News feed',
-            inject: 'body'
-        })
-    ]
+    }
 };
