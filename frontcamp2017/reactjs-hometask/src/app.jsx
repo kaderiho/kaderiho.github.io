@@ -6,34 +6,22 @@ import BlogAdding from './components/blog-adding/blog-adding.jsx';
 import BlogsList from './components/blogs-list/blogs-list.jsx';
 import BlogItem from './components/blog-item/blog-item.jsx';
 
-let blogs = [{
-    id: 0,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-    date: new Date()
-}, {
-    id: 1,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-    date: new Date()
-}, {
-    id: 2,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-    date: new Date()
-}];
-
 class BlogApp extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             typingPostMessage: '',
             postAuthor: '',
-            blogsList: [],
-            filter: ''
+            filterText: '',
+            blogsList: []
         };
 
-        this.inputMessageHandler = this.inputMessageHandler.bind(this);
-        this.submitMessageHandler = this.submitMessageHandler.bind(this);
-        this.removeBlogItemHandler = this.removeBlogItemHandler.bind(this);
         this.inputMessageAuthorHandler = this.inputMessageAuthorHandler.bind(this);
+        this.removeBlogItemHandler = this.removeBlogItemHandler.bind(this);
+        this.submitMessageHandler = this.submitMessageHandler.bind(this);
+        this.inputMessageHandler = this.inputMessageHandler.bind(this);
+        this.filterHandler = this.filterHandler.bind(this);
     }
 
     inputMessageHandler(typingPostMessage) {
@@ -48,6 +36,12 @@ class BlogApp extends React.Component {
         });
     }
 
+    filterHandler(filterText) {
+        this.setState({
+            filterText: filterText
+        });
+    }
+
     submitMessageHandler() {
         this.setState((prevState) => {
             return {
@@ -57,7 +51,7 @@ class BlogApp extends React.Component {
                     author: this.state.postAuthor,
                     date: new Date()
                 }]),
-                addingBlogText: '',
+                typingPostMessage: '',
                 postAuthor: ''
             }
         });
@@ -72,6 +66,14 @@ class BlogApp extends React.Component {
     }
 
     render() {
+        let filteredBlogsList;
+
+        if (!this.state.filterText.length) {
+            filteredBlogsList = this.state.blogsList;
+        } else {
+            filteredBlogsList = this.state.blogsList.filter((blogItem) => blogItem.author.indexOf(this.state.filterText) !== -1);
+        }
+
         return (
             <div>
                 <BlogAdding inputMessageAuthorHandler={this.inputMessageAuthorHandler}
@@ -79,9 +81,11 @@ class BlogApp extends React.Component {
                             typingPostMessage={this.state.typingPostMessage}
                             inputMessageHandler={this.inputMessageHandler}
                             postAuthor={this.state.postAuthor} />
+
                 <BlogsList removeBlogItem={this.removeBlogItemHandler}
-                           blogs={this.state.blogsList} />
-                <BlogsFilter />
+                           blogs={filteredBlogsList} />
+
+                <BlogsFilter filterText={this.state.filterText} filterHandler={this.filterHandler}/>
             </div>
         )
     }
