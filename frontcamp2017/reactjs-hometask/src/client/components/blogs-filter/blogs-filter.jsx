@@ -2,18 +2,19 @@ import React from 'react';
 import { render } from 'react-dom';
 
 class BlogsFilter extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(initProps){
+        super(initProps);
 
-        this.filterHandler = this.filterHandler.bind(this);
-    }
+        const { props } = this;
 
-    filterHandler(event) {
-        this.props.filterHandler(event.target.value);
+        this.filterHandler = (event) => {
+            props.filterHandler(event.target.value);
+        }
     }
 
     render() {
-        let filterText = this.props.filterText;
+        const { props } = this;
+        let filterText = props.filterText;
 
         return (
             <input type="text" value={filterText} placeholder="Filter by author name" onChange={this.filterHandler}/>

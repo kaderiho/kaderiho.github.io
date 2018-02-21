@@ -2,25 +2,28 @@ import React from 'react';
 import { render } from 'react-dom';
 
 class BlogItem extends React.Component {
-    constructor(props){
-        super(props);
-        this.removeBlogItem = this.removeBlogItem.bind(this);
-    }
+    constructor(initProps){
+        super(initProps);
 
-    removeBlogItem() {
-        this.props.removeBlogItem(this.props.blog.id);
+        const { props } = this;
+
+        this.removeBlogItem = () => {
+            props.removeBlogItem(props.blog.id);
+        }
     }
 
     render(){
+        const { props } = this;
+
         return (
             <article className="blogsList-blogItem">
                 <p className="blogText">
-                    {this.props.blog.text}
+                    {props.blog.text}
                 </p>
-                <span className="blogDate">{this.props.blog.date.toLocaleTimeString()}</span>
+                <span className="blogDate">{props.blog.date.toLocaleTimeString()}</span>
                 <input type="button" value="x" onClick={this.removeBlogItem.bind(this)}/>
                 <p>
-                    <b>Author: {this.props.blog.author}</b>
+                    <b>Author: {props.blog.author}</b>
                 </p>
             </article>
         )
