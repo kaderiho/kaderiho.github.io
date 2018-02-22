@@ -15,10 +15,11 @@ class BlogsList extends React.Component {
 
     render() {
         const { props } = this;
+        const { blogList } = props;
 
         return(
             <div className="blogsList">
-                {props.blogList.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem} removeBlogItemHandler={this.removeBlogItemHandler}/>)}
+                {blogList.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem} removeBlogItemHandler={this.removeBlogItemHandler}/>)}
             </div>
         )
     }

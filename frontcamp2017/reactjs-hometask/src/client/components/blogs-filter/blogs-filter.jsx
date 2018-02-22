@@ -14,7 +14,7 @@ class BlogsFilter extends React.Component {
 
     render() {
         const { props } = this;
-        let filterText = props.filterText;
+        let { filterText } = props;
 
         return (
             <input type="text" value={filterText} placeholder="Filter by author name" onChange={this.filterHandler}/>

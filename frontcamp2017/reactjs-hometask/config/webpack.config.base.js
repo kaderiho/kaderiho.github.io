@@ -6,7 +6,6 @@ module.exports = {
     context: path.resolve(__dirname, '../src/client'),
 
     entry: {
-        app: './app.jsx',
         index: './index.js'
     },
 

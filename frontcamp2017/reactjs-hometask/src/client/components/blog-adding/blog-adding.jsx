@@ -27,8 +27,7 @@ class BlogAdding extends React.Component {
 
     render(){
         const { props } = this;
-        const inputPostAuthor = props.inputPostAuthor;
-        const inputPostMessage = props.inputPostMessage;
+        const { inputPostAuthor, inputPostMessage } = props;
 
         return (
             <form onSubmit={this.submitMessageHandler}>

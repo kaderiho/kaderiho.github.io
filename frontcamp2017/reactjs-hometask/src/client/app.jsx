@@ -61,25 +61,26 @@ class BlogApp extends React.Component {
     render() {
         let { state } = this;
         let filteredBlogList;
+        let { inputPostMessage, inputPostAuthor, blogsList, filterText } = state;
 
-        if (!state.filterText.length) {
+        if (!filterText.length) {
             filteredBlogList = state.blogsList;
         } else {
-            filteredBlogList = state.blogsList.filter((blogItem) => blogItem.author.indexOf(state.filterText) !== -1);
+            filteredBlogList = blogsList.filter((blogItem) => blogItem.author.indexOf(filterText) !== -1);
         }
 
         return (
             <div>
                 <BlogAdding inputMessageAuthorHandler={this.inputMessageAuthorHandler}
                             submitMessageHandler={this.submitMessageHandler}
-                            inputPostMessage={state.inputPostMessage}
+                            inputPostMessage={inputPostMessage}
                             inputMessageHandler={this.inputMessageHandler}
-                            inputPostAuthor={state.inputPostAuthor} />
+                            inputPostAuthor={inputPostAuthor} />
 
                 <BlogsList removeBlogItemHandler={this.removeBlogItemHandler}
                            blogList={filteredBlogList} />
 
-                <BlogsFilter filterText={state.filterText} filterHandler={this.filterHandler}/>
+                <BlogsFilter filterText={filterText} filterHandler={this.filterHandler}/>
             </div>
         )
     }

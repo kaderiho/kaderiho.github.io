@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 31);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -981,168 +981,20 @@ module.exports = focusNode;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_jsx__ = __webpack_require__(27);
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
-}();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _blogsFilter = __webpack_require__(27);
-
-var _blogsFilter2 = _interopRequireDefault(_blogsFilter);
-
-var _blogAdding = __webpack_require__(28);
-
-var _blogAdding2 = _interopRequireDefault(_blogAdding);
-
-var _blogsList = __webpack_require__(29);
-
-var _blogsList2 = _interopRequireDefault(_blogsList);
-
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var BlogApp = function (_React$Component) {
-    _inherits(BlogApp, _React$Component);
-
-    function BlogApp(props) {
-        _classCallCheck(this, BlogApp);
-
-        var _this = _possibleConstructorReturn(this, (BlogApp.__proto__ || Object.getPrototypeOf(BlogApp)).call(this, props));
-
-        _this.state = {
-            inputPostMessage: '',
-            inputPostAuthor: '',
-            filterText: '',
-            blogsList: []
-        };
-
-        _this.inputMessageAuthorHandler = _this.inputMessageAuthorHandler.bind(_this);
-        _this.removeBlogItemHandler = _this.removeBlogItemHandler.bind(_this);
-        _this.submitMessageHandler = _this.submitMessageHandler.bind(_this);
-        _this.inputMessageHandler = _this.inputMessageHandler.bind(_this);
-        _this.filterHandler = _this.filterHandler.bind(_this);
-        return _this;
-    }
-
-    _createClass(BlogApp, [{
-        key: 'inputMessageHandler',
-        value: function inputMessageHandler(inputPostMessage) {
-            this.setState({
-                inputPostMessage: inputPostMessage
-            });
-        }
-    }, {
-        key: 'inputMessageAuthorHandler',
-        value: function inputMessageAuthorHandler(inputPostAuthor) {
-            this.setState({
-                inputPostAuthor: inputPostAuthor
-            });
-        }
-    }, {
-        key: 'filterHandler',
-        value: function filterHandler(filterText) {
-            this.setState({
-                filterText: filterText
-            });
-        }
-    }, {
-        key: 'submitMessageHandler',
-        value: function submitMessageHandler() {
-            var _this2 = this;
-
-            this.setState(function (prevState) {
-                return {
-                    blogsList: prevState.blogsList.concat([{
-                        text: _this2.state.inputPostMessage,
-                        id: _this2.state.blogsList.length + 1,
-                        author: _this2.state.inputPostAuthor,
-                        date: new Date()
-                    }]),
-                    inputPostMessage: '',
-                    inputPostAuthor: ''
-                };
-            });
-        }
-    }, {
-        key: 'removeBlogItemHandler',
-        value: function removeBlogItemHandler(removedItemId) {
-            this.setState(function (prevState) {
-                return {
-                    blogsList: prevState.blogsList.filter(function (blogItem) {
-                        return blogItem.id !== removedItemId;
-                    })
-                };
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            var filteredBlogList = void 0;
-
-            if (!this.state.filterText.length) {
-                filteredBlogList = this.state.blogsList;
-            } else {
-                filteredBlogList = this.state.blogsList.filter(function (blogItem) {
-                    return blogItem.author.indexOf(_this3.state.filterText) !== -1;
-                });
-            }
-
-            return _react2.default.createElement('div', null, _react2.default.createElement(_blogAdding2.default, { inputMessageAuthorHandler: this.inputMessageAuthorHandler,
-                submitMessageHandler: this.submitMessageHandler,
-                inputPostMessage: this.state.inputPostMessage,
-                inputMessageHandler: this.inputMessageHandler,
-                inputPostAuthor: this.state.inputPostAuthor }), _react2.default.createElement(_blogsList2.default, { removeBlogItemHandler: this.removeBlogItemHandler,
-                blogList: filteredBlogList }), _react2.default.createElement(_blogsFilter2.default, { filterText: this.state.filterText, filterHandler: this.filterHandler }));
-        }
-    }]);
-
-    return BlogApp;
-}(_react2.default.Component);
-
-exports.default = BlogApp;
+Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__app_jsx__["a" /* default */], null), document.getElementById('app'));
 
 /***/ }),
 /* 16 */
@@ -18408,374 +18260,306 @@ module.exports = camelize;
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter_jsx__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding_jsx__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list_jsx__ = __webpack_require__(30);
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+
+
+
+class BlogApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            inputPostMessage: '',
+            inputPostAuthor: '',
+            filterText: '',
+            blogsList: []
+        };
+
+        this.inputMessageAuthorHandler = inputPostAuthor => {
+            this.setState({
+                inputPostAuthor
+            });
+        };
+
+        this.submitMessageHandler = () => {
+            this.setState(prevState => {
+                return {
+                    blogsList: prevState.blogsList.concat([{
+                        text: this.state.inputPostMessage,
+                        id: this.state.blogsList.length + 1,
+                        author: this.state.inputPostAuthor,
+                        date: new Date()
+                    }]),
+                    inputPostMessage: '',
+                    inputPostAuthor: ''
+                };
+            });
+        };
+
+        this.removeBlogItemHandler = removedItemId => {
+            this.setState(prevState => {
+                return {
+                    blogsList: prevState.blogsList.filter(blogItem => blogItem.id !== removedItemId)
+                };
+            });
+        };
+
+        this.inputMessageHandler = inputPostMessage => {
+            this.setState({
+                inputPostMessage
+            });
+        };
+
+        this.filterHandler = filterText => {
+            this.setState({
+                filterText
+            });
+        };
+    }
+
+    render() {
+        let { state } = this;
+        let filteredBlogList;
+
+        if (!state.filterText.length) {
+            filteredBlogList = state.blogsList;
+        } else {
+            filteredBlogList = state.blogsList.filter(blogItem => blogItem.author.indexOf(state.filterText) !== -1);
         }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
-}();
 
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding_jsx__["a" /* default */], { inputMessageAuthorHandler: this.inputMessageAuthorHandler,
+                submitMessageHandler: this.submitMessageHandler,
+                inputPostMessage: state.inputPostMessage,
+                inputMessageHandler: this.inputMessageHandler,
+                inputPostAuthor: state.inputPostAuthor }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list_jsx__["a" /* default */], { removeBlogItemHandler: this.removeBlogItemHandler,
+                blogList: filteredBlogList }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter_jsx__["a" /* default */], { filterText: state.filterText, filterHandler: this.filterHandler })
+        );
     }
 }
 
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var BlogsFilter = function (_React$Component) {
-    _inherits(BlogsFilter, _React$Component);
-
-    function BlogsFilter(props) {
-        _classCallCheck(this, BlogsFilter);
-
-        var _this = _possibleConstructorReturn(this, (BlogsFilter.__proto__ || Object.getPrototypeOf(BlogsFilter)).call(this, props));
-
-        _this.filterHandler = _this.filterHandler.bind(_this);
-        return _this;
-    }
-
-    _createClass(BlogsFilter, [{
-        key: 'filterHandler',
-        value: function filterHandler(event) {
-            this.props.filterHandler(event.target.value);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var filterText = this.props.filterText;
-
-            return _react2.default.createElement('input', { type: 'text', value: filterText, placeholder: 'Filter by author name', onChange: this.filterHandler });
-        }
-    }]);
-
-    return BlogsFilter;
-}(_react2.default.Component);
-
-exports.default = BlogsFilter;
+/* harmony default export */ __webpack_exports__["a"] = (BlogApp);
 
 /***/ }),
 /* 28 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+class BlogsFilter extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(initProps) {
+        super(initProps);
 
-var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
-}();
+        const { props } = this;
 
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var BlogAdding = function (_React$Component) {
-    _inherits(BlogAdding, _React$Component);
-
-    function BlogAdding(props) {
-        _classCallCheck(this, BlogAdding);
-
-        var _this = _possibleConstructorReturn(this, (BlogAdding.__proto__ || Object.getPrototypeOf(BlogAdding)).call(this, props));
-
-        _this.inputMessageHandler = _this.inputMessageHandler.bind(_this);
-        _this.submitMessageHandler = _this.submitMessageHandler.bind(_this);
-        _this.inputMessageAuthorHandler = _this.inputMessageAuthorHandler.bind(_this);
-
-        _this.state = {
-            isSubmitButtonEnabled: false
+        this.filterHandler = event => {
+            props.filterHandler(event.target.value);
         };
-        return _this;
     }
 
-    _createClass(BlogAdding, [{
-        key: 'inputMessageHandler',
-        value: function inputMessageHandler(event) {
-            this.props.inputMessageHandler(event.target.value);
-        }
-    }, {
-        key: 'inputMessageAuthorHandler',
-        value: function inputMessageAuthorHandler(event) {
-            this.props.inputMessageAuthorHandler(event.target.value);
-        }
-    }, {
-        key: 'submitMessageHandler',
-        value: function submitMessageHandler(event) {
-            this.props.submitMessageHandler();
-            event.preventDefault();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var inputPostMessage = this.props.inputPostMessage;
-            var inputPostAuthor = this.props.inputPostAuthor;
+    render() {
+        const { props } = this;
+        let filterText = props.filterText;
 
-            return _react2.default.createElement('form', { onSubmit: this.submitMessageHandler }, _react2.default.createElement('p', null, _react2.default.createElement('label', null, 'Put your message there: ', _react2.default.createElement('br', null), _react2.default.createElement('input', { type: 'text', value: inputPostMessage, onChange: this.inputMessageHandler, placeholder: 'Your message' }))), _react2.default.createElement('p', null, _react2.default.createElement('label', null, 'Author name: ', _react2.default.createElement('br', null), _react2.default.createElement('input', { type: 'text', value: inputPostAuthor, onChange: this.inputMessageAuthorHandler, placeholder: 'Author nickname' }))), _react2.default.createElement('button', { type: 'submit', value: 'Submit', disabled: !this.props.inputPostMessage.length || !this.props.inputPostAuthor.length }, 'Add'));
-        }
-    }]);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: filterText, placeholder: 'Filter by author name', onChange: this.filterHandler });
+    }
+}
 
-    return BlogAdding;
-}(_react2.default.Component);
-
-exports.default = BlogAdding;
+/* harmony default export */ __webpack_exports__["a"] = (BlogsFilter);
 
 /***/ }),
 /* 29 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+class BlogAdding extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(initProps) {
+        super(initProps);
 
-var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
-}();
+        const { props } = this;
 
-var _react = __webpack_require__(1);
+        this.state = {
+            isSubmitButtonEnabled: false
+        };
 
-var _react2 = _interopRequireDefault(_react);
+        this.inputMessageHandler = event => {
+            props.inputMessageHandler(event.target.value);
+        };
 
-var _reactDom = __webpack_require__(3);
+        this.inputMessageAuthorHandler = event => {
+            props.inputMessageAuthorHandler(event.target.value);
+        };
 
-var _blogItem = __webpack_require__(30);
+        this.submitMessageHandler = event => {
+            props.submitMessageHandler();
+            event.preventDefault();
+        };
+    }
 
-var _blogItem2 = _interopRequireDefault(_blogItem);
+    render() {
+        const { props } = this;
+        const inputPostAuthor = props.inputPostAuthor;
+        const inputPostMessage = props.inputPostMessage;
 
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'form',
+            { onSubmit: this.submitMessageHandler },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    'Put your message there: ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: inputPostMessage, onChange: this.inputMessageHandler, placeholder: 'Your message' })
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    'Author name: ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: inputPostAuthor, onChange: this.inputMessageAuthorHandler, placeholder: 'Author nickname' })
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { type: 'submit', value: 'Submit', disabled: !inputPostMessage.length || !inputPostAuthor.length },
+                'Add'
+            )
+        );
     }
 }
 
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var BlogsList = function (_React$Component) {
-    _inherits(BlogsList, _React$Component);
-
-    function BlogsList(props) {
-        _classCallCheck(this, BlogsList);
-
-        var _this = _possibleConstructorReturn(this, (BlogsList.__proto__ || Object.getPrototypeOf(BlogsList)).call(this, props));
-
-        _this.removeBlogItemHandler = _this.removeBlogItemHandler.bind(_this);
-        return _this;
-    }
-
-    _createClass(BlogsList, [{
-        key: 'removeBlogItemHandler',
-        value: function removeBlogItemHandler(removedItemId) {
-            this.props.removeBlogItemHandler(removedItemId);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return _react2.default.createElement('div', { className: 'blogsList' }, this.props.blogList.map(function (blogItem) {
-                return _react2.default.createElement(_blogItem2.default, { key: blogItem.id, blog: blogItem, removeBlogItemHandler: _this2.removeBlogItemHandler });
-            }));
-        }
-    }]);
-
-    return BlogsList;
-}(_react2.default.Component);
-
-exports.default = BlogsList;
+/* harmony default export */ __webpack_exports__["a"] = (BlogAdding);
 
 /***/ }),
 /* 30 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item_jsx__ = __webpack_require__(31);
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
-}();
+class BlogsList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(initProps) {
+        super(initProps);
 
-var _react = __webpack_require__(1);
+        const { props } = this;
 
-var _react2 = _interopRequireDefault(_react);
+        this.removeBlogItemHandler = removedItemId => {
+            props.removeBlogItemHandler(removedItemId);
+        };
+    }
 
-var _reactDom = __webpack_require__(3);
+    render() {
+        const { props } = this;
 
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'blogsList' },
+            props.blogList.map(blogItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item_jsx__["a" /* default */], { key: blogItem.id, blog: blogItem, removeBlogItemHandler: this.removeBlogItemHandler }))
+        );
     }
 }
 
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var BlogItem = function (_React$Component) {
-    _inherits(BlogItem, _React$Component);
-
-    function BlogItem(props) {
-        _classCallCheck(this, BlogItem);
-
-        var _this = _possibleConstructorReturn(this, (BlogItem.__proto__ || Object.getPrototypeOf(BlogItem)).call(this, props));
-
-        _this.removeBlogItem = _this.removeBlogItem.bind(_this);
-        return _this;
-    }
-
-    _createClass(BlogItem, [{
-        key: 'removeBlogItem',
-        value: function removeBlogItem() {
-            this.props.removeBlogItem(this.props.blog.id);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement('article', { className: 'blogsList-blogItem' }, _react2.default.createElement('p', { className: 'blogText' }, this.props.blog.text), _react2.default.createElement('span', { className: 'blogDate' }, this.props.blog.date.toLocaleTimeString()), _react2.default.createElement('input', { type: 'button', value: 'x', onClick: this.removeBlogItem.bind(this) }), _react2.default.createElement('p', null, _react2.default.createElement('b', null, 'Author: ', this.props.blog.author)));
-        }
-    }]);
-
-    return BlogItem;
-}(_react2.default.Component);
-
-exports.default = BlogItem;
+/* harmony default export */ __webpack_exports__["a"] = (BlogsList);
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 
 
-var _react = __webpack_require__(1);
 
-var _react2 = _interopRequireDefault(_react);
+class BlogItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(initProps) {
+        super(initProps);
 
-var _reactDom = __webpack_require__(3);
+        const { props } = this;
 
-var _app = __webpack_require__(15);
+        this.removeBlogItem = () => {
+            props.removeBlogItem(props.blog.id);
+        };
+    }
 
-var _app2 = _interopRequireDefault(_app);
+    render() {
+        const { props } = this;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'article',
+            { className: 'blogsList-blogItem' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                { className: 'blogText' },
+                props.blog.text
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'blogDate' },
+                props.blog.date.toLocaleTimeString()
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', value: 'x', onClick: this.removeBlogItem.bind(this) }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'b',
+                    null,
+                    'Author: ',
+                    props.blog.author
+                )
+            )
+        );
+    }
+}
 
-(0, _reactDom.render)(_react2.default.createElement(_app2.default, null), document.getElementById('app'));
+/* harmony default export */ __webpack_exports__["a"] = (BlogItem);
 
 /***/ })
 /******/ ]);

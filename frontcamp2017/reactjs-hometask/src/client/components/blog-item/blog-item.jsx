@@ -7,23 +7,24 @@ class BlogItem extends React.Component {
 
         const { props } = this;
 
-        this.removeBlogItem = () => {
-            props.removeBlogItem(props.blog.id);
+        this.removeBlogItemHandler = () => {
+            props.removeBlogItemHandler(props.blog.id);
         }
     }
 
     render(){
         const { props } = this;
+        const { date: blogDate, text: blogText, author: blogAuthor } = props.blog;
 
         return (
             <article className="blogsList-blogItem">
                 <p className="blogText">
-                    {props.blog.text}
+                    {blogText}
                 </p>
-                <span className="blogDate">{props.blog.date.toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={this.removeBlogItem.bind(this)}/>
+                <span className="blogDate">{blogDate.toLocaleTimeString()}</span>
+                <input type="button" value="x" onClick={this.removeBlogItemHandler.bind(this)}/>
                 <p>
-                    <b>Author: {props.blog.author}</b>
+                    <b>Author: {blogAuthor}</b>
                 </p>
             </article>
         )
