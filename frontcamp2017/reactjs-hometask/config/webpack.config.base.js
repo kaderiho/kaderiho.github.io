@@ -14,6 +14,11 @@ module.exports = {
         path: path.resolve(__dirname, '../dist/client'),
     },
 
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        modules: ['src', 'node_modules']
+    },
+
     module: {
         rules: [
             {

@@ -15,6 +15,11 @@ module.exports = {
         path: path.resolve(__dirname, '..', 'dist'),
     },
 
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        modules: ['src', 'node_modules']
+    },
+
     target: 'node',
     externals: nodeExternals(),
 

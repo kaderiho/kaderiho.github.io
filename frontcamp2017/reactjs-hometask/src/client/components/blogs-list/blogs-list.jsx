@@ -1,25 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
-import BlogItem from '../blog-item/blog-item.jsx';
+import BlogItem from '../blog-item/blog-item';
 
 class BlogsList extends React.Component {
     constructor(initProps) {
         super(initProps);
 
-        const { props } = this;
-
         this.removeBlogItemHandler = (removedItemId) => {
-            props.removeBlogItemHandler(removedItemId);
+            this.props.removeBlogItemHandler(removedItemId);
         }
     }
 
     render() {
-        const { props } = this;
-        const { blogList } = props;
+        const { blogList } = this.props;
 
         return(
             <div className="blogsList">
-                {blogList.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem} removeBlogItemHandler={this.removeBlogItemHandler}/>)}
+                {blogList.map((blogItem) => <BlogItem removeBlogItemHandler={this.removeBlogItemHandler}
+                                                      key={blogItem.id}
+                                                      blog={blogItem}/>)}
             </div>
         )
     }

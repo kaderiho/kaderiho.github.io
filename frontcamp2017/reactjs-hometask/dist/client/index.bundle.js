@@ -989,12 +989,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_jsx__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app__ = __webpack_require__(27);
 
 
 
 
-Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__app_jsx__["a" /* default */], null), document.getElementById('app'));
+Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__app__["a" /* default */], null), document.getElementById('app'));
 
 /***/ }),
 /* 16 */
@@ -18267,9 +18267,9 @@ module.exports = camelize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter_jsx__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding_jsx__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list_jsx__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list__ = __webpack_require__(30);
 
 
 
@@ -18331,26 +18331,27 @@ class BlogApp extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     render() {
-        let { state } = this;
+        const { inputPostMessage, inputPostAuthor, blogsList, filterText } = this.state;
         let filteredBlogList;
 
-        if (!state.filterText.length) {
-            filteredBlogList = state.blogsList;
+        if (!filterText.length) {
+            filteredBlogList = blogsList;
         } else {
-            filteredBlogList = state.blogsList.filter(blogItem => blogItem.author.indexOf(state.filterText) !== -1);
+            filteredBlogList = blogsList.filter(blogItem => blogItem.author.indexOf(filterText) !== -1);
         }
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding_jsx__["a" /* default */], { inputMessageAuthorHandler: this.inputMessageAuthorHandler,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_blog_adding_blog_adding__["a" /* default */], { inputMessageAuthorHandler: this.inputMessageAuthorHandler,
                 submitMessageHandler: this.submitMessageHandler,
-                inputPostMessage: state.inputPostMessage,
+                inputPostMessage: inputPostMessage,
                 inputMessageHandler: this.inputMessageHandler,
-                inputPostAuthor: state.inputPostAuthor }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list_jsx__["a" /* default */], { removeBlogItemHandler: this.removeBlogItemHandler,
+                inputPostAuthor: inputPostAuthor }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_blogs_list_blogs_list__["a" /* default */], { removeBlogItemHandler: this.removeBlogItemHandler,
                 blogList: filteredBlogList }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter_jsx__["a" /* default */], { filterText: state.filterText, filterHandler: this.filterHandler })
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_blogs_filter_blogs_filter__["a" /* default */], { filterHandler: this.filterHandler,
+                filterText: filterText })
         );
     }
 }
@@ -18373,16 +18374,13 @@ class BlogsFilter extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
     constructor(initProps) {
         super(initProps);
 
-        const { props } = this;
-
         this.filterHandler = event => {
-            props.filterHandler(event.target.value);
+            this.props.filterHandler(event.target.value);
         };
     }
 
     render() {
-        const { props } = this;
-        let filterText = props.filterText;
+        let { filterText } = this.props;
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: filterText, placeholder: 'Filter by author name', onChange: this.filterHandler });
     }
@@ -18427,9 +18425,7 @@ class BlogAdding extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     }
 
     render() {
-        const { props } = this;
-        const inputPostAuthor = props.inputPostAuthor;
-        const inputPostMessage = props.inputPostMessage;
+        const { inputPostAuthor, inputPostMessage } = this.props;
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'form',
@@ -18476,7 +18472,7 @@ class BlogAdding extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item_jsx__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item__ = __webpack_require__(31);
 
 
 
@@ -18485,20 +18481,20 @@ class BlogsList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     constructor(initProps) {
         super(initProps);
 
-        const { props } = this;
-
         this.removeBlogItemHandler = removedItemId => {
-            props.removeBlogItemHandler(removedItemId);
+            this.props.removeBlogItemHandler(removedItemId);
         };
     }
 
     render() {
-        const { props } = this;
+        const { blogList } = this.props;
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'blogsList' },
-            props.blogList.map(blogItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item_jsx__["a" /* default */], { key: blogItem.id, blog: blogItem, removeBlogItemHandler: this.removeBlogItemHandler }))
+            blogList.map(blogItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__blog_item_blog_item__["a" /* default */], { removeBlogItemHandler: this.removeBlogItemHandler,
+                key: blogItem.id,
+                blog: blogItem }))
         );
     }
 }
@@ -18521,15 +18517,13 @@ class BlogItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(initProps) {
         super(initProps);
 
-        const { props } = this;
-
-        this.removeBlogItem = () => {
-            props.removeBlogItem(props.blog.id);
+        this.removeBlogItemHandler = () => {
+            this.props.removeBlogItemHandler(this.props.blog.id);
         };
     }
 
     render() {
-        const { props } = this;
+        const { date: blogDate, text: blogText, author: blogAuthor } = this.props.blog;
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'article',
@@ -18537,14 +18531,14 @@ class BlogItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 { className: 'blogText' },
-                props.blog.text
+                blogText
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { className: 'blogDate' },
-                props.blog.date.toLocaleTimeString()
+                blogDate.toLocaleTimeString()
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', value: 'x', onClick: this.removeBlogItem.bind(this) }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', value: 'x', onClick: this.removeBlogItemHandler.bind(this) }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 null,
@@ -18552,7 +18546,7 @@ class BlogItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     'b',
                     null,
                     'Author: ',
-                    props.blog.author
+                    blogAuthor
                 )
             )
         );
