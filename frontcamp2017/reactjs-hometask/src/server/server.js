@@ -1,8 +1,8 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import BlogApp from '../client/app.jsx';
-import indexTemplate from './templates/index.js'
+import BlogApp from '../client/components/blog-app/blog-app';
+import indexTemplate from './templates/index'
 
 const port = 3000;
 const app = express();

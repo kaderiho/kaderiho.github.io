@@ -10,6 +10,7 @@ export default (appComponent) => {
             </head>
             
             <body>
+                <h1>Hey!</h1>
                 <div id="app">${appComponent}</div>
                 <script src='/client/index.bundle.js'></script>
             </body>
