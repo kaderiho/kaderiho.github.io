@@ -1,51 +1,67 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { addBlog } from '../../actions/index';
+
+let nextBlogId = 0;
 
 class BlogAdding extends React.Component {
     constructor(initProps) {
         super(initProps);
-
-        const { props } = this;
-
-        // this.state = {
-        //     isSubmitButtonEnabled: false
-        // };
-
-        // this.inputMessageHandler = (event) => {
-        //     props.inputMessageHandler(event.target.value);
-        // };
-        //
-        // this.inputMessageAuthorHandler = (event) => {
-        //     props.inputMessageAuthorHandler(event.target.value);
-        // };
-
-        this.submitMessageHandler = (event) => {
-            props.submitMessageHandler();
-            event.preventDefault();
-        }
     }
 
-    render(){
-        const { inputPostAuthor, inputPostMessage } = this.props;
+    render() {
+        let inputMessage;
+        let inputAuthor;
 
         return (
-            <form onSubmit={this.submitMessageHandler}>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+
+                if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {
+                    return;
+                }
+
+                this.props.onSubmit({
+                    author: inputAuthor.value,
+                    text: inputMessage.value,
+                    id: nextBlogId++,
+                    date: new Date()
+                });
+
+                inputMessage.value = inputAuthor.value = '';
+            }}>
                 <p>
                     <label>
                         Put your message there: <br/>
-                        <input type="text" value={inputPostMessage} onChange={this.inputMessageHandler} placeholder="Your message"/>
+                        <input ref={node => { inputMessage = node }}
+                               placeholder="Your message"
+                               type="text"
+                        />
                     </label>
                 </p>
                 <p>
                     <label>
                         Author name: <br/>
-                        <input type="text" value={inputPostAuthor} onChange={this.inputMessageAuthorHandler} placeholder="Author nickname"/>
+                        <input ref={node => { inputAuthor = node }}
+                               placeholder="Author nickname"
+                               type="text"
+                        />
                     </label>
                 </p>
-                <button type="submit" value="Submit" /* disabled={!inputPostMessage.length || !inputPostAuthor.length} */>Add</button>
+                <button type="submit" value="Submit">Add</button>
             </form>
         );
     }
 }
 
-export default BlogAdding;
+
+function matchDispatchToProps(dispatch) {
+    return {
+        onSubmit: (blog) => {
+            dispatch(addBlog(blog))
+        }
+    }
+}
+
+export default connect(null, matchDispatchToProps)(BlogAdding);
