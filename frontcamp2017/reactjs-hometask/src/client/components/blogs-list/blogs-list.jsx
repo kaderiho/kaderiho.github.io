@@ -1,27 +1,28 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
 import BlogItem from '../blog-item/blog-item';
 
 class BlogsList extends React.Component {
     constructor(initProps) {
         super(initProps);
-
-        this.removeBlogItemHandler = (removedItemId) => {
-            this.props.removeBlogItemHandler(removedItemId);
-        }
     }
 
     render() {
-        const { blogList } = this.props;
+        const { blogs } = this.props;
 
         return(
             <div className="blogsList">
-                {blogList.map((blogItem) => <BlogItem removeBlogItemHandler={this.removeBlogItemHandler}
-                                                      key={blogItem.id}
-                                                      blog={blogItem}/>)}
+                {blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
             </div>
         )
     }
 }
 
-export default BlogsList;
+function mapStateToProps(state) {
+    return {
+        blogs: state.blogs
+    };
+}
+
+export default connect(mapStateToProps)(BlogsList);

@@ -1,13 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { removeBlog } from '../../actions/index';
 
 class BlogItem extends React.Component {
     constructor(initProps){
         super(initProps);
-
-        this.removeBlogItemHandler = () => {
-            this.props.removeBlogItemHandler(this.props.blog.id);
-        }
     }
 
     render(){
@@ -19,7 +18,7 @@ class BlogItem extends React.Component {
                     {blogText}
                 </p>
                 <span className="blogDate">{blogDate.toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={this.removeBlogItemHandler.bind(this)}/>
+                <input type="button" value="x" onClick={() => this.props.removeBlog(this.props.blog)}/>
                 <p>
                     <b>Author: {blogAuthor}</b>
                 </p>
@@ -28,4 +27,14 @@ class BlogItem extends React.Component {
     }
 }
 
-export default BlogItem;
+function mapStateToProps(state) {
+    return {
+        blogs: state.blogs
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({ removeBlog }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(BlogItem);

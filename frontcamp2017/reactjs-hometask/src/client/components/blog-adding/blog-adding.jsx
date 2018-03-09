@@ -7,17 +7,17 @@ class BlogAdding extends React.Component {
 
         const { props } = this;
 
-        this.state = {
-            isSubmitButtonEnabled: false
-        };
+        // this.state = {
+        //     isSubmitButtonEnabled: false
+        // };
 
-        this.inputMessageHandler = (event) => {
-            props.inputMessageHandler(event.target.value);
-        };
-
-        this.inputMessageAuthorHandler = (event) => {
-            props.inputMessageAuthorHandler(event.target.value);
-        };
+        // this.inputMessageHandler = (event) => {
+        //     props.inputMessageHandler(event.target.value);
+        // };
+        //
+        // this.inputMessageAuthorHandler = (event) => {
+        //     props.inputMessageAuthorHandler(event.target.value);
+        // };
 
         this.submitMessageHandler = (event) => {
             props.submitMessageHandler();
@@ -42,7 +42,7 @@ class BlogAdding extends React.Component {
                         <input type="text" value={inputPostAuthor} onChange={this.inputMessageAuthorHandler} placeholder="Author nickname"/>
                     </label>
                 </p>
-                <button type="submit" value="Submit" disabled={!inputPostMessage.length || !inputPostAuthor.length}>Add</button>
+                <button type="submit" value="Submit" /* disabled={!inputPostMessage.length || !inputPostAuthor.length} */>Add</button>
             </form>
         );
     }
