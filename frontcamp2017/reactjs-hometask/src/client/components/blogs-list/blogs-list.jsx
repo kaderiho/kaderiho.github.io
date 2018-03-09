@@ -9,20 +9,18 @@ class BlogsList extends React.Component {
     }
 
     render() {
-        const { blogs } = this.props;
-
         return(
             <div className="blogsList">
-                {blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
+                {this.props.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
-        blogs: state.blogs
-    };
-}
+        blogs: state.visibilityFilter ? state.blogs.filter((blog) => blog.text.indexOf(state.visibilityFilter) !== -1) : state.blogs
+    }
+};
 
 export default connect(mapStateToProps)(BlogsList);

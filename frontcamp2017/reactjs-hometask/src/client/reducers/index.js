@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import blogsReducer from './blogs';
+import visibilityFilter from './filter';
+import blogs from './blogs';
 
 const allReducer = combineReducers({
-    blogs: blogsReducer
+    visibilityFilter,
+    blogs
 });
 
 export default allReducer;

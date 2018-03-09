@@ -1,22 +1,31 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { visibilityFilter } from '../../actions/index';
 
 class BlogsFilter extends React.Component {
     constructor(initProps){
         super(initProps);
-
-        this.filterHandler = (event) => {
-            this.props.filterHandler(event.target.value);
-        }
     }
 
     render() {
-        let { filterText } = this.props;
+        let filterInput;
 
         return (
-            <input type="text" value={filterText} placeholder="Filter by author name" onChange={this.filterHandler}/>
+            <input onChange={() => this.props.onChange(filterInput.value)}
+                   placeholder="Filter by author name"
+                   ref={node => filterInput = node}
+                   type="text" />
         )
     }
 }
 
-export default BlogsFilter;
+function mapDispatchToProps(dispatch) {
+    return {
+        onChange: (filterText) => {
+            dispatch(visibilityFilter(filterText));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(BlogsFilter);
