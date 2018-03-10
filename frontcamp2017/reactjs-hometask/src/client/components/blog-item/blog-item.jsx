@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { removeBlog } from '../../actions/index';
+import { removeBlog } from '../../actions/blogs';
 
 class BlogItem extends React.Component {
     constructor(initProps){
@@ -18,7 +17,7 @@ class BlogItem extends React.Component {
                     {blogText}
                 </p>
                 <span className="blogDate">{blogDate.toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={() => this.props.removeBlog(this.props.blog)}/>
+                <input type="button" value="x" onClick={() => this.props.onRemoveBlog(this.props.blog)}/>
                 <p>
                     <b>Author: {blogAuthor}</b>
                 </p>
@@ -27,14 +26,12 @@ class BlogItem extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function matchDispatchToProps(dispatch) {
     return {
-        blogs: state.blogs
+        onRemoveBlog: (blog) => {
+            dispatch(removeBlog(blog))
+        }
     };
 }
 
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({ removeBlog }, dispatch)
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(BlogItem);
+export default connect(null, matchDispatchToProps)(BlogItem);

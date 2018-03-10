@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { visibilityFilter } from '../../actions/index';
+import { visibilityFilter } from '../../actions/filter';
 
 class BlogsFilter extends React.Component {
     constructor(initProps){

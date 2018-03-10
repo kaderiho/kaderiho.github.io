@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { addBlog } from '../../actions/index';
+import { addBlog } from '../../actions/blogs';
 
 let nextBlogId = 0;
 
