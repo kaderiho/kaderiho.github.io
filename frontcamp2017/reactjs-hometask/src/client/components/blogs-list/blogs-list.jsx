@@ -11,7 +11,7 @@ class BlogsList extends React.Component {
     render() {
         return(
             <div className="blogsList">
-                {this.props.blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
+                {/*{this.props.blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}*/}
             </div>
         )
     }
@@ -23,4 +23,5 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(BlogsList);
+// export default connect(mapStateToProps)(BlogsList);
+export default BlogsList

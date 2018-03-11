@@ -1,15 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import BlogApp from './components/blog-app/blog-app';
+import BlogApp from '../shared/app';
 import Home from './home';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import allReducers from './reducers/index';
-import { Router, Route, Link } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { hydrate } from 'react-dom';
+// import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import allReducers from './reducers/index';
+// import { Router, Route, Link } from 'react-router-dom';
+// import createBrowserHistory from 'history/createBrowserHistory';
 
-const store = createStore(allReducers);
-const history = createBrowserHistory();
+// const store = createStore(allReducers);
+// const history = createBrowserHistory();
 
 class Navigation extends React.Component {
     render() {
@@ -33,9 +34,13 @@ class Navigation extends React.Component {
     }
 }
 
-render(
-    <Provider store={store}>
-        <Navigation/>
-    </Provider>,
+// render(
+//     <Provider store={store}>
+//         <Navigation/>
+//     </Provider>,
+//     document.getElementById('app')
+// );
+hydrate(
+    <BlogApp data={window.__INITIAL_DATA__}/>,
     document.getElementById('app')
 );

@@ -64,4 +64,5 @@ function matchDispatchToProps(dispatch) {
     }
 }
 
-export default connect(null, matchDispatchToProps)(BlogAdding);
+// export default connect(null, matchDispatchToProps)(BlogAdding);
+export default BlogAdding;
