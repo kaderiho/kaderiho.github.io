@@ -9,12 +9,13 @@ export default (appComponent, data) => {
                 content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
                 <title>Basic ReactJS application</title>
+                
                 <script src='/client/index.bundle.js' defer></script>
                 <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
             </head>
             
             <body>
-                <h1>Hey!</h1>
+                <h1>Its an example of basic component</h1>
                 <div id="app">${appComponent}</div>
             </body>
         </html>`

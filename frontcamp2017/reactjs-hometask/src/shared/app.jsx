@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { Component} from 'react';
 import { render } from 'react-dom';
 
-import BlogsFilter from '../client/components/blogs-filter/blogs-filter';
-import BlogAdding from '../client/components/blog-adding/blog-adding';
-import BlogsList from '../client/components/blogs-list/blogs-list';
-
-class BlogApp extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
     }
@@ -13,13 +9,12 @@ class BlogApp extends React.Component {
     render() {
         return (
             <div>
-                {this.props.data}
-                <BlogAdding/>
-                <BlogsList/>
-                <BlogsFilter/>
+                <h1>
+                    Basic component, data: {this.props.data}
+                </h1>
             </div>
         )
     }
 }
 
-export default BlogApp;
+export default App;

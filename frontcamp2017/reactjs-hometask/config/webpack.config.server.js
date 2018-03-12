@@ -31,5 +31,11 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    }
+    },
+
+    plugins: [
+        new webpack.DefinePlugin({
+            __isBrowser__: 'false'
+        })
+    ]
 };

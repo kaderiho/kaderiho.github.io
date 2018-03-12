@@ -1,5 +1,5 @@
-import Home from './home';
-import Blogs from '../shared/app';
+import Home from '../browser/pages/home';
+import Blogs from '../browser/pages/blogs';
 
 const routes = [
     {

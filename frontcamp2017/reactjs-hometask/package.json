@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --config config/webpack.config.base.js",
     "server:dev": "webpack-dev-server --config config/webpack.config.dev.js --hot",
-    "server:prod": "webpack --config config/webpack.config.server.js & node dist/server.bundle.js"
+    "server:prod": "webpack --config config/webpack.config.server.js & nodemon dist/server.bundle.js"
   },
   "author": "",
   "license": "ISC",

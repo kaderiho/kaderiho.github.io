@@ -3,7 +3,7 @@ const webpack           = require('webpack');
 const path              = require('path');
 
 module.exports = {
-    context: path.resolve(__dirname, '../src/client'),
+    context: path.resolve(__dirname, '../src/browser'),
 
     entry: {
         index: './index.js'
@@ -11,7 +11,7 @@ module.exports = {
 
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../dist/client'),
+        path: path.resolve(__dirname, '../dist/browser'),
     },
 
     resolve: {
@@ -37,6 +37,10 @@ module.exports = {
             title: 'Basic ReactJS app',
             template: 'index.html',
             inject: 'body'
+        }),
+
+        new webpack.DefinePlugin({
+            __isBrowser__: 'true'
         })
     ]
 };
