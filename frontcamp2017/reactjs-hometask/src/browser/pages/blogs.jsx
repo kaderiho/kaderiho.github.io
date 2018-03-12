@@ -8,13 +8,26 @@ import BlogsList from '../components/blogs-list/blogs-list';
 class BlogApp extends React.Component {
     constructor(props) {
         super(props);
+
+        // let blogsList;
+        //
+        // if (__isBrowser__) {
+        //     blogsList = window.__INITIAL_DATA__;
+        //     delete window.__INITIAL_DATA__;
+        // } else {
+        //     blogsList = this.props.staticContext.data
+        // }
+        //
+        // this.state = {
+        //     blogsList
+        // }
     }
 
     render() {
         return (
             <div>
                 <BlogAdding/>
-                <BlogsList data={this.props.staticContext.data}/>
+                <BlogsList/>
                 <BlogsFilter/>
             </div>
         )

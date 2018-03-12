@@ -28,5 +28,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-// export default connect(null, mapDispatchToProps)(BlogsFilter);
-export default BlogsFilter
+export default connect(null, mapDispatchToProps)(BlogsFilter);

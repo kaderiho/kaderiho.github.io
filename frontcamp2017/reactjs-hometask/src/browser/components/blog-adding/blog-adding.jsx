@@ -16,6 +16,7 @@ class BlogAdding extends React.Component {
 
         return (
             <form onSubmit={(e) => {
+                console.log(e);
                 e.preventDefault();
 
                 if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {
@@ -56,13 +57,12 @@ class BlogAdding extends React.Component {
 }
 
 
-// function matchDispatchToProps(dispatch) {
-//     return {
-//         onSubmit: (blog) => {
-//             dispatch(addBlog(blog))
-//         }
-//     }
-// }
+function matchDispatchToProps(dispatch) {
+    return {
+        onSubmit: (blog) => {
+            dispatch(addBlog(blog))
+        }
+    }
+}
 
-// export default connect(null, matchDispatchToProps)(BlogAdding);
-export default BlogAdding;
+export default connect(null, matchDispatchToProps)(BlogAdding);

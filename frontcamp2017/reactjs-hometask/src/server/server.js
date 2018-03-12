@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.static('dist'));
 
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
     const activeRoutes = routes.find((route) => matchPath(req.url, route)) || {};
     const promise = activeRoutes.fetchInitialData ? activeRoutes.fetchInitialData() : Promise.resolve();
 
@@ -26,7 +26,7 @@ app.get('*', (req, res) => {
         );
 
         res.send(indexTemplate(markup, data));
-    });
+    }).catch(next);
 });
 
 app.listen(3000, () => {
