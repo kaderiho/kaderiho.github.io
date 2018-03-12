@@ -4,7 +4,8 @@ import cors from 'cors';
 import { renderToString } from 'react-dom/server';
 import indexTemplate from '../shared/indexTemplate';
 import App from '../shared/app';
-import fetchBlogs from '../shared/api';
+import { matchPath, StaticRouter } from 'react-router-dom';
+import routes from '../shared/routes';
 
 const app = express();
 
@@ -12,9 +13,16 @@ app.use(cors());
 app.use(express.static('dist'));
 
 app.get('*', (req, res) => {
-    fetchBlogs().then((data) => {
+    const activeRoutes = routes.find((route) => matchPath(req.url, route)) || {};
+    const promise = activeRoutes.fetchInitialData ? activeRoutes.fetchInitialData() : Promise.resolve();
+
+    promise.then((data) => {
+        const context = { data };
         const markup = renderToString(
-            <App data={data}/>
+            // context - is an object for passing data to the certain component
+            <StaticRouter location={req.url} context={context}>
+                <App/>
+            </StaticRouter>
         );
 
         res.send(indexTemplate(markup, data));

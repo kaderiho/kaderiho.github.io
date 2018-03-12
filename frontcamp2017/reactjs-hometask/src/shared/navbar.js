@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 
-class Navigation extends React.Component {
+class NavBar extends React.Component {
     render() {
         const items = [{
             name: 'Home',
@@ -15,15 +15,15 @@ class Navigation extends React.Component {
         return (
             <div>
                 <ul>
-                    {items.map(({ name, param}) => {
-                        <NavLink to={`${param}`}>
+                    {items.map(({ name, param}) => (
+                        <NavLink to={`${param}`} key={name}>
                             {name}
                         </NavLink>
-                    })}
+                    ))}
                 </ul>
             </div>
         )
     }
 }
 
-export default Navigation;
+export default NavBar;

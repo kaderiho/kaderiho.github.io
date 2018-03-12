@@ -14,7 +14,7 @@ class BlogApp extends React.Component {
         return (
             <div>
                 <BlogAdding/>
-                <BlogsList data={this.props.data}/>
+                <BlogsList data={this.props.staticContext.data}/>
                 <BlogsFilter/>
             </div>
         )

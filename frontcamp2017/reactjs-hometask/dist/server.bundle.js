@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,6 +83,51 @@ module.exports = require("react-redux");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _home = __webpack_require__(13);
+
+var _home2 = _interopRequireDefault(_home);
+
+var _blogs = __webpack_require__(14);
+
+var _blogs2 = _interopRequireDefault(_blogs);
+
+var _api = __webpack_require__(20);
+
+var _api2 = _interopRequireDefault(_api);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var routes = [{
+    path: '/',
+    exact: true,
+    component: _home2.default
+}, {
+    path: '/blogs',
+    component: _blogs2.default,
+    fetchInitialData: function fetchInitialData() {
+        return (0, _api2.default)();
+    }
+}];
+
+exports.default = routes;
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -106,7 +151,7 @@ var addBlog = exports.addBlog = function addBlog(blog) {
 };
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -116,27 +161,29 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _express = __webpack_require__(5);
+var _express = __webpack_require__(7);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _cors = __webpack_require__(6);
+var _cors = __webpack_require__(8);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-var _server = __webpack_require__(7);
+var _server = __webpack_require__(9);
 
-var _indexTemplate = __webpack_require__(8);
+var _indexTemplate = __webpack_require__(10);
 
 var _indexTemplate2 = _interopRequireDefault(_indexTemplate);
 
-var _app = __webpack_require__(10);
+var _app = __webpack_require__(12);
 
 var _app2 = _interopRequireDefault(_app);
 
-var _api = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(3);
 
-var _api2 = _interopRequireDefault(_api);
+var _routes = __webpack_require__(4);
+
+var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -146,8 +193,20 @@ app.use((0, _cors2.default)());
 app.use(_express2.default.static('dist'));
 
 app.get('*', function (req, res) {
-    (0, _api2.default)().then(function (data) {
-        var markup = (0, _server.renderToString)(_react2.default.createElement(_app2.default, { data: data }));
+    var activeRoutes = _routes2.default.find(function (route) {
+        return (0, _reactRouterDom.matchPath)(req.url, route);
+    }) || {};
+    var promise = activeRoutes.fetchInitialData ? activeRoutes.fetchInitialData() : Promise.resolve();
+
+    promise.then(function (data) {
+        var context = { data: data };
+        var markup = (0, _server.renderToString)(
+        // context - is an object for passing data to the certain component
+        _react2.default.createElement(
+            _reactRouterDom.StaticRouter,
+            { location: req.url, context: context },
+            _react2.default.createElement(_app2.default, null)
+        ));
 
         res.send((0, _indexTemplate2.default)(markup, data));
     });
@@ -158,49 +217,22 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _serializeJavascript = __webpack_require__(9);
-
-var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (appComponent, data) {
-    return '<!doctype html>\n            <html lang="en">\n            <head>\n                <meta charset="UTF-8">\n                <meta name="viewport"\n                content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">\n                <meta http-equiv="X-UA-Compatible" content="ie=edge">\n                <title>Basic ReactJS application</title>\n                \n                <script>window.__INITIAL_DATA__ = ' + (0, _serializeJavascript2.default)(data) + '</script>\n            </head>\n            \n            <body>\n                <div id="app">' + appComponent + '</div>\n            </body>\n        </html>';
-};
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("serialize-javascript");
+module.exports = require("react-dom/server");
 
 /***/ }),
 /* 10 */
@@ -213,6 +245,37 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _serializeJavascript = __webpack_require__(11);
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (appComponent) {
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+    return '<!doctype html>\n            <html lang="en">\n            <head>\n                <meta charset="UTF-8">\n                <meta name="viewport"\n                content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">\n                <meta http-equiv="X-UA-Compatible" content="ie=edge">\n                <title>Basic ReactJS application</title>\n                \n                <script>window.__INITIAL_DATA__ = ' + (0, _serializeJavascript2.default)(data) + '</script>\n            </head>\n            \n            <body>\n                <div id="app">' + appComponent + '</div>\n            </body>\n        </html>';
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -221,11 +284,23 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(1);
 
-var _blogs = __webpack_require__(11);
+var _routes = __webpack_require__(4);
 
-var _blogs2 = _interopRequireDefault(_blogs);
+var _routes2 = _interopRequireDefault(_routes);
+
+var _reactRouterDom = __webpack_require__(3);
+
+var _NoMatch = __webpack_require__(22);
+
+var _NoMatch2 = _interopRequireDefault(_NoMatch);
+
+var _navbar = __webpack_require__(23);
+
+var _navbar2 = _interopRequireDefault(_navbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -248,7 +323,29 @@ var App = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_blogs2.default, { data: this.props.data })
+                _react2.default.createElement(_navbar2.default, null),
+                _react2.default.createElement(
+                    _reactRouterDom.Switch,
+                    null,
+                    _routes2.default.map(function (_ref) {
+                        var path = _ref.path,
+                            exact = _ref.exact,
+                            C = _ref.component,
+                            rest = _objectWithoutProperties(_ref, ['path', 'exact', 'component']);
+
+                        return _react2.default.createElement(_reactRouterDom.Route, {
+                            key: path,
+                            path: path,
+                            exact: exact,
+                            render: function render(props) {
+                                return _react2.default.createElement(C, _extends({}, props, rest));
+                            }
+                        });
+                    }),
+                    _react2.default.createElement(_reactRouterDom.Route, { render: function render(props) {
+                            return _react2.default.createElement(_NoMatch2.default, props);
+                        } })
+                )
             );
         }
     }]);
@@ -259,7 +356,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -277,15 +374,71 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(1);
 
-var _blogsFilter = __webpack_require__(12);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Home = function (_React$Component) {
+    _inherits(Home, _React$Component);
+
+    function Home(props) {
+        _classCallCheck(this, Home);
+
+        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+    }
+
+    _createClass(Home, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Its a home page!'
+                )
+            );
+        }
+    }]);
+
+    return Home;
+}(_react2.default.Component);
+
+exports.default = Home;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+var _blogsFilter = __webpack_require__(15);
 
 var _blogsFilter2 = _interopRequireDefault(_blogsFilter);
 
-var _blogAdding = __webpack_require__(14);
+var _blogAdding = __webpack_require__(17);
 
 var _blogAdding2 = _interopRequireDefault(_blogAdding);
 
-var _blogsList = __webpack_require__(15);
+var _blogsList = __webpack_require__(18);
 
 var _blogsList2 = _interopRequireDefault(_blogsList);
 
@@ -313,7 +466,7 @@ var BlogApp = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(_blogAdding2.default, null),
-                _react2.default.createElement(_blogsList2.default, { data: this.props.data }),
+                _react2.default.createElement(_blogsList2.default, { data: this.props.staticContext.data }),
                 _react2.default.createElement(_blogsFilter2.default, null)
             );
         }
@@ -325,7 +478,7 @@ var BlogApp = function (_React$Component) {
 exports.default = BlogApp;
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -345,7 +498,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _filter = __webpack_require__(13);
+var _filter = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -397,7 +550,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = BlogsFilter;
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -414,7 +567,7 @@ var visibilityFilter = exports.visibilityFilter = function visibilityFilter(filt
 };
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -434,7 +587,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _blogs = __webpack_require__(3);
+var _blogs = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -539,7 +692,7 @@ var BlogAdding = function (_React$Component) {
 exports.default = BlogAdding;
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -559,7 +712,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _blogItem = __webpack_require__(16);
+var _blogItem = __webpack_require__(19);
 
 var _blogItem2 = _interopRequireDefault(_blogItem);
 
@@ -583,10 +736,12 @@ var BlogsList = function (_React$Component) {
     _createClass(BlogsList, [{
         key: 'render',
         value: function render() {
+            var blogs = this.props.data;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'blogsList' },
-                this.props.data.map(function (blogItem) {
+                blogs.map(function (blogItem) {
                     return _react2.default.createElement(_blogItem2.default, { key: blogItem.id, blog: blogItem });
                 })
             );
@@ -608,7 +763,7 @@ var BlogsList = function (_React$Component) {
 exports.default = BlogsList;
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -628,7 +783,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _blogs = __webpack_require__(3);
+var _blogs = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -703,7 +858,7 @@ function matchDispatchToProps(dispatch) {
 exports.default = BlogItem;
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -714,7 +869,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = fetchBlogs;
 
-var _isomorphicFetch = __webpack_require__(18);
+var _isomorphicFetch = __webpack_require__(21);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -729,10 +884,110 @@ function fetchBlogs() {
 }
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = NoMatch;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function NoMatch() {
+    return _react2.default.createElement(
+        'div',
+        null,
+        '404 Not found'
+    );
+}
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+var _reactRouterDom = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBar = function (_React$Component) {
+    _inherits(NavBar, _React$Component);
+
+    function NavBar() {
+        _classCallCheck(this, NavBar);
+
+        return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+    }
+
+    _createClass(NavBar, [{
+        key: 'render',
+        value: function render() {
+            var items = [{
+                name: 'Home',
+                param: '/'
+            }, {
+                name: 'Blogs',
+                param: '/blogs'
+            }];
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'ul',
+                    null,
+                    items.map(function (_ref) {
+                        var name = _ref.name,
+                            param = _ref.param;
+                        return _react2.default.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: '' + param, key: name },
+                            name
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+
+    return NavBar;
+}(_react2.default.Component);
+
+exports.default = NavBar;
 
 /***/ })
 /******/ ]);

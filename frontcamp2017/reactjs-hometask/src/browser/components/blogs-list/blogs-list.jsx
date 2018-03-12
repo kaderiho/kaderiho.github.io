@@ -9,9 +9,11 @@ class BlogsList extends React.Component {
     }
 
     render() {
+        const blogs = this.props.data;
+
         return(
             <div className="blogsList">
-                {this.props.data.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
+                {blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
             </div>
         )
     }

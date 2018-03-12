@@ -1,6 +1,6 @@
 import serialize from 'serialize-javascript';
 
-export default (appComponent, data) => {
+export default (appComponent, data = []) => {
     return `<!doctype html>
             <html lang="en">
             <head>
