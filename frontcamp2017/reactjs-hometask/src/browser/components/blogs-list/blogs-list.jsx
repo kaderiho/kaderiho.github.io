@@ -11,17 +11,17 @@ class BlogsList extends React.Component {
     render() {
         return(
             <div className="blogsList">
-                {/*{this.props.blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}*/}
+                {this.props.data.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>)}
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        blogs: state.visibilityFilter ? state.blogs.filter((blog) => blog.text.indexOf(state.visibilityFilter) !== -1) : state.blogs
-    }
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         blogs: state.visibilityFilter ? state.blogs.filter((blog) => blog.text.indexOf(state.visibilityFilter) !== -1) : state.blogs
+//     }
+// };
 
 // export default connect(mapStateToProps)(BlogsList);
 export default BlogsList

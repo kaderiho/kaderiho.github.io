@@ -14,7 +14,7 @@ class BlogApp extends React.Component {
         return (
             <div>
                 <BlogAdding/>
-                <BlogsList/>
+                <BlogsList data={this.props.data}/>
                 <BlogsFilter/>
             </div>
         )

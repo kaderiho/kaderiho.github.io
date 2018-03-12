@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { render } from 'react-dom';
+import BlogsPage from '../browser/pages/blogs';
 
 class App extends Component {
     constructor(props) {
@@ -9,9 +10,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>
-                    Basic component, data: {this.props.data}
-                </h1>
+                <BlogsPage data={this.props.data}/>
             </div>
         )
     }

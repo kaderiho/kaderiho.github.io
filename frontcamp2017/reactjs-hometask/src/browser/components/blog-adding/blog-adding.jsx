@@ -56,13 +56,13 @@ class BlogAdding extends React.Component {
 }
 
 
-function matchDispatchToProps(dispatch) {
-    return {
-        onSubmit: (blog) => {
-            dispatch(addBlog(blog))
-        }
-    }
-}
+// function matchDispatchToProps(dispatch) {
+//     return {
+//         onSubmit: (blog) => {
+//             dispatch(addBlog(blog))
+//         }
+//     }
+// }
 
 // export default connect(null, matchDispatchToProps)(BlogAdding);
 export default BlogAdding;
