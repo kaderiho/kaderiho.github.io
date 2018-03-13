@@ -1,6 +1,6 @@
 import serialize from 'serialize-javascript';
 
-export default (appComponent, data = []) => {
+export default (appComponent, preLoadedState) => {
     return `<!doctype html>
             <html lang="en">
             <head>
@@ -11,7 +11,7 @@ export default (appComponent, data = []) => {
                 <title>Basic ReactJS application</title>
                 
                 <script src="/browser/index.bundle.js" defer></script>
-                <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
+                <script>window.__INITIAL_DATA__ = ${serialize(preLoadedState)}</script>
             </head>
             
             <body>

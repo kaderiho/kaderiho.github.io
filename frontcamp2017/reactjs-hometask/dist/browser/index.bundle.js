@@ -3496,7 +3496,11 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_index2.default);
+var preloadedState = window.__INITIAL_DATA__;
+
+delete window.__INITIAL_DATA__;
+
+var store = (0, _redux.createStore)(_index2.default, preloadedState);
 
 (0, _reactDom.hydrate)(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,

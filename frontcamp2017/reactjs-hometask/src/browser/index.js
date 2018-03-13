@@ -7,7 +7,11 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import allReducers from '../browser/reducers/index';
 
-let store = createStore(allReducers);
+const preloadedState = window.__INITIAL_DATA__;
+
+delete window.__INITIAL_DATA__;
+
+let store = createStore(allReducers, preloadedState);
 
 hydrate(
     <BrowserRouter>
