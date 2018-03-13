@@ -16,7 +16,6 @@ class BlogAdding extends React.Component {
 
         return (
             <form onSubmit={(e) => {
-                console.log(e);
                 e.preventDefault();
 
                 if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {

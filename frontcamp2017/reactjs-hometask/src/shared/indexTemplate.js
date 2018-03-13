@@ -10,6 +10,7 @@ export default (appComponent, data = []) => {
                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
                 <title>Basic ReactJS application</title>
                 
+                <script src="/browser/index.bundle.js" defer></script>
                 <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
             </head>
             

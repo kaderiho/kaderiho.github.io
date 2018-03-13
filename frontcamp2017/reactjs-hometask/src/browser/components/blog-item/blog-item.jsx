@@ -34,5 +34,4 @@ function matchDispatchToProps(dispatch) {
     };
 }
 
-// export default connect(null, matchDispatchToProps)(BlogItem);
-export default BlogItem
+export default connect(null, matchDispatchToProps)(BlogItem);

@@ -3486,12 +3486,26 @@ var _app2 = _interopRequireDefault(_app);
 
 var _reactRouterDom = __webpack_require__(20);
 
+var _redux = __webpack_require__(18);
+
+var _reactRedux = __webpack_require__(9);
+
+var _index = __webpack_require__(126);
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _reactDom.render)(_react2.default.createElement(
+var store = (0, _redux.createStore)(_index2.default);
+
+(0, _reactDom.hydrate)(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     null,
-    _react2.default.createElement(_app2.default, null)
+    _react2.default.createElement(
+        _reactRedux.Provider,
+        { store: store },
+        _react2.default.createElement(_app2.default, null)
+    )
 ), document.getElementById('app'));
 
 /***/ }),
@@ -20772,14 +20786,6 @@ var _navbar = __webpack_require__(125);
 
 var _navbar2 = _interopRequireDefault(_navbar);
 
-var _redux = __webpack_require__(18);
-
-var _reactRedux = __webpack_require__(9);
-
-var _index = __webpack_require__(126);
-
-var _index2 = _interopRequireDefault(_index);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -20789,8 +20795,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var store = (0, _redux.createStore)(_index2.default);
 
 var App = function (_Component) {
     _inherits(App, _Component);
@@ -20805,34 +20809,30 @@ var App = function (_Component) {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                _reactRedux.Provider,
-                { store: store },
+                'div',
+                null,
+                _react2.default.createElement(_navbar2.default, null),
                 _react2.default.createElement(
-                    'div',
+                    _reactRouterDom.Switch,
                     null,
-                    _react2.default.createElement(_navbar2.default, null),
-                    _react2.default.createElement(
-                        _reactRouterDom.Switch,
-                        null,
-                        _routes2.default.map(function (_ref) {
-                            var path = _ref.path,
-                                exact = _ref.exact,
-                                C = _ref.component,
-                                rest = _objectWithoutProperties(_ref, ['path', 'exact', 'component']);
+                    _routes2.default.map(function (_ref) {
+                        var path = _ref.path,
+                            exact = _ref.exact,
+                            C = _ref.component,
+                            rest = _objectWithoutProperties(_ref, ['path', 'exact', 'component']);
 
-                            return _react2.default.createElement(_reactRouterDom.Route, {
-                                key: path,
-                                path: path,
-                                exact: exact,
-                                render: function render(props) {
-                                    return _react2.default.createElement(C, _extends({}, props, rest));
-                                }
-                            });
-                        }),
-                        _react2.default.createElement(_reactRouterDom.Route, { render: function render(props) {
-                                return _react2.default.createElement(_NoMatch2.default, props);
-                            } })
-                    )
+                        return _react2.default.createElement(_reactRouterDom.Route, {
+                            key: path,
+                            path: path,
+                            exact: exact,
+                            render: function render(props) {
+                                return _react2.default.createElement(C, _extends({}, props, rest));
+                            }
+                        });
+                    }),
+                    _react2.default.createElement(_reactRouterDom.Route, { render: function render(props) {
+                            return _react2.default.createElement(_NoMatch2.default, props);
+                        } })
                 )
             );
         }
@@ -22915,7 +22915,6 @@ var BlogAdding = function (_React$Component) {
             return _react2.default.createElement(
                 'form',
                 { onSubmit: function onSubmit(e) {
-                        console.log(e);
                         e.preventDefault();
 
                         if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {
@@ -23033,9 +23032,9 @@ var BlogsList = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'blogsList' },
-                this.props.blogs.map(function (blogItem) {
+                this.props.blogs ? this.props.blogs.map(function (blogItem) {
                     return _react2.default.createElement(_blogItem2.default, { key: blogItem.id, blog: blogItem });
-                })
+                }) : ''
             );
         }
     }]);
@@ -23145,8 +23144,7 @@ function matchDispatchToProps(dispatch) {
     };
 }
 
-// export default connect(null, matchDispatchToProps)(BlogItem);
-exports.default = BlogItem;
+exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogItem);
 
 /***/ }),
 /* 96 */
