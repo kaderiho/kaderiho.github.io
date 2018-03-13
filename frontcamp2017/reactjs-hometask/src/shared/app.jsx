@@ -1,11 +1,11 @@
 import React, { Component} from 'react';
 import { render } from 'react-dom';
-import routes from './routes';
+import routes  from './routes';
 import { Route, Switch } from 'react-router-dom';
 import NoMatch from './NoMatch';
 import NavBar from './navbar';
 
-class App extends Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
     }

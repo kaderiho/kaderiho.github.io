@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import BlogItem from '../blog-item/blog-item';
+import BlogItem from './blog-item';
 
 class BlogsList extends React.Component {
     constructor(initProps) {

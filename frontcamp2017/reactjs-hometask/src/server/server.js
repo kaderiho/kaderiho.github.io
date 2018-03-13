@@ -7,6 +7,10 @@ import App from '../shared/app';
 import { matchPath, StaticRouter } from 'react-router-dom';
 import routes from '../shared/routes';
 
+
+// Server-side routes
+import authRoutes from './routes/auth';
+
 // Create store on server-side
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,6 +20,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.static('dist'));
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/auth', authRoutes);
 
 app.get('*', (req, res, next) => {
     const activeRoutes = routes.find((route) => matchPath(req.url, route)) || {};

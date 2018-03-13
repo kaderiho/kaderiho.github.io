@@ -1,27 +1,27 @@
-import Home from '../browser/pages/home';
-import Blogs from '../browser/pages/blogs';
-import Login from '../browser/pages/login';
-import Signup from '../browser/pages/signup';
+import HomePage from '../browser/pages/homePage';
+import BlogsPage from '../browser/pages/blogsPage';
+import LoginPage from '../browser/pages/loginPage';
+import SignUpPage from '../browser/pages/signupPage';
 import fetchBlogs from './api';
 
 const routes = [
     {
         path: '/',
         exact: true,
-        component: Home
+        component: HomePage
     },
     {
         path: '/blogs',
-        component: Blogs,
+        component: BlogsPage,
         fetchInitialData: () => fetchBlogs()
     },
     {
         path: '/login',
-        component: Login
+        component: LoginPage
     },
     {
         path: '/signup',
-        component: Signup
+        component: SignUpPage
     }
 ];
 
