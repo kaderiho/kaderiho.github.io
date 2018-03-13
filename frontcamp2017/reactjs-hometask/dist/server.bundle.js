@@ -106,7 +106,15 @@ var _blogs = __webpack_require__(15);
 
 var _blogs2 = _interopRequireDefault(_blogs);
 
-var _api = __webpack_require__(21);
+var _login = __webpack_require__(21);
+
+var _login2 = _interopRequireDefault(_login);
+
+var _signup = __webpack_require__(22);
+
+var _signup2 = _interopRequireDefault(_signup);
+
+var _api = __webpack_require__(23);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -122,6 +130,12 @@ var routes = [{
     fetchInitialData: function fetchInitialData() {
         return (0, _api2.default)();
     }
+}, {
+    path: '/login',
+    component: _login2.default
+}, {
+    path: '/signup',
+    component: _signup2.default
 }];
 
 exports.default = routes;
@@ -195,7 +209,7 @@ var _redux = __webpack_require__(6);
 
 var _reactRedux = __webpack_require__(2);
 
-var _index = __webpack_require__(25);
+var _index = __webpack_require__(27);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -312,11 +326,11 @@ var _routes2 = _interopRequireDefault(_routes);
 
 var _reactRouterDom = __webpack_require__(3);
 
-var _NoMatch = __webpack_require__(23);
+var _NoMatch = __webpack_require__(25);
 
 var _NoMatch2 = _interopRequireDefault(_NoMatch);
 
-var _navbar = __webpack_require__(24);
+var _navbar = __webpack_require__(26);
 
 var _navbar2 = _interopRequireDefault(_navbar);
 
@@ -894,9 +908,197 @@ exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogItem)
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoginPage = function (_React$Component) {
+    _inherits(LoginPage, _React$Component);
+
+    function LoginPage(props) {
+        _classCallCheck(this, LoginPage);
+
+        return _possibleConstructorReturn(this, (LoginPage.__proto__ || Object.getPrototypeOf(LoginPage)).call(this, props));
+    }
+
+    _createClass(LoginPage, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Please login there'
+                ),
+                _react2.default.createElement(
+                    'a',
+                    { href: '/auth/google' },
+                    'Google+'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    { className: 'formMessage' },
+                    'Some message'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { action: '/auth/login', method: 'post' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Email'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', name: 'email' })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Password'
+                        ),
+                        _react2.default.createElement('input', { type: 'password', name: 'password' })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { type: 'submit' },
+                            'Login'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return LoginPage;
+}(_react2.default.Component);
+
+exports.default = LoginPage;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignupPage = function (_React$Component) {
+    _inherits(SignupPage, _React$Component);
+
+    function SignupPage(props) {
+        _classCallCheck(this, SignupPage);
+
+        return _possibleConstructorReturn(this, (SignupPage.__proto__ || Object.getPrototypeOf(SignupPage)).call(this, props));
+    }
+
+    _createClass(SignupPage, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Signup page'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { action: '/signup', method: 'post' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Email'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', name: 'email' })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Password'
+                        ),
+                        _react2.default.createElement('input', { type: 'password', name: 'password' })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { type: 'submit' },
+                            'Signup'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SignupPage;
+}(_react2.default.Component);
+
+exports.default = SignupPage;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.default = fetchBlogs;
 
-var _isomorphicFetch = __webpack_require__(22);
+var _isomorphicFetch = __webpack_require__(24);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -911,13 +1113,13 @@ function fetchBlogs() {
 }
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -943,7 +1145,7 @@ function NoMatch() {
 }
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -989,6 +1191,12 @@ var NavBar = function (_React$Component) {
             }, {
                 name: 'Blogs',
                 param: '/blogs'
+            }, {
+                name: 'Login',
+                param: '/login'
+            }, {
+                name: 'Signup',
+                param: '/signup'
             }];
 
             return _react2.default.createElement(
@@ -1017,7 +1225,7 @@ var NavBar = function (_React$Component) {
 exports.default = NavBar;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1029,11 +1237,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(6);
 
-var _filter = __webpack_require__(26);
+var _filter = __webpack_require__(28);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _blogs = __webpack_require__(27);
+var _blogs = __webpack_require__(29);
 
 var _blogs2 = _interopRequireDefault(_blogs);
 
@@ -1047,7 +1255,7 @@ var allReducer = (0, _redux.combineReducers)({
 exports.default = allReducer;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1071,7 +1279,7 @@ var visibilityFilter = function visibilityFilter() {
 exports.default = visibilityFilter;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
