@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
         const formData = `email=${email}&password=${password}`;
 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', '/auth/signup');
+        xhr.open('post', '/auth/login');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
 

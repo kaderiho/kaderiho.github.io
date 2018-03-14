@@ -7,22 +7,45 @@ import App from '../shared/app';
 import { matchPath, StaticRouter } from 'react-router-dom';
 import routes from '../shared/routes';
 
-
-// Server-side routes
-import authRoutes from './routes/auth';
-
 // Create store on server-side
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import allReducers from '../browser/reducers/index';
 
+import passport from 'passport';
+import dbConfig from './config/db.config';
+import mongoose from 'mongoose';
+import './models/userModel';
+
 const app = express();
 
-app.use(cors());
-app.use(express.static('dist'));
+mongoose.connect(dbConfig.dbURI, () => {
+    console.dir('Connected to MongoDB');
+}, (err) => {
+    console.dir(err);
+});
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('dist'));
+app.use(passport.initialize());
+app.use(cors());
+
+// Load passport strategies
+import localSignupPassportStrategy from './passport/local-signup';
+import localLoginPassportStrategy from './passport/local-login';
+
+passport.use('local-signup', localSignupPassportStrategy);
+passport.use('local-login', localLoginPassportStrategy);
+
+// The authentication checker middleware
+import authCheckMiddleware from './middleware/auth-check';
+app.use('/api', authCheckMiddleware);
+
+import authRoutes from './routes/auth';
+import apiRoutes from './routes/api';
 
 app.use('/auth', authRoutes);
+// app.use('/api', apiRoutes);
 
 app.get('*', (req, res, next) => {
     const activeRoutes = routes.find((route) => matchPath(req.url, route)) || {};

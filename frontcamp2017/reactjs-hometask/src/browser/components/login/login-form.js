@@ -17,7 +17,7 @@ const LoginForm = ({
             <input type="password" name="password" onChange={onChange} value={user.password}/>
         </p>
         <p>
-            <button type="submit">Signup</button>
+            <button type="submit">Login</button>
         </p>
     </form>
 );
