@@ -1,7 +1,12 @@
-const express = require('express');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
+import renderedApp from '../../shared/renderedApp';
 
 const router = new express.Router();
+
+router.get('/signup', (req, res, next) => {
+    res.send(renderedApp(req));
+});
 
 router.post('/signup', (req, res, next) => {
     return passport.authenticate('local-signup', (err) => {

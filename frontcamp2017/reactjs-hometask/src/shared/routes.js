@@ -2,7 +2,6 @@ import HomePage from '../browser/pages/homePage';
 import BlogsPage from '../browser/pages/blogsPage';
 import LoginPage from '../browser/pages/loginPage';
 import SignUpPage from '../browser/pages/signupPage';
-import fetchBlogs from './api';
 
 const routes = [
     {
@@ -12,15 +11,14 @@ const routes = [
     },
     {
         path: '/blogs',
-        component: BlogsPage,
-        fetchInitialData: () => fetchBlogs()
+        component: BlogsPage
     },
     {
-        path: '/login',
+        path: '/auth/login',
         component: LoginPage
     },
     {
-        path: '/signup',
+        path: '/auth/signup',
         component: SignUpPage
     }
 ];

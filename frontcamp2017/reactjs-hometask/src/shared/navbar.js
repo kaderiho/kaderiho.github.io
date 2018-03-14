@@ -12,10 +12,10 @@ class NavBar extends React.Component {
             param: '/blogs'
         }, {
             name: 'Login',
-            param: '/login'
+            param: '/auth/login'
         }, {
             name: 'Signup',
-            param: '/signup'
+            param: '/auth/signup'
         }];
 
         return (
