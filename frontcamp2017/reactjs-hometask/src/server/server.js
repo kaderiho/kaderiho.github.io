@@ -1,14 +1,14 @@
-import express from 'express';
-import passport from 'passport';
 import dbConfig from './config/db.config';
+import passport from 'passport';
 import mongoose from 'mongoose';
+import express from 'express';
 
 import localSignupPassportStrategy from './passport/local-signup';
 import localLoginPassportStrategy from './passport/local-login';
 
 import authCheckMiddleware from './middleware/auth-check';
-import authRoutes from './routes/auth';
 import renderedApp from '../shared/renderedApp';
+import authRoutes from './routes/auth';
 
 const app = express();
 
@@ -27,11 +27,9 @@ passport.use('local-signup', localSignupPassportStrategy);
 passport.use('local-login', localLoginPassportStrategy);
 
 // Private page - only for logged in users
-app.use('/blogs', authCheckMiddleware, () => {});
+app.use('/blogs', authCheckMiddleware, (req, res) => res.send(renderedApp(req)));
 app.use('/auth', authRoutes);
-app.use('/', (req, res) => {
-    res.send(renderedApp(req));
-});
+app.use('/', (req, res) => res.send(renderedApp(req)));
 
 app.listen(3000, () => {
     console.log('Server is running on: 3000 port')

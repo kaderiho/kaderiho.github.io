@@ -2,8 +2,8 @@ import React from 'react';
 import SignUpForm from '../components/signup/signup-form';
 
 class SignUpPage extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
 
         this.state = {
             errors: {},
@@ -13,53 +13,50 @@ class SignUpPage extends React.Component {
             }
         };
 
-        this.processForm = this.processForm.bind(this);
-        this.changeUser  = this.changeUser.bind(this);
-    }
+        this.processForm = (event) => {
+            event.preventDefault();
 
-    changeUser(event) {
-        const field = event.target.name;
-        const user = this.state.user;
-        user[field] = event.target.value;
+            const email = encodeURIComponent(this.state.user.email);
+            const password = encodeURIComponent(this.state.user.password);
+            const formData = `email=${email}&password=${password}`;
 
-        this.setState({
-            user
-        });
-    }
+            const xhr = new XMLHttpRequest();
+            xhr.open('post', '/auth/signup');
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.responseType = 'json';
 
-    processForm(event) {
-        event.preventDefault();
+            xhr.addEventListener('load', () => {
+                if (xhr.status === 200) {
+                    // set a message
+                    localStorage.setItem('successMessage', xhr.response.message);
 
-        const email = encodeURIComponent(this.state.user.email);
-        const password = encodeURIComponent(this.state.user.password);
-        const formData = `email=${email}&password=${password}`;
+                    // make a redirect
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('post', '/auth/signup');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.responseType = 'json';
+                    this.context.router.replace('/login');
+                } else {
+                    // failure
 
-        // xhr.addEventListener('load', () => {
-        //     if (xhr.status === 200) {
-        //
-        //         // change the component-container state
-        //         this.setState({
-        //             errors: {}
-        //         });
-        //
-        //         console.log('The form is valid');
-        //     } else {
-        //         // failure
-        //
-        //         const errors = xhr.response.errors ? xhr.response.errors : {};
-        //         errors.summary = xhr.response.message;
-        //
-        //         this.setState({
-        //             errors
-        //         });
-        //     }
-        // });
-        xhr.send(formData);
+                    const errors = xhr.response.errors ? xhr.response.errors : {};
+                    errors.summary = xhr.response.message;
+
+                    this.setState({
+                        errors
+                    });
+                }
+            });
+
+            xhr.send(formData);
+        };
+
+        this.changeUser = (event) => {
+            const field = event.target.name;
+            const user = this.state.user;
+            user[field] = event.target.value;
+
+            this.setState({
+                user
+            });
+        }
     }
 
     render() {

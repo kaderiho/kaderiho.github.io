@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from '../components/login/login-form';
+import Auth from '../modules/Auth';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -39,26 +40,25 @@ class LoginPage extends React.Component {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
 
-        // xhr.addEventListener('load', () => {
-        //     if (xhr.status === 200) {
-        //
-        //         // change the component-container state
-        //         this.setState({
-        //             errors: {}
-        //         });
-        //
-        //         console.log('The form is valid');
-        //     } else {
-        //         // failure
-        //
-        //         const errors = xhr.response.errors ? xhr.response.errors : {};
-        //         errors.summary = xhr.response.message;
-        //
-        //         this.setState({
-        //             errors
-        //         });
-        //     }
-        // });
+        xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+
+                // change the component-container state
+                this.setState({
+                    errors: {}
+                });
+
+                Auth.authenticateUser(xhr.response.token);
+            } else {
+                // failure
+                const errors = xhr.response.errors ? xhr.response.errors : {};
+                errors.summary = xhr.response.message;
+
+                this.setState({
+                    errors
+                });
+            }
+        });
         xhr.send(formData);
     }
 

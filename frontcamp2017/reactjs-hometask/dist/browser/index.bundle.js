@@ -26186,6 +26186,10 @@ var _loginForm = __webpack_require__(125);
 
 var _loginForm2 = _interopRequireDefault(_loginForm);
 
+var _Auth = __webpack_require__(136);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26229,6 +26233,8 @@ var LoginPage = function (_React$Component) {
     }, {
         key: 'processForm',
         value: function processForm(event) {
+            var _this2 = this;
+
             event.preventDefault();
 
             var email = encodeURIComponent(this.state.user.email);
@@ -26240,26 +26246,25 @@ var LoginPage = function (_React$Component) {
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.responseType = 'json';
 
-            // xhr.addEventListener('load', () => {
-            //     if (xhr.status === 200) {
-            //
-            //         // change the component-container state
-            //         this.setState({
-            //             errors: {}
-            //         });
-            //
-            //         console.log('The form is valid');
-            //     } else {
-            //         // failure
-            //
-            //         const errors = xhr.response.errors ? xhr.response.errors : {};
-            //         errors.summary = xhr.response.message;
-            //
-            //         this.setState({
-            //             errors
-            //         });
-            //     }
-            // });
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200) {
+
+                    // change the component-container state
+                    _this2.setState({
+                        errors: {}
+                    });
+
+                    _Auth2.default.authenticateUser(xhr.response.token);
+                } else {
+                    // failure
+                    var errors = xhr.response.errors ? xhr.response.errors : {};
+                    errors.summary = xhr.response.message;
+
+                    _this2.setState({
+                        errors: errors
+                    });
+                }
+            });
             xhr.send(formData);
         }
     }, {
@@ -26374,10 +26379,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SignUpPage = function (_React$Component) {
     _inherits(SignUpPage, _React$Component);
 
-    function SignUpPage(props) {
+    function SignUpPage(props, context) {
         _classCallCheck(this, SignUpPage);
 
-        var _this = _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props, context));
 
         _this.state = {
             errors: {},
@@ -26387,29 +26392,11 @@ var SignUpPage = function (_React$Component) {
             }
         };
 
-        _this.processForm = _this.processForm.bind(_this);
-        _this.changeUser = _this.changeUser.bind(_this);
-        return _this;
-    }
-
-    _createClass(SignUpPage, [{
-        key: 'changeUser',
-        value: function changeUser(event) {
-            var field = event.target.name;
-            var user = this.state.user;
-            user[field] = event.target.value;
-
-            this.setState({
-                user: user
-            });
-        }
-    }, {
-        key: 'processForm',
-        value: function processForm(event) {
+        _this.processForm = function (event) {
             event.preventDefault();
 
-            var email = encodeURIComponent(this.state.user.email);
-            var password = encodeURIComponent(this.state.user.password);
+            var email = encodeURIComponent(_this.state.user.email);
+            var password = encodeURIComponent(_this.state.user.password);
             var formData = 'email=' + email + '&password=' + password;
 
             var xhr = new XMLHttpRequest();
@@ -26417,29 +26404,42 @@ var SignUpPage = function (_React$Component) {
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.responseType = 'json';
 
-            // xhr.addEventListener('load', () => {
-            //     if (xhr.status === 200) {
-            //
-            //         // change the component-container state
-            //         this.setState({
-            //             errors: {}
-            //         });
-            //
-            //         console.log('The form is valid');
-            //     } else {
-            //         // failure
-            //
-            //         const errors = xhr.response.errors ? xhr.response.errors : {};
-            //         errors.summary = xhr.response.message;
-            //
-            //         this.setState({
-            //             errors
-            //         });
-            //     }
-            // });
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200) {
+                    // set a message
+                    localStorage.setItem('successMessage', xhr.response.message);
+
+                    // make a redirect
+
+                    _this.context.router.replace('/login');
+                } else {
+                    // failure
+
+                    var errors = xhr.response.errors ? xhr.response.errors : {};
+                    errors.summary = xhr.response.message;
+
+                    _this.setState({
+                        errors: errors
+                    });
+                }
+            });
+
             xhr.send(formData);
-        }
-    }, {
+        };
+
+        _this.changeUser = function (event) {
+            var field = event.target.name;
+            var user = _this.state.user;
+            user[field] = event.target.value;
+
+            _this.setState({
+                user: user
+            });
+        };
+        return _this;
+    }
+
+    _createClass(SignUpPage, [{
         key: 'render',
         value: function render() {
             return _react2.default.createElement(_signupForm2.default, {
@@ -26657,6 +26657,83 @@ var NavBar = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = NavBar;
+
+/***/ }),
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Auth = function () {
+    function Auth() {
+        _classCallCheck(this, Auth);
+    }
+
+    _createClass(Auth, null, [{
+        key: 'authenticateUser',
+
+
+        /**
+         * Authenticate a user. Save a token string in Local Storage
+         *
+         * @param {string} token
+         */
+        value: function authenticateUser(token) {
+            localStorage.setItem('token', token);
+        }
+
+        /**
+         * Check if a user is authenticated - check if a token is saved in Local Storage
+         *
+         * @returns {boolean}
+         */
+
+    }, {
+        key: 'isUserAuthenticated',
+        value: function isUserAuthenticated() {
+            return localStorage.getItem('token') !== null;
+        }
+
+        /**
+         * Deauthenticate a user. Remove a token from Local Storage.
+         *
+         */
+
+    }, {
+        key: 'deauthenticateUser',
+        value: function deauthenticateUser() {
+            localStorage.removeItem('token');
+        }
+
+        /**
+         * Get a token value.
+         *
+         * @returns {string}
+         */
+
+    }, {
+        key: 'getToken',
+        value: function getToken() {
+            return localStorage.getItem('token');
+        }
+    }]);
+
+    return Auth;
+}();
+
+exports.default = Auth;
 
 /***/ })
 /******/ ]);
