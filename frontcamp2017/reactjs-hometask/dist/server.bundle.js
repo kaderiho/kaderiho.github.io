@@ -1622,14 +1622,14 @@ module.exports = function (req, res, next) {
 
     return jwt.verify(token, config.jwtSecret, function (err, decoded) {
         if (err) {
-            return res.redirect('auth/login');
+            return res.status(401);
         }
 
         var userId = decoded.sub;
 
         return User.findById(userId, function (userErr, user) {
             if (userErr || !user) {
-                return res.redirect('auth/login').end();
+                return res.status(401).end();
             }
 
             return next();
