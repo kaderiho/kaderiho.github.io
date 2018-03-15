@@ -8,6 +8,7 @@ import localLoginPassportStrategy from './passport/local-login';
 
 import authCheckMiddleware from './middleware/auth-check';
 import renderedApp from '../shared/renderedApp';
+import signupRoutes from './routes/signup';
 import authRoutes from './routes/auth';
 
 const app = express();
@@ -18,6 +19,7 @@ mongoose.connect(dbConfig.dbURI, () => {
     console.dir(err);
 });
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
 app.use(passport.initialize());
@@ -26,8 +28,8 @@ app.use(passport.initialize());
 passport.use('local-signup', localSignupPassportStrategy);
 passport.use('local-login', localLoginPassportStrategy);
 
-// Private page - only for logged in users
 app.use('/blogs', authCheckMiddleware, (req, res) => res.send(renderedApp(req)));
+app.use('/signup', signupRoutes);
 app.use('/auth', authRoutes);
 app.use('/', (req, res) => res.send(renderedApp(req)));
 

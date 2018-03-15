@@ -5,34 +5,77 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            isLoading: false,
+            password: '',
+            errors: {},
+            email: ''
+        };
+
         this.onSubmit = (event) => {
-            this.props.onSubmit(event);
+            event.preventDefault();
+
+            this.setState({
+                isLoading: true,
+                errors: {}
+            });
+
+            this.props.userSignupRequest(this.state).then((res) => {
+                this.setState({
+                    isLoading: false
+                });
+            }, (error) => {
+                this.setState({
+                    errors: error.response.data,
+                    isLoading: false
+                });
+            })
         };
 
         this.onChange = (event) => {
-            this.props.onChange(event);
+            this.setState({
+                [event.target.name] : event.target.value
+            });
         }
     }
 
     render() {
+        const { errors, isLoading } = this.state;
+
         return (
-            <form action="/" onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
                 <h2>Sign up</h2>
-                <p>
-                    <label>Email</label>
-                    <input type="text" name="email" onChange={this.onChange} value={this.props.user.email}/>
-                </p>
-                <p>
-                    <label>Password</label>
-                    <input type="password" name="password" onChange={this.onChange} value={this.props.user.password}/>
-                </p>
-                <p>
-                    <button type="submit">Signup</button>
-                </p>
+
+                <div className="form-group">
+                    <label className="control-label">Email</label>
+                    <input placeholder="Put your email"
+                           value={this.state.email}
+                           onChange={this.onChange}
+                           className="form-control"
+                           type="text"
+                           name="email"/>
+                    {errors.email && <span className="help-block">{errors.email}</span>}
+                </div>
+
+                <div className="form-group">
+                    <label className="control-label">Password</label>
+                    <input placeholder="Put your password"
+                           value={this.state.password}
+                           onChange={this.onChange}
+                           className="form-control"
+                           name="password"
+                           type="text"/>
+                    {errors.password && <span className="help-block">{errors.password}</span>}
+                </div>
+
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary btn-lg" disabled={isLoading}>
+                        Signup
+                    </button>
+                </div>
             </form>
         )
     }
-
 }
 
 export default SignUpForm;

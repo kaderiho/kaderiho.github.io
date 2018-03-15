@@ -9,7 +9,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <div>
-                <h1>Its a home page!</h1>
+                <h1>Welcome!</h1>
             </div>
         )
     }
