@@ -476,7 +476,8 @@ module.exports = new PassportLocalStrategy({
             }
 
             var payload = {
-                sub: user._id
+                sub: user._id,
+                email: email
             };
 
             var token = jwt.sign(payload, config.jwtSecret);
@@ -1379,7 +1380,7 @@ var _textFieldGroup = __webpack_require__(42);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
 
-var _loginActions = __webpack_require__(66);
+var _authActions = __webpack_require__(67);
 
 var _reactRouterDom = __webpack_require__(7);
 
@@ -1509,7 +1510,7 @@ var LoginForm = function (_React$Component) {
     return LoginForm;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(null, { login: _loginActions.login })(LoginForm);
+exports.default = (0, _reactRedux.connect)(null, { login: _authActions.login })(LoginForm);
 
 /***/ }),
 /* 37 */,
@@ -2567,7 +2568,8 @@ exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(FlashMess
 module.exports = require("lodash/findIndex");
 
 /***/ }),
-/* 66 */
+/* 66 */,
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2582,13 +2584,55 @@ var _axios = __webpack_require__(44);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _setAuthorizationToken = __webpack_require__(68);
+
+var _setAuthorizationToken2 = _interopRequireDefault(_setAuthorizationToken);
+
+var _jsonwebtoken = __webpack_require__(9);
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var login = exports.login = function login(userData) {
     return function (dispatch) {
-        return _axios2.default.post('/auth/login', userData);
+        return _axios2.default.post('/auth/login', userData).then(function (res) {
+            var token = res.data.token;
+
+            localStorage.setItem('jwtToken', token);
+            (0, _setAuthorizationToken2.default)(token);
+
+            console.log(_jsonwebtoken2.default.decode(token));
+        });
     };
 };
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = __webpack_require__(44);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var setAuthorizationToken = function setAuthorizationToken(token) {
+    if (token) {
+        _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+        delete _axios2.default.defaults.headers.common['Authorization'];
+    }
+};
+
+exports.default = setAuthorizationToken;
 
 /***/ })
 /******/ ]);
