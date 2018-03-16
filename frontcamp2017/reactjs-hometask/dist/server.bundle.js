@@ -535,6 +535,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _flashMessages = __webpack_require__(48);
+
+var _flashMessages2 = _interopRequireDefault(_flashMessages);
+
 var _redux = __webpack_require__(11);
 
 var _filter = __webpack_require__(21);
@@ -547,12 +551,11 @@ var _blogs2 = _interopRequireDefault(_blogs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var allReducer = (0, _redux.combineReducers)({
+exports.default = (0, _redux.combineReducers)({
     visibilityFilter: _filter2.default,
+    flashMessages: _flashMessages2.default,
     blogs: _blogs2.default
 });
-
-exports.default = allReducer;
 
 /***/ }),
 /* 21 */
@@ -683,6 +686,10 @@ var _signUpPage = __webpack_require__(38);
 
 var _signUpPage2 = _interopRequireDefault(_signUpPage);
 
+var _flashMessagesList = __webpack_require__(63);
+
+var _flashMessagesList2 = _interopRequireDefault(_flashMessagesList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -707,6 +714,7 @@ var App = function (_React$Component) {
                 'div',
                 { className: 'container' },
                 _react2.default.createElement(_navigationBar2.default, null),
+                _react2.default.createElement(_flashMessagesList2.default, null),
                 _react2.default.createElement(
                     _reactRouterDom.Switch,
                     null,
@@ -1573,6 +1581,8 @@ var _reactRedux = __webpack_require__(2);
 
 var _signupActions = __webpack_require__(43);
 
+var _flashMessages = __webpack_require__(49);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1593,7 +1603,9 @@ var SignUpPage = function (_React$Component) {
     _createClass(SignUpPage, [{
         key: 'render',
         value: function render() {
-            var userSignupRequest = this.props.userSignupRequest;
+            var _props = this.props,
+                userSignupRequest = _props.userSignupRequest,
+                addFlashMessage = _props.addFlashMessage;
 
 
             return _react2.default.createElement(
@@ -1602,7 +1614,7 @@ var SignUpPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'col-md-4 col-md-offset-4' },
-                    _react2.default.createElement(_signupForm2.default, { userSignupRequest: userSignupRequest })
+                    _react2.default.createElement(_signupForm2.default, { userSignupRequest: userSignupRequest, addFlashMessage: addFlashMessage })
                 )
             );
         }
@@ -1611,7 +1623,7 @@ var SignUpPage = function (_React$Component) {
     return SignUpPage;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _signupActions.userSignupRequest })(SignUpPage);
+exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _signupActions.userSignupRequest, addFlashMessage: _flashMessages.addFlashMessage })(SignUpPage);
 
 /***/ }),
 /* 39 */
@@ -1691,6 +1703,10 @@ var SignUpForm = function (_React$Component) {
                 });
 
                 _this.props.userSignupRequest(_this.state).then(function (res) {
+                    _this.props.addFlashMessage({
+                        type: 'SUCCESS',
+                        text: 'You have signed up successfully'
+                    });
                     _this.setState({
                         isLoading: false,
                         redirect: '/'
@@ -1972,6 +1988,627 @@ router.post('/login', function (req, res, next) {
 });
 
 module.exports = router;
+
+/***/ }),
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _types = __webpack_require__(62);
+
+var _findIndex = __webpack_require__(65);
+
+var _findIndex2 = _interopRequireDefault(_findIndex);
+
+var _shortid = __webpack_require__(53);
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _types.ADD_FLASH_MESSAGE:
+            return [].concat(_toConsumableArray(state), [{
+                id: _shortid2.default.generate(),
+                type: action.message.type,
+                text: action.message.text
+            }]);
+        case _types.DELETE_FLASH_MESSAGE:
+            var index = (0, _findIndex2.default)(state, { id: action.message.id });
+
+            if (index >= 0) {
+                return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
+            }
+            return state;
+        default:
+            return state;
+    }
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.deleteFlashMessage = exports.addFlashMessage = undefined;
+
+var _types = __webpack_require__(62);
+
+var addFlashMessage = exports.addFlashMessage = function addFlashMessage(message) {
+    return {
+        type: _types.ADD_FLASH_MESSAGE,
+        message: message
+    };
+};
+
+var deleteFlashMessage = exports.deleteFlashMessage = function deleteFlashMessage(message) {
+    return {
+        type: _types.DELETE_FLASH_MESSAGE,
+        message: message
+    };
+};
+
+/***/ }),
+/* 50 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var randomFromSeed = __webpack_require__(55);
+
+var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+var alphabet;
+var previousSeed;
+
+var shuffled;
+
+function reset() {
+    shuffled = false;
+}
+
+function setCharacters(_alphabet_) {
+    if (!_alphabet_) {
+        if (alphabet !== ORIGINAL) {
+            alphabet = ORIGINAL;
+            reset();
+        }
+        return;
+    }
+
+    if (_alphabet_ === alphabet) {
+        return;
+    }
+
+    if (_alphabet_.length !== ORIGINAL.length) {
+        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. You submitted ' + _alphabet_.length + ' characters: ' + _alphabet_);
+    }
+
+    var unique = _alphabet_.split('').filter(function(item, ind, arr){
+       return ind !== arr.lastIndexOf(item);
+    });
+
+    if (unique.length) {
+        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. These characters were not unique: ' + unique.join(', '));
+    }
+
+    alphabet = _alphabet_;
+    reset();
+}
+
+function characters(_alphabet_) {
+    setCharacters(_alphabet_);
+    return alphabet;
+}
+
+function setSeed(seed) {
+    randomFromSeed.seed(seed);
+    if (previousSeed !== seed) {
+        reset();
+        previousSeed = seed;
+    }
+}
+
+function shuffle() {
+    if (!alphabet) {
+        setCharacters(ORIGINAL);
+    }
+
+    var sourceArray = alphabet.split('');
+    var targetArray = [];
+    var r = randomFromSeed.nextValue();
+    var characterIndex;
+
+    while (sourceArray.length > 0) {
+        r = randomFromSeed.nextValue();
+        characterIndex = Math.floor(r * sourceArray.length);
+        targetArray.push(sourceArray.splice(characterIndex, 1)[0]);
+    }
+    return targetArray.join('');
+}
+
+function getShuffled() {
+    if (shuffled) {
+        return shuffled;
+    }
+    shuffled = shuffle();
+    return shuffled;
+}
+
+/**
+ * lookup shuffled letter
+ * @param index
+ * @returns {string}
+ */
+function lookup(index) {
+    var alphabetShuffled = getShuffled();
+    return alphabetShuffled[index];
+}
+
+module.exports = {
+    characters: characters,
+    seed: setSeed,
+    lookup: lookup,
+    shuffled: getShuffled
+};
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var randomByte = __webpack_require__(56);
+
+function encode(lookup, number) {
+    var loopCounter = 0;
+    var done;
+
+    var str = '';
+
+    while (!done) {
+        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
+        done = number < (Math.pow(16, loopCounter + 1 ) );
+        loopCounter++;
+    }
+    return str;
+}
+
+module.exports = encode;
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = __webpack_require__(54);
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var alphabet = __webpack_require__(51);
+var encode = __webpack_require__(52);
+var decode = __webpack_require__(58);
+var build = __webpack_require__(59);
+var isValid = __webpack_require__(60);
+
+// if you are using cluster or multiple servers use this to make each instance
+// has a unique value for worker
+// Note: I don't know if this is automatically set when using third
+// party cluster solutions such as pm2.
+var clusterWorkerId = __webpack_require__(61) || 0;
+
+/**
+ * Set the seed.
+ * Highly recommended if you don't want people to try to figure out your id schema.
+ * exposed as shortid.seed(int)
+ * @param seed Integer value to seed the random alphabet.  ALWAYS USE THE SAME SEED or you might get overlaps.
+ */
+function seed(seedValue) {
+    alphabet.seed(seedValue);
+    return module.exports;
+}
+
+/**
+ * Set the cluster worker or machine id
+ * exposed as shortid.worker(int)
+ * @param workerId worker must be positive integer.  Number less than 16 is recommended.
+ * returns shortid module so it can be chained.
+ */
+function worker(workerId) {
+    clusterWorkerId = workerId;
+    return module.exports;
+}
+
+/**
+ *
+ * sets new characters to use in the alphabet
+ * returns the shuffled alphabet
+ */
+function characters(newCharacters) {
+    if (newCharacters !== undefined) {
+        alphabet.characters(newCharacters);
+    }
+
+    return alphabet.shuffled();
+}
+
+/**
+ * Generate unique id
+ * Returns string id
+ */
+function generate() {
+  return build(clusterWorkerId);
+}
+
+// Export all other functions as properties of the generate function
+module.exports = generate;
+module.exports.generate = generate;
+module.exports.seed = seed;
+module.exports.worker = worker;
+module.exports.characters = characters;
+module.exports.decode = decode;
+module.exports.isValid = isValid;
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Found this seed-based random generator somewhere
+// Based on The Central Randomizer 1.3 (C) 1997 by Paul Houle (houle@msc.cornell.edu)
+
+var seed = 1;
+
+/**
+ * return a random number based on a seed
+ * @param seed
+ * @returns {number}
+ */
+function getNextValue() {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed/(233280.0);
+}
+
+function setSeed(_seed_) {
+    seed = _seed_;
+}
+
+module.exports = {
+    nextValue: getNextValue,
+    seed: setSeed
+};
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var crypto = __webpack_require__(57);
+var randomBytes = crypto.randomBytes;
+
+function randomByte() {
+    return randomBytes(1)[0] & 0x30;
+}
+
+module.exports = randomByte;
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto");
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var alphabet = __webpack_require__(51);
+
+/**
+ * Decode the id to get the version and worker
+ * Mainly for debugging and testing.
+ * @param id - the shortid-generated id.
+ */
+function decode(id) {
+    var characters = alphabet.shuffled();
+    return {
+        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
+        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
+    };
+}
+
+module.exports = decode;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var encode = __webpack_require__(52);
+var alphabet = __webpack_require__(51);
+
+// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
+// This number should be updated every year or so to keep the generated id short.
+// To regenerate `new Date() - 0` and bump the version. Always bump the version!
+var REDUCE_TIME = 1459707606518;
+
+// don't change unless we change the algos or REDUCE_TIME
+// must be an integer and less than 16
+var version = 6;
+
+// Counter is used when shortid is called multiple times in one second.
+var counter;
+
+// Remember the last time shortid was called in case counter is needed.
+var previousSeconds;
+
+/**
+ * Generate unique id
+ * Returns string id
+ */
+function build(clusterWorkerId) {
+
+    var str = '';
+
+    var seconds = Math.floor((Date.now() - REDUCE_TIME) * 0.001);
+
+    if (seconds === previousSeconds) {
+        counter++;
+    } else {
+        counter = 0;
+        previousSeconds = seconds;
+    }
+
+    str = str + encode(alphabet.lookup, version);
+    str = str + encode(alphabet.lookup, clusterWorkerId);
+    if (counter > 0) {
+        str = str + encode(alphabet.lookup, counter);
+    }
+    str = str + encode(alphabet.lookup, seconds);
+
+    return str;
+}
+
+module.exports = build;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var alphabet = __webpack_require__(51);
+
+function isShortId(id) {
+    if (!id || typeof id !== 'string' || id.length < 6 ) {
+        return false;
+    }
+
+    var characters = alphabet.characters();
+    var len = id.length;
+    for(var i = 0; i < len;i++) {
+        if (characters.indexOf(id[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+module.exports = isShortId;
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = parseInt(process.env.NODE_UNIQUE_ID || 0, 10);
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(2);
+
+var _flashMessage = __webpack_require__(64);
+
+var _flashMessage2 = _interopRequireDefault(_flashMessage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FlashMessagesList = function (_React$Component) {
+    _inherits(FlashMessagesList, _React$Component);
+
+    function FlashMessagesList(props) {
+        _classCallCheck(this, FlashMessagesList);
+
+        return _possibleConstructorReturn(this, (FlashMessagesList.__proto__ || Object.getPrototypeOf(FlashMessagesList)).call(this, props));
+    }
+
+    _createClass(FlashMessagesList, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.props.messages.map(function (message) {
+                    return _react2.default.createElement(_flashMessage2.default, { key: message.id, message: message });
+                })
+            );
+        }
+    }]);
+
+    return FlashMessagesList;
+}(_react2.default.Component);
+
+function mapStateToProps(state) {
+    return {
+        messages: state.flashMessages
+    };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, {})(FlashMessagesList);
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(2);
+
+var _flashMessages = __webpack_require__(49);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FlashMessage = function (_React$Component) {
+    _inherits(FlashMessage, _React$Component);
+
+    function FlashMessage(props) {
+        _classCallCheck(this, FlashMessage);
+
+        return _possibleConstructorReturn(this, (FlashMessage.__proto__ || Object.getPrototypeOf(FlashMessage)).call(this, props));
+    }
+
+    _createClass(FlashMessage, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var message = this.props.message;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'alert' },
+                message.text,
+                _react2.default.createElement(
+                    'button',
+                    { className: 'close', onClick: function onClick() {
+                            _this2.props.onDeleteFlashMessage(message);
+                        } },
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        '\xD7'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return FlashMessage;
+}(_react2.default.Component);
+
+function matchDispatchToProps(dispatch) {
+    return {
+        onDeleteFlashMessage: function onDeleteFlashMessage(message) {
+            dispatch((0, _flashMessages.deleteFlashMessage)(message));
+        }
+    };
+}
+
+exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(FlashMessage);
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/findIndex");
 
 /***/ })
 /******/ ]);

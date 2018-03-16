@@ -1,5 +1,5 @@
 import validateInput from '../../../shared/validations/signup'
-import TextFieldGrop from '../common/text-field-group';
+import TextFieldGroup from '../common/text-field-group';
 import { Redirect } from 'react-router-dom';
 import { render } from 'react-dom';
 import React from 'react';
@@ -37,7 +37,11 @@ class SignUpForm extends React.Component {
                 });
 
                 this.props.userSignupRequest(this.state).then((res) => {
-                    this.setState({
+                    this.props.addFlashMessage({
+                        type: 'SUCCESS',
+                        text: 'You have signed up successfully'
+                    });
+                    this.setState({ 
                         isLoading: false,
                         redirect: '/'
                     });
@@ -69,14 +73,14 @@ class SignUpForm extends React.Component {
             <form onSubmit={this.onSubmit}>
                 <h2>Sign up</h2>
 
-                <TextFieldGrop onChange={this.onChange}
+                <TextFieldGroup onChange={this.onChange}
                                error={errors.email}
                                label="Email"
                                value={email}
                                field="email"
                                type="text"/>
 
-                <TextFieldGrop onChange={this.onChange}
+                <TextFieldGroup onChange={this.onChange}
                                error={errors.password}
                                label="Password"
                                value={password}
