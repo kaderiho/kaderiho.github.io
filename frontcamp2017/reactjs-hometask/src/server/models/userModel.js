@@ -37,7 +37,7 @@ UserSchema.pre('save', function saveHook(next) {
 
 // Checking if password is valid
 // UserSchema.methods.validPassword = function (password) {
-//     console.log(`Password validation! ${password}`);
+//     console.log(`Password validations! ${password}`);
 //     console.log(this);
 //     return bcrypt.compareSync(password, this.local.password);
 // };

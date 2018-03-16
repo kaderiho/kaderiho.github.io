@@ -1,27 +1,9 @@
-import express from 'express';
+import validateInput from '../../shared/validations/signup';
 import renderedApp from '../../shared/renderedApp';
-import validator from 'validator';
-import isEmpty from 'lodash/isEmpty';
 import passport from 'passport';
+import express from 'express';
 
 const router = new express.Router();
-
-const validateInput = function(data) {
-    let errors = {};
-
-    if (!validator.isEmail(data.email)) {
-        errors.email = 'Its should be an email';
-    }
-
-    if (validator.isEmpty(data.password)) {
-        errors.password = 'The password is required';
-    }
-
-    return {
-        errors,
-        isValid: isEmpty(errors)
-    }
-};
 
 router.get('/', (req, res, next) => {
     res.send(renderedApp(req));

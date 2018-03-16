@@ -1,5 +1,7 @@
-import React from 'react';
+import validateInput from '../../../shared/validations/signup'
+import TextFieldGrop from '../common/text-field-group';
 import { render } from 'react-dom';
+import React from 'react';
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -12,24 +14,36 @@ class SignUpForm extends React.Component {
             email: ''
         };
 
+        this.isValid = () => {
+            const { errors, isValid } = validateInput(this.state);
+
+            if (!isValid) {
+                this.setState({ errors });
+            }
+        };
+
         this.onSubmit = (event) => {
             event.preventDefault();
 
-            this.setState({
-                isLoading: true,
-                errors: {}
-            });
+            // Pre-validation before submit form
+            if (this.isValid()) {
+                this.setState({
+                    isLoading: true,
+                    errors: {}
+                });
 
-            this.props.userSignupRequest(this.state).then((res) => {
-                this.setState({
-                    isLoading: false
-                });
-            }, (error) => {
-                this.setState({
-                    errors: error.response.data,
-                    isLoading: false
-                });
-            })
+                this.props.userSignupRequest(this.state).then((res) => {
+                    this.setState({
+                        isLoading: false
+                    });
+                }, (error) => {
+                    this.setState({
+                        errors: error.response.data,
+                        isLoading: false
+                    });
+                })
+            }
+
         };
 
         this.onChange = (event) => {
@@ -40,33 +54,25 @@ class SignUpForm extends React.Component {
     }
 
     render() {
-        const { errors, isLoading } = this.state;
+        const { errors, isLoading, email, password } = this.state;
 
         return (
             <form onSubmit={this.onSubmit}>
                 <h2>Sign up</h2>
 
-                <div className="form-group">
-                    <label className="control-label">Email</label>
-                    <input placeholder="Put your email"
-                           value={this.state.email}
-                           onChange={this.onChange}
-                           className="form-control"
-                           type="text"
-                           name="email"/>
-                    {errors.email && <span className="help-block">{errors.email}</span>}
-                </div>
+                <TextFieldGrop onChange={this.onChange}
+                               error={errors.email}
+                               label="Email"
+                               value={email}
+                               field="email"
+                               type="text"/>
 
-                <div className="form-group">
-                    <label className="control-label">Password</label>
-                    <input placeholder="Put your password"
-                           value={this.state.password}
-                           onChange={this.onChange}
-                           className="form-control"
-                           name="password"
-                           type="text"/>
-                    {errors.password && <span className="help-block">{errors.password}</span>}
-                </div>
+                <TextFieldGrop onChange={this.onChange}
+                               error={errors.password}
+                               label="Password"
+                               value={password}
+                               field="password"
+                               type="password"/>
 
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary btn-lg" disabled={isLoading}>

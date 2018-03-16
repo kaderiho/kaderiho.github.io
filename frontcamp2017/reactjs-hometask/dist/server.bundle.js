@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -148,21 +148,21 @@ var _redux = __webpack_require__(11);
 
 var _reactRedux = __webpack_require__(2);
 
-var _index = __webpack_require__(19);
+var _index = __webpack_require__(20);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _indexTemplate = __webpack_require__(22);
+var _indexTemplate = __webpack_require__(23);
 
 var _indexTemplate2 = _interopRequireDefault(_indexTemplate);
 
-var _server = __webpack_require__(24);
+var _server = __webpack_require__(25);
 
 var _server2 = _interopRequireDefault(_server);
 
 var _reactRouterDom = __webpack_require__(7);
 
-var _app = __webpack_require__(25);
+var _app = __webpack_require__(26);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -228,6 +228,46 @@ var addBlog = exports.addBlog = function addBlog(blog) {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _validator = __webpack_require__(40);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _isEmpty = __webpack_require__(41);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var validateInput = function validateInput(data) {
+    var errors = {};
+
+    if (!_validator2.default.isEmail(data.email)) {
+        errors.email = 'Its should be an email';
+    }
+
+    if (_validator2.default.isEmpty(data.password)) {
+        errors.password = 'The password is required';
+    }
+
+    return {
+        errors: errors,
+        isValid: (0, _isEmpty2.default)(errors)
+    };
+};
+
+exports.default = validateInput;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _db = __webpack_require__(4);
 
 var _db2 = _interopRequireDefault(_db);
@@ -244,15 +284,15 @@ var _express = __webpack_require__(6);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _localSignup = __webpack_require__(14);
+var _localSignup = __webpack_require__(15);
 
 var _localSignup2 = _interopRequireDefault(_localSignup);
 
-var _localLogin = __webpack_require__(17);
+var _localLogin = __webpack_require__(18);
 
 var _localLogin2 = _interopRequireDefault(_localLogin);
 
-var _authCheck = __webpack_require__(18);
+var _authCheck = __webpack_require__(19);
 
 var _authCheck2 = _interopRequireDefault(_authCheck);
 
@@ -260,11 +300,11 @@ var _renderedApp = __webpack_require__(10);
 
 var _renderedApp2 = _interopRequireDefault(_renderedApp);
 
-var _signup = __webpack_require__(41);
+var _signup = __webpack_require__(44);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _auth = __webpack_require__(44);
+var _auth = __webpack_require__(45);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -301,14 +341,14 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var PassportLocalStrategy = __webpack_require__(8).Strategy;
-var User = __webpack_require__(15);
+var User = __webpack_require__(16);
 
 module.exports = new PassportLocalStrategy({
     usernameField: 'email',
@@ -331,14 +371,14 @@ module.exports = new PassportLocalStrategy({
 });
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var mongoose = __webpack_require__(3);
-var bcrypt = __webpack_require__(16);
+var bcrypt = __webpack_require__(17);
 
 var UserSchema = new mongoose.Schema({
     email: String,
@@ -380,7 +420,7 @@ UserSchema.pre('save', function saveHook(next) {
 
 // Checking if password is valid
 // UserSchema.methods.validPassword = function (password) {
-//     console.log(`Password validation! ${password}`);
+//     console.log(`Password validations! ${password}`);
 //     console.log(this);
 //     return bcrypt.compareSync(password, this.local.password);
 // };
@@ -388,13 +428,13 @@ UserSchema.pre('save', function saveHook(next) {
 module.exports = mongoose.model('UserModel', UserSchema);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,7 +490,7 @@ module.exports = new PassportLocalStrategy({
 });
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -485,7 +525,7 @@ module.exports = function (req, res, next) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -497,11 +537,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(11);
 
-var _filter = __webpack_require__(20);
+var _filter = __webpack_require__(21);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _blogs = __webpack_require__(21);
+var _blogs = __webpack_require__(22);
 
 var _blogs2 = _interopRequireDefault(_blogs);
 
@@ -515,7 +555,7 @@ var allReducer = (0, _redux.combineReducers)({
 exports.default = allReducer;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -539,7 +579,7 @@ var visibilityFilter = function visibilityFilter() {
 exports.default = visibilityFilter;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -570,7 +610,7 @@ var blogs = function blogs() {
 exports.default = blogs;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -580,7 +620,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _serializeJavascript = __webpack_require__(23);
+var _serializeJavascript = __webpack_require__(24);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
@@ -591,19 +631,19 @@ exports.default = function (appComponent, preLoadedState) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -623,23 +663,23 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(7);
 
-var _navigationBar = __webpack_require__(26);
+var _navigationBar = __webpack_require__(27);
 
 var _navigationBar2 = _interopRequireDefault(_navigationBar);
 
-var _homePage = __webpack_require__(27);
+var _homePage = __webpack_require__(28);
 
 var _homePage2 = _interopRequireDefault(_homePage);
 
-var _blogsPage = __webpack_require__(28);
+var _blogsPage = __webpack_require__(29);
 
 var _blogsPage2 = _interopRequireDefault(_blogsPage);
 
-var _loginPage = __webpack_require__(34);
+var _loginPage = __webpack_require__(35);
 
 var _loginPage2 = _interopRequireDefault(_loginPage);
 
-var _signUpPage = __webpack_require__(37);
+var _signUpPage = __webpack_require__(38);
 
 var _signUpPage2 = _interopRequireDefault(_signUpPage);
 
@@ -685,7 +725,7 @@ var App = function (_React$Component) {
 exports.default = App;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -782,7 +822,7 @@ var NavigationBar = function (_React$Component) {
 exports.default = NavigationBar;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -838,7 +878,7 @@ var HomePage = function (_React$Component) {
 exports.default = HomePage;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -854,15 +894,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(1);
 
-var _blogsFilter = __webpack_require__(29);
+var _blogsFilter = __webpack_require__(30);
 
 var _blogsFilter2 = _interopRequireDefault(_blogsFilter);
 
-var _blogAdding = __webpack_require__(31);
+var _blogAdding = __webpack_require__(32);
 
 var _blogAdding2 = _interopRequireDefault(_blogAdding);
 
-var _blogsList = __webpack_require__(32);
+var _blogsList = __webpack_require__(33);
 
 var _blogsList2 = _interopRequireDefault(_blogsList);
 
@@ -881,7 +921,7 @@ var BlogsPage = function BlogsPage() {
 exports.default = BlogsPage;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -901,7 +941,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _filter = __webpack_require__(30);
+var _filter = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -952,7 +992,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(BlogsFilter);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -969,7 +1009,7 @@ var visibilityFilter = exports.visibilityFilter = function visibilityFilter(filt
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1091,7 +1131,7 @@ function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogAdding);
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1111,7 +1151,7 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _blogItem = __webpack_require__(33);
+var _blogItem = __webpack_require__(34);
 
 var _blogItem2 = _interopRequireDefault(_blogItem);
 
@@ -1159,7 +1199,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(BlogsList);
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1253,7 +1293,7 @@ function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogItem);
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1269,11 +1309,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _loginForm = __webpack_require__(35);
+var _loginForm = __webpack_require__(36);
 
 var _loginForm2 = _interopRequireDefault(_loginForm);
 
-var _Auth = __webpack_require__(36);
+var _Auth = __webpack_require__(37);
 
 var _Auth2 = _interopRequireDefault(_Auth);
 
@@ -1371,7 +1411,7 @@ var LoginPage = function (_React$Component) {
 exports.default = LoginPage;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1435,7 +1475,7 @@ var LoginForm = function LoginForm(_ref) {
 exports.default = LoginForm;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1509,7 +1549,7 @@ var Auth = function () {
 exports.default = Auth;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1525,13 +1565,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _signupForm = __webpack_require__(38);
+var _signupForm = __webpack_require__(39);
 
 var _signupForm2 = _interopRequireDefault(_signupForm);
 
 var _reactRedux = __webpack_require__(2);
 
-var _signupActions = __webpack_require__(39);
+var _signupActions = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1574,7 +1614,7 @@ var SignUpPage = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _signupActions.userSignupRequest })(SignUpPage);
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1586,11 +1626,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _signup = __webpack_require__(13);
+
+var _signup2 = _interopRequireDefault(_signup);
+
+var _textFieldGroup = __webpack_require__(46);
+
+var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _reactDom = __webpack_require__(1);
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1617,24 +1665,37 @@ var SignUpForm = function (_React$Component) {
             email: ''
         };
 
+        _this.isValid = function () {
+            var _validateInput = (0, _signup2.default)(_this.state),
+                errors = _validateInput.errors,
+                isValid = _validateInput.isValid;
+
+            if (!isValid) {
+                _this.setState({ errors: errors });
+            }
+        };
+
         _this.onSubmit = function (event) {
             event.preventDefault();
 
-            _this.setState({
-                isLoading: true,
-                errors: {}
-            });
+            // Pre-validation before submit form
+            if (_this.isValid()) {
+                _this.setState({
+                    isLoading: true,
+                    errors: {}
+                });
 
-            _this.props.userSignupRequest(_this.state).then(function (res) {
-                _this.setState({
-                    isLoading: false
+                _this.props.userSignupRequest(_this.state).then(function (res) {
+                    _this.setState({
+                        isLoading: false
+                    });
+                }, function (error) {
+                    _this.setState({
+                        errors: error.response.data,
+                        isLoading: false
+                    });
                 });
-            }, function (error) {
-                _this.setState({
-                    errors: error.response.data,
-                    isLoading: false
-                });
-            });
+            }
         };
 
         _this.onChange = function (event) {
@@ -1648,7 +1709,9 @@ var SignUpForm = function (_React$Component) {
         value: function render() {
             var _state = this.state,
                 errors = _state.errors,
-                isLoading = _state.isLoading;
+                isLoading = _state.isLoading,
+                email = _state.email,
+                password = _state.password;
 
 
             return _react2.default.createElement(
@@ -1659,46 +1722,18 @@ var SignUpForm = function (_React$Component) {
                     null,
                     'Sign up'
                 ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        { className: 'control-label' },
-                        'Email'
-                    ),
-                    _react2.default.createElement('input', { placeholder: 'Put your email',
-                        value: this.state.email,
-                        onChange: this.onChange,
-                        className: 'form-control',
-                        type: 'text',
-                        name: 'email' }),
-                    errors.email && _react2.default.createElement(
-                        'span',
-                        { className: 'help-block' },
-                        errors.email
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        { className: 'control-label' },
-                        'Password'
-                    ),
-                    _react2.default.createElement('input', { placeholder: 'Put your password',
-                        value: this.state.password,
-                        onChange: this.onChange,
-                        className: 'form-control',
-                        name: 'password',
-                        type: 'text' }),
-                    errors.password && _react2.default.createElement(
-                        'span',
-                        { className: 'help-block' },
-                        errors.password
-                    )
-                ),
+                _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
+                    error: errors.email,
+                    label: 'Email',
+                    value: email,
+                    field: 'email',
+                    type: 'text' }),
+                _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
+                    error: errors.password,
+                    label: 'Password',
+                    value: password,
+                    field: 'password',
+                    type: 'password' }),
                 _react2.default.createElement(
                     'div',
                     { className: 'form-group' },
@@ -1718,7 +1753,19 @@ var SignUpForm = function (_React$Component) {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 39 */
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/isEmpty");
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1729,7 +1776,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userSignupRequest = undefined;
 
-var _axios = __webpack_require__(40);
+var _axios = __webpack_require__(43);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -1742,58 +1789,37 @@ var userSignupRequest = exports.userSignupRequest = function userSignupRequest(u
 };
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(6);
+var _signup = __webpack_require__(13);
 
-var _express2 = _interopRequireDefault(_express);
+var _signup2 = _interopRequireDefault(_signup);
 
 var _renderedApp = __webpack_require__(10);
 
 var _renderedApp2 = _interopRequireDefault(_renderedApp);
 
-var _validator = __webpack_require__(42);
-
-var _validator2 = _interopRequireDefault(_validator);
-
-var _isEmpty = __webpack_require__(43);
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
 var _passport = __webpack_require__(5);
 
 var _passport2 = _interopRequireDefault(_passport);
 
+var _express = __webpack_require__(6);
+
+var _express2 = _interopRequireDefault(_express);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = new _express2.default.Router();
-
-var validateInput = function validateInput(data) {
-    var errors = {};
-
-    if (!_validator2.default.isEmail(data.email)) {
-        errors.email = 'Its should be an email';
-    }
-
-    if (_validator2.default.isEmpty(data.password)) {
-        errors.password = 'The password is required';
-    }
-
-    return {
-        errors: errors,
-        isValid: (0, _isEmpty2.default)(errors)
-    };
-};
 
 router.get('/', function (req, res, next) {
     res.send((0, _renderedApp2.default)(req));
@@ -1801,7 +1827,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     // Validation of user's credentials
-    var _validateInput = validateInput(req.body),
+    var _validateInput = (0, _signup2.default)(req.body),
         errors = _validateInput.errors,
         isValid = _validateInput.isValid;
 
@@ -1837,19 +1863,7 @@ router.post('/', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-module.exports = require("validator");
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash/isEmpty");
-
-/***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1893,6 +1907,60 @@ router.post('/login', function (req, res, next) {
 });
 
 module.exports = router;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TextFieldGroup = function TextFieldGroup(_ref) {
+    var field = _ref.field,
+        value = _ref.value,
+        label = _ref.label,
+        error = _ref.error,
+        type = _ref.type,
+        onChange = _ref.onChange;
+
+    return _react2.default.createElement(
+        "div",
+        { className: "form-group" },
+        _react2.default.createElement(
+            "label",
+            { className: "control-label" },
+            label
+        ),
+        _react2.default.createElement("input", { placeholder: "Put your email",
+            className: "form-control",
+            onChange: onChange,
+            value: value,
+            name: field,
+            type: type
+        }),
+        error && _react2.default.createElement(
+            "span",
+            { className: "help-block" },
+            error
+        )
+    );
+};
+
+TextFieldGroup.defaultProps = {
+    type: 'text'
+};
+
+exports.default = TextFieldGroup;
 
 /***/ })
 /******/ ]);
