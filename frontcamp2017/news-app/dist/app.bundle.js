@@ -912,7 +912,7 @@ if (__webpack_require__(6)) {
       && has(desc, 'value')
       && !has(desc, 'get')
       && !has(desc, 'set')
-      // TODO: add validation descriptor w/o calling accessors
+      // TODO: add validations descriptor w/o calling accessors
       && !desc.configurable
       && (!has(desc, 'writable') || desc.writable)
       && (!has(desc, 'enumerable') || desc.enumerable)
@@ -1040,7 +1040,7 @@ if (__webpack_require__(6)) {
       TypedArray = wrapper(function (that, data, $offset, $length) {
         anInstance(that, TypedArray, NAME);
         var klass;
-        // `ws` module bug, temporarily remove validation length for Uint8Array
+        // `ws` module bug, temporarily remove validations length for Uint8Array
         // https://github.com/websockets/ws/pull/645
         if (!isObject(data)) return new Base(toIndex(data));
         if (data instanceof $ArrayBuffer || (klass = classof(data)) == ARRAY_BUFFER || klass == SHARED_BUFFER) {

@@ -300,11 +300,11 @@ var _renderedApp = __webpack_require__(10);
 
 var _renderedApp2 = _interopRequireDefault(_renderedApp);
 
-var _signup = __webpack_require__(44);
+var _signup = __webpack_require__(45);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _auth = __webpack_require__(45);
+var _auth = __webpack_require__(46);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -1571,7 +1571,7 @@ var _signupForm2 = _interopRequireDefault(_signupForm);
 
 var _reactRedux = __webpack_require__(2);
 
-var _signupActions = __webpack_require__(42);
+var _signupActions = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1630,9 +1630,11 @@ var _signup = __webpack_require__(13);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _textFieldGroup = __webpack_require__(46);
+var _textFieldGroup = __webpack_require__(42);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _reactRouterDom = __webpack_require__(7);
 
 var _reactDom = __webpack_require__(1);
 
@@ -1660,6 +1662,7 @@ var SignUpForm = function (_React$Component) {
 
         _this.state = {
             isLoading: false,
+            redirect: '',
             password: '',
             errors: {},
             email: ''
@@ -1673,6 +1676,8 @@ var SignUpForm = function (_React$Component) {
             if (!isValid) {
                 _this.setState({ errors: errors });
             }
+
+            return isValid;
         };
 
         _this.onSubmit = function (event) {
@@ -1687,7 +1692,8 @@ var SignUpForm = function (_React$Component) {
 
                 _this.props.userSignupRequest(_this.state).then(function (res) {
                     _this.setState({
-                        isLoading: false
+                        isLoading: false,
+                        redirect: '/'
                     });
                 }, function (error) {
                     _this.setState({
@@ -1711,8 +1717,13 @@ var SignUpForm = function (_React$Component) {
                 errors = _state.errors,
                 isLoading = _state.isLoading,
                 email = _state.email,
-                password = _state.password;
+                password = _state.password,
+                redirect = _state.redirect;
 
+
+            if (redirect) {
+                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+            }
 
             return _react2.default.createElement(
                 'form',
@@ -1774,9 +1785,63 @@ module.exports = require("lodash/isEmpty");
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TextFieldGroup = function TextFieldGroup(_ref) {
+    var field = _ref.field,
+        value = _ref.value,
+        label = _ref.label,
+        error = _ref.error,
+        type = _ref.type,
+        onChange = _ref.onChange;
+
+    return _react2.default.createElement(
+        "div",
+        { className: "form-group" },
+        _react2.default.createElement(
+            "label",
+            { className: "control-label" },
+            label
+        ),
+        _react2.default.createElement("input", { placeholder: "Put your email",
+            className: "form-control",
+            onChange: onChange,
+            value: value,
+            name: field,
+            type: type
+        }),
+        error && _react2.default.createElement(
+            "span",
+            { className: "help-block" },
+            error
+        )
+    );
+};
+
+TextFieldGroup.defaultProps = {
+    type: 'text'
+};
+
+exports.default = TextFieldGroup;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.userSignupRequest = undefined;
 
-var _axios = __webpack_require__(43);
+var _axios = __webpack_require__(44);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -1789,13 +1854,13 @@ var userSignupRequest = exports.userSignupRequest = function userSignupRequest(u
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,7 +1928,7 @@ router.post('/', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1907,60 +1972,6 @@ router.post('/login', function (req, res, next) {
 });
 
 module.exports = router;
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TextFieldGroup = function TextFieldGroup(_ref) {
-    var field = _ref.field,
-        value = _ref.value,
-        label = _ref.label,
-        error = _ref.error,
-        type = _ref.type,
-        onChange = _ref.onChange;
-
-    return _react2.default.createElement(
-        "div",
-        { className: "form-group" },
-        _react2.default.createElement(
-            "label",
-            { className: "control-label" },
-            label
-        ),
-        _react2.default.createElement("input", { placeholder: "Put your email",
-            className: "form-control",
-            onChange: onChange,
-            value: value,
-            name: field,
-            type: type
-        }),
-        error && _react2.default.createElement(
-            "span",
-            { className: "help-block" },
-            error
-        )
-    );
-};
-
-TextFieldGroup.defaultProps = {
-    type: 'text'
-};
-
-exports.default = TextFieldGroup;
 
 /***/ })
 /******/ ]);

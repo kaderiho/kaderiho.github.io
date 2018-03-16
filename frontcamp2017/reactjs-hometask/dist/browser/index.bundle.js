@@ -458,7 +458,7 @@ module.exports = invariant;
 
 
 var bind = __webpack_require__(81);
-var isBuffer = __webpack_require__(246);
+var isBuffer = __webpack_require__(247);
 
 /*global toString:true*/
 
@@ -2468,7 +2468,7 @@ module.exports = isObjectLike;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(6);
-var normalizeHeaderName = __webpack_require__(248);
+var normalizeHeaderName = __webpack_require__(249);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -4855,12 +4855,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(6);
-var settle = __webpack_require__(249);
-var buildURL = __webpack_require__(251);
-var parseHeaders = __webpack_require__(252);
-var isURLSameOrigin = __webpack_require__(253);
+var settle = __webpack_require__(250);
+var buildURL = __webpack_require__(252);
+var parseHeaders = __webpack_require__(253);
+var isURLSameOrigin = __webpack_require__(254);
 var createError = __webpack_require__(83);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(254);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(255);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -4957,7 +4957,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(255);
+      var cookies = __webpack_require__(256);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -5042,7 +5042,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(250);
+var enhanceError = __webpack_require__(251);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -5121,11 +5121,11 @@ var _redux = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(10);
 
-var _index = __webpack_require__(263);
+var _index = __webpack_require__(264);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _reduxThunk = __webpack_require__(266);
+var _reduxThunk = __webpack_require__(267);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -28035,7 +28035,7 @@ var _signupForm2 = _interopRequireDefault(_signupForm);
 
 var _reactRedux = __webpack_require__(10);
 
-var _signupActions = __webpack_require__(243);
+var _signupActions = __webpack_require__(244);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28094,9 +28094,11 @@ var _signup = __webpack_require__(161);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _textFieldGroup = __webpack_require__(267);
+var _textFieldGroup = __webpack_require__(243);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _reactRouterDom = __webpack_require__(24);
 
 var _reactDom = __webpack_require__(7);
 
@@ -28124,6 +28126,7 @@ var SignUpForm = function (_React$Component) {
 
         _this.state = {
             isLoading: false,
+            redirect: '',
             password: '',
             errors: {},
             email: ''
@@ -28137,6 +28140,8 @@ var SignUpForm = function (_React$Component) {
             if (!isValid) {
                 _this.setState({ errors: errors });
             }
+
+            return isValid;
         };
 
         _this.onSubmit = function (event) {
@@ -28151,7 +28156,8 @@ var SignUpForm = function (_React$Component) {
 
                 _this.props.userSignupRequest(_this.state).then(function (res) {
                     _this.setState({
-                        isLoading: false
+                        isLoading: false,
+                        redirect: '/'
                     });
                 }, function (error) {
                     _this.setState({
@@ -28175,8 +28181,13 @@ var SignUpForm = function (_React$Component) {
                 errors = _state.errors,
                 isLoading = _state.isLoading,
                 email = _state.email,
-                password = _state.password;
+                password = _state.password,
+                redirect = _state.redirect;
 
+
+            if (redirect) {
+                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+            }
 
             return _react2.default.createElement(
                 'form',
@@ -31679,9 +31690,63 @@ module.exports = nodeUtil;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TextFieldGroup = function TextFieldGroup(_ref) {
+    var field = _ref.field,
+        value = _ref.value,
+        label = _ref.label,
+        error = _ref.error,
+        type = _ref.type,
+        onChange = _ref.onChange;
+
+    return _react2.default.createElement(
+        "div",
+        { className: "form-group" },
+        _react2.default.createElement(
+            "label",
+            { className: "control-label" },
+            label
+        ),
+        _react2.default.createElement("input", { placeholder: "Put your email",
+            className: "form-control",
+            onChange: onChange,
+            value: value,
+            name: field,
+            type: type
+        }),
+        error && _react2.default.createElement(
+            "span",
+            { className: "help-block" },
+            error
+        )
+    );
+};
+
+TextFieldGroup.defaultProps = {
+    type: 'text'
+};
+
+exports.default = TextFieldGroup;
+
+/***/ }),
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.userSignupRequest = undefined;
 
-var _axios = __webpack_require__(244);
+var _axios = __webpack_require__(245);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -31694,13 +31759,13 @@ var userSignupRequest = exports.userSignupRequest = function userSignupRequest(u
 };
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(245);
+module.exports = __webpack_require__(246);
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31708,7 +31773,7 @@ module.exports = __webpack_require__(245);
 
 var utils = __webpack_require__(6);
 var bind = __webpack_require__(81);
-var Axios = __webpack_require__(247);
+var Axios = __webpack_require__(248);
 var defaults = __webpack_require__(39);
 
 /**
@@ -31743,14 +31808,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(85);
-axios.CancelToken = __webpack_require__(261);
+axios.CancelToken = __webpack_require__(262);
 axios.isCancel = __webpack_require__(84);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(262);
+axios.spread = __webpack_require__(263);
 
 module.exports = axios;
 
@@ -31759,7 +31824,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports) {
 
 /*!
@@ -31786,7 +31851,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31794,8 +31859,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(39);
 var utils = __webpack_require__(6);
-var InterceptorManager = __webpack_require__(256);
-var dispatchRequest = __webpack_require__(257);
+var InterceptorManager = __webpack_require__(257);
+var dispatchRequest = __webpack_require__(258);
 
 /**
  * Create a new instance of Axios
@@ -31872,7 +31937,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31891,7 +31956,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31924,7 +31989,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31952,7 +32017,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32025,7 +32090,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32085,7 +32150,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32160,7 +32225,7 @@ module.exports = (
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32203,7 +32268,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32263,7 +32328,7 @@ module.exports = (
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32322,18 +32387,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(6);
-var transformData = __webpack_require__(258);
+var transformData = __webpack_require__(259);
 var isCancel = __webpack_require__(84);
 var defaults = __webpack_require__(39);
-var isAbsoluteURL = __webpack_require__(259);
-var combineURLs = __webpack_require__(260);
+var isAbsoluteURL = __webpack_require__(260);
+var combineURLs = __webpack_require__(261);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -32415,7 +32480,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32442,7 +32507,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32463,7 +32528,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32484,7 +32549,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32548,7 +32613,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32582,7 +32647,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32594,11 +32659,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(32);
 
-var _filter = __webpack_require__(264);
+var _filter = __webpack_require__(265);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _blogs = __webpack_require__(265);
+var _blogs = __webpack_require__(266);
 
 var _blogs2 = _interopRequireDefault(_blogs);
 
@@ -32612,7 +32677,7 @@ var allReducer = (0, _redux.combineReducers)({
 exports.default = allReducer;
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32636,7 +32701,7 @@ var visibilityFilter = function visibilityFilter() {
 exports.default = visibilityFilter;
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32667,7 +32732,7 @@ var blogs = function blogs() {
 exports.default = blogs;
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32694,60 +32759,6 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports['default'] = thunk;
-
-/***/ }),
-/* 267 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TextFieldGroup = function TextFieldGroup(_ref) {
-    var field = _ref.field,
-        value = _ref.value,
-        label = _ref.label,
-        error = _ref.error,
-        type = _ref.type,
-        onChange = _ref.onChange;
-
-    return _react2.default.createElement(
-        "div",
-        { className: "form-group" },
-        _react2.default.createElement(
-            "label",
-            { className: "control-label" },
-            label
-        ),
-        _react2.default.createElement("input", { placeholder: "Put your email",
-            className: "form-control",
-            onChange: onChange,
-            value: value,
-            name: field,
-            type: type
-        }),
-        error && _react2.default.createElement(
-            "span",
-            { className: "help-block" },
-            error
-        )
-    );
-};
-
-TextFieldGroup.defaultProps = {
-    type: 'text'
-};
-
-exports.default = TextFieldGroup;
 
 /***/ })
 /******/ ]);

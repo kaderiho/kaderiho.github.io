@@ -1,5 +1,6 @@
 import validateInput from '../../../shared/validations/signup'
 import TextFieldGrop from '../common/text-field-group';
+import { Redirect } from 'react-router-dom';
 import { render } from 'react-dom';
 import React from 'react';
 
@@ -9,6 +10,7 @@ class SignUpForm extends React.Component {
 
         this.state = {
             isLoading: false,
+            redirect: '',
             password: '',
             errors: {},
             email: ''
@@ -20,6 +22,8 @@ class SignUpForm extends React.Component {
             if (!isValid) {
                 this.setState({ errors });
             }
+
+            return isValid;
         };
 
         this.onSubmit = (event) => {
@@ -34,7 +38,8 @@ class SignUpForm extends React.Component {
 
                 this.props.userSignupRequest(this.state).then((res) => {
                     this.setState({
-                        isLoading: false
+                        isLoading: false,
+                        redirect: '/'
                     });
                 }, (error) => {
                     this.setState({
@@ -54,7 +59,11 @@ class SignUpForm extends React.Component {
     }
 
     render() {
-        const { errors, isLoading, email, password } = this.state;
+        const { errors, isLoading, email, password, redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to="/"/>
+        }
 
         return (
             <form onSubmit={this.onSubmit}>
