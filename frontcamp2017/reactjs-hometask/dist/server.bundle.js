@@ -1476,6 +1476,11 @@ var LoginForm = function (_React$Component) {
                     null,
                     'Login'
                 ),
+                errors.form && _react2.default.createElement(
+                    'div',
+                    { className: 'alert alert-danger' },
+                    errors.form
+                ),
                 _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
                     error: errors.email,
                     label: 'Email',
@@ -1700,6 +1705,11 @@ var SignUpForm = function (_React$Component) {
                     null,
                     'Sign up'
                 ),
+                errors.form && _react2.default.createElement(
+                    'div',
+                    { className: 'alert alert-danger' },
+                    errors.form
+                ),
                 _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
                     error: errors.email,
                     label: 'Email',
@@ -1868,19 +1878,10 @@ router.post('/', function (req, res, next) {
     return _passport2.default.authenticate('local-signup', function (err) {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
-                return res.status(409).json({
-                    success: false,
-                    message: 'Check the form for errors.',
-                    errors: {
-                        email: 'This email is already taken.'
-                    }
-                });
+                return res.status(400).json({ form: 'The email has already token' });
             }
 
-            return res.status(400).json({
-                success: false,
-                message: 'Could not process the form.'
-            });
+            return res.status(400).json({ form: 'Could not process the form.' });
         }
 
         return res.status(200).json({
@@ -1907,31 +1908,37 @@ var _passport = __webpack_require__(5);
 
 var _passport2 = _interopRequireDefault(_passport);
 
+var _signup = __webpack_require__(13);
+
+var _signup2 = _interopRequireDefault(_signup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = new _express2.default.Router();
 
 router.post('/login', function (req, res, next) {
+    var _validateInput = (0, _signup2.default)(req.body),
+        errors = _validateInput.errors,
+        isValid = _validateInput.isValid;
+
+    if (!isValid) {
+        return res.status(401).json(errors);
+    }
+
     return _passport2.default.authenticate('local-login', function (err, token, userData) {
         if (err) {
             if (err.name === 'IncorrectCredentialsError') {
-                return res.status(400).json({
-                    success: false,
-                    message: err.message
-                });
+                return res.status(400).json({ form: 'Incorrect email or password' });
             }
 
-            return res.status(400).json({
-                success: false,
-                message: 'Could not process the form.'
-            });
+            return res.status(400).json({ form: 'Could not process the form.' });
         }
 
         return res.json({
-            success: true,
             message: 'You have successfully logged in!',
-            token: token,
-            user: userData
+            user: userData,
+            success: true,
+            token: token
         });
     })(req, res, next);
 });

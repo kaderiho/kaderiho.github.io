@@ -27939,6 +27939,11 @@ var LoginForm = function (_React$Component) {
                     null,
                     'Login'
                 ),
+                errors.form && _react2.default.createElement(
+                    'div',
+                    { className: 'alert alert-danger' },
+                    errors.form
+                ),
                 _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
                     error: errors.email,
                     label: 'Email',
@@ -28162,6 +28167,11 @@ var SignUpForm = function (_React$Component) {
                     'h2',
                     null,
                     'Sign up'
+                ),
+                errors.form && _react2.default.createElement(
+                    'div',
+                    { className: 'alert alert-danger' },
+                    errors.form
                 ),
                 _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
                     error: errors.email,

@@ -73,6 +73,8 @@ class SignUpForm extends React.Component {
             <form onSubmit={this.onSubmit}>
                 <h2>Sign up</h2>
 
+                { errors.form && <div className="alert alert-danger">{errors.form}</div>}
+
                 <TextFieldGroup onChange={this.onChange}
                                error={errors.email}
                                label="Email"
