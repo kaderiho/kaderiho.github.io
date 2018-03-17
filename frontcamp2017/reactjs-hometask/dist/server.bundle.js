@@ -759,6 +759,10 @@ var _reactDom = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(7);
 
+var _reactRedux = __webpack_require__(2);
+
+var _authActions = __webpack_require__(67);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -770,61 +774,102 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NavigationBar = function (_React$Component) {
     _inherits(NavigationBar, _React$Component);
 
-    function NavigationBar() {
+    function NavigationBar(props) {
         _classCallCheck(this, NavigationBar);
 
-        return _possibleConstructorReturn(this, (NavigationBar.__proto__ || Object.getPrototypeOf(NavigationBar)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (NavigationBar.__proto__ || Object.getPrototypeOf(NavigationBar)).call(this, props));
+
+        _this.logout = function () {
+            _this.props.logout();
+        };
+        return _this;
     }
 
     _createClass(NavigationBar, [{
         key: 'render',
         value: function render() {
+            var isAuthenticated = this.props.auth.isAuthenticated;
+
+            var userLinks = _react2.default.createElement(
+                'ul',
+                { className: 'navbar-nav mr-auto' },
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item active' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/' },
+                        'Home'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/blogs' },
+                        'Articles'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '#', onClick: this.logout },
+                        'Logout'
+                    )
+                )
+            );
+
+            var guestLinks = _react2.default.createElement(
+                'ul',
+                { className: 'navbar-nav mr-auto' },
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item active' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/' },
+                        'Home'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/blogs' },
+                        'Articles'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/auth/login' },
+                        'Login'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'nav-link', to: '/signup' },
+                        'Signup'
+                    )
+                )
+            );
+
             return _react2.default.createElement(
                 'nav',
                 { className: 'navbar navbar-expand-lg navbar-light bg-light' },
                 _react2.default.createElement(
                     'div',
                     { className: 'collapse navbar-collapse', id: 'navbarSupportedContent' },
-                    _react2.default.createElement(
-                        'ul',
-                        { className: 'navbar-nav mr-auto' },
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'nav-item active' },
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { className: 'nav-link', to: '/' },
-                                'Home'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'nav-item' },
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { className: 'nav-link', to: '/blogs' },
-                                'Articles'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'nav-item' },
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { className: 'nav-link', to: '/auth/login' },
-                                'Login'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'nav-item' },
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { className: 'nav-link', to: '/signup' },
-                                'Signup'
-                            )
-                        )
-                    )
+                    isAuthenticated ? userLinks : guestLinks
                 )
             );
         }
@@ -833,7 +878,13 @@ var NavigationBar = function (_React$Component) {
     return NavigationBar;
 }(_react2.default.Component);
 
-exports.default = NavigationBar;
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { logout: _authActions.logout })(NavigationBar);
 
 /***/ }),
 /* 28 */
@@ -2584,7 +2635,7 @@ module.exports = require("lodash/findIndex");
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.login = exports.setCurrentUser = undefined;
+exports.logout = exports.login = exports.setCurrentUser = undefined;
 
 var _axios = __webpack_require__(44);
 
@@ -2619,6 +2670,14 @@ var login = exports.login = function login(userData) {
 
             dispatch(setCurrentUser(_jsonwebtoken2.default.decode(token)));
         });
+    };
+};
+
+var logout = exports.logout = function logout() {
+    return function (dispatch) {
+        localStorage.removeItem('jwtToken');
+        (0, _setAuthorizationToken2.default)(false);
+        dispatch(setCurrentUser({}));
     };
 };
 

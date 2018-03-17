@@ -22,3 +22,11 @@ export const login = (userData) => {
         });
     }
 };
+
+export const logout = () => {
+  return dispatch => {
+      localStorage.removeItem('jwtToken');
+      setAuthorizationToken(false);
+      dispatch(setCurrentUser({}));
+  }
+};
