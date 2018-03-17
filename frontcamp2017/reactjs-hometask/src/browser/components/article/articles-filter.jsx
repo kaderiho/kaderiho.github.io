@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { visibilityFilter } from '../../actions/filter';
 import TextFieldGroup from '../common/text-field-group';
 
-class BlogsFilter extends React.Component {
+class ArticlesFilter extends React.Component {
     constructor(initProps){
         super(initProps);
 
@@ -39,4 +39,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(null, mapDispatchToProps)(BlogsFilter);
+export default connect(null, mapDispatchToProps)(ArticlesFilter);

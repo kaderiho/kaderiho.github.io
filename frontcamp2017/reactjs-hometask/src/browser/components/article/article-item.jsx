@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { removeBlog } from '../../actions/blogs';
 
-class BlogItem extends React.Component {
+class ArticleItem extends React.Component {
     constructor(initProps){
         super(initProps);
     }
@@ -34,4 +34,4 @@ function matchDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, matchDispatchToProps)(BlogItem);
+export default connect(null, matchDispatchToProps)(ArticleItem);

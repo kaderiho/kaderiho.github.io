@@ -1,17 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import BlogItem from './blog-item';
+import ArticleItem from './article-item';
 
-class BlogsList extends React.Component {
+class ArticlesList extends React.Component {
     constructor(initProps) {
         super(initProps);
     }
 
     render() {
         return(
-            <div className="blogsList">
-                {this.props.blogs ? this.props.blogs.map((blogItem) => <BlogItem key={blogItem.id} blog={blogItem}/>) : ''}
+            <div className="articlesList">
+                {this.props.blogs ? this.props.blogs.map((articleItem) => <ArticleItem key={articleItem.id} blog={articleItem}/>) : ''}
             </div>
         )
     }
@@ -23,4 +23,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(BlogsList);
+export default connect(mapStateToProps)(ArticlesList);

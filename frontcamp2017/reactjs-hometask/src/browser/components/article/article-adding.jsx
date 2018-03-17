@@ -5,7 +5,7 @@ import { addBlog } from '../../actions/blogs';
 import TextFieldGroup from '../common/text-field-group';
 import shortid from 'shortid';
 
-class BlogAdding extends React.Component {
+class ArticleAdding extends React.Component {
     constructor(initProps) {
         super(initProps);
 
@@ -32,8 +32,8 @@ class BlogAdding extends React.Component {
             this.props.onSubmit({
                 id: shortid.generate(),
                 date: new Date(),
-                author: author,
-                text: message
+                author,
+                message
             });
 
             this.setState({
@@ -79,4 +79,4 @@ function matchDispatchToProps(dispatch) {
     }
 }
 
-export default connect(null, matchDispatchToProps)(BlogAdding);
+export default connect(null, matchDispatchToProps)(ArticleAdding);

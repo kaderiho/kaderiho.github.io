@@ -1,15 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import BlogsFilter from '../components/blog/blogs-filter';
-import BlogAdding from '../components/blog/blog-adding';
-import BlogsList from '../components/blog/blogs-list';
+import ArticleFilter from '../components/article/articles-filter';
+import ArticleAdding from '../components/article/article-adding';
+import ArticleList from '../components/article/articles-list';
 
 const BlogsPage = () => (
     <div>
-        <BlogAdding/>
-        <BlogsList/>
-        <BlogsFilter/>
+        <ArticleAdding/>
+        <ArticleList/>
+        <ArticleFilter/>
     </div>
 );
 

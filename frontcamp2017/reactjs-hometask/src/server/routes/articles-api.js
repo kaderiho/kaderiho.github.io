@@ -1,10 +1,12 @@
-import express from 'express';
+const {deleteArticle, updateArticle, createArticle, getArticle, getArticles} = require('../controllers/articleController');
+const express   = require('express');
+const router    = express.Router();
 
-let router = express.Router();
-
-// TODO: Save / delete articles from DB
-router.post('/', (req, res) => {
-    res.status(200).json({ success: true });
-});
+// CRUD Article requests
+router.delete('/:id', deleteArticle);
+router.put('/:id', updateArticle);
+router.post('/', createArticle);
+router.get('/:id', getArticle);
+router.get('/', getArticles);
 
 module.exports = router;
