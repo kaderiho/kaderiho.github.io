@@ -10,9 +10,8 @@ export const removeBlog = (blog) => {
 
 export const addBlog = (blog) => {
     return dispatch => {
-        return axios.post('/articles', blog)
+        return axios.post('/articles/api', blog)
     };
-
 
     // return {
     //     type: 'ADD_BLOG',

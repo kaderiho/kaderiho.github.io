@@ -4256,7 +4256,7 @@ var removeBlog = exports.removeBlog = function removeBlog(blog) {
 }; // import { ADD_ARTICLE } from './types';
 var addBlog = exports.addBlog = function addBlog(blog) {
     return function (dispatch) {
-        return _axios2.default.post('/articles', blog);
+        return _axios2.default.post('/articles/api', blog);
     };
 
     // return {
@@ -22463,6 +22463,10 @@ var _flashMessagesList = __webpack_require__(283);
 
 var _flashMessagesList2 = _interopRequireDefault(_flashMessagesList);
 
+var _requireAuth = __webpack_require__(565);
+
+var _requireAuth2 = _interopRequireDefault(_requireAuth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22492,7 +22496,7 @@ var App = function (_React$Component) {
                     _reactRouterDom.Switch,
                     null,
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homePage2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/articles', component: _blogsPage2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/articles', component: (0, _requireAuth2.default)(_blogsPage2.default) }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/auth/login', component: _loginPage2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _signUpPage2.default })
                 )
@@ -36761,6 +36765,84 @@ function polyfill (input) {
 
 module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
 
+
+/***/ }),
+/* 565 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+exports.default = function (ComposedComponent) {
+    var Authenticate = function (_React$Component) {
+        _inherits(Authenticate, _React$Component);
+
+        function Authenticate(props) {
+            _classCallCheck(this, Authenticate);
+
+            var _this = _possibleConstructorReturn(this, (Authenticate.__proto__ || Object.getPrototypeOf(Authenticate)).call(this, props));
+
+            _this.state = {
+                redirect: ''
+            };
+            return _this;
+        }
+
+        _createClass(Authenticate, [{
+            key: 'componentWillMount',
+            value: function componentWillMount() {
+                if (!this.props.isAuthenticated) {
+                    this.setState({
+                        redirect: '/auth/login'
+                    });
+                }
+            }
+        }, {
+            key: 'render',
+            value: function render() {
+                if (this.state.redirect) {
+                    return _react2.default.createElement(_reactRouterDom.Redirect, { to: this.state.redirect });
+                }
+
+                return _react2.default.createElement(ComposedComponent, this.props);
+            }
+        }]);
+
+        return Authenticate;
+    }(_react2.default.Component);
+
+    function mapStateToProps(state) {
+        return {
+            isAuthenticated: state.auth.isAuthenticated
+        };
+    }
+
+    return (0, _reactRedux.connect)(mapStateToProps, { addFlashMessage: _flashMessages.addFlashMessage })(Authenticate);
+};
+
+var _flashMessages = __webpack_require__(270);
+
+var _reactRouterDom = __webpack_require__(24);
+
+var _reactRedux = __webpack_require__(10);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /***/ })
 /******/ ]);

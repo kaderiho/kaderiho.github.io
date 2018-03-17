@@ -8,6 +8,7 @@ import BlogsPage from '../../browser/pages/blogsPage';
 import LoginPage from '../../browser/pages/loginPage';
 import SignUpPage from '../../browser/pages/signUpPage';
 import FlashMessagesList from '../../browser/components/flash/flash-messages-list'
+import requireAuth from '../../browser/utils/requireAuth';
 
 class App extends React.Component {
     render() {
@@ -17,7 +18,7 @@ class App extends React.Component {
                 <FlashMessagesList/>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
-                    <Route path="/articles" component={BlogsPage} />
+                    <Route path="/articles" component={requireAuth(BlogsPage)} />
                     <Route path="/auth/login" component={LoginPage} />
                     <Route path="/signup" component={SignUpPage} />
                 </Switch>
