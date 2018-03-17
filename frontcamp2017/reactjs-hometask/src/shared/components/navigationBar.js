@@ -26,7 +26,6 @@ class NavigationBar extends React.Component {
         const guestLinks = (
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item active"><Link className="nav-link" to="/">Home</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/blogs">Articles</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/auth/login">Login</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/signup">Signup</Link></li>
             </ul>

@@ -26169,15 +26169,6 @@ var NavigationBar = function (_React$Component) {
                     { className: 'nav-item' },
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { className: 'nav-link', to: '/blogs' },
-                        'Articles'
-                    )
-                ),
-                _react2.default.createElement(
-                    'li',
-                    { className: 'nav-item' },
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
                         { className: 'nav-link', to: '/auth/login' },
                         'Login'
                     )
