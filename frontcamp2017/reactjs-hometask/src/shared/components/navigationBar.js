@@ -18,7 +18,7 @@ class NavigationBar extends React.Component {
         const userLinks = (
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item active"><Link className="nav-link" to="/">Home</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/blogs">Articles</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/articles">Articles</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="#" onClick={this.logout}>Logout</Link></li>
             </ul>
         );

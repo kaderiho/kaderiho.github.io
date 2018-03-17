@@ -28,7 +28,7 @@ app.use(passport.initialize());
 passport.use('local-signup', localSignupPassportStrategy);
 passport.use('local-login', localLoginPassportStrategy);
 
-app.use('/blogs', authCheckMiddleware, (req, res) => res.send(renderedApp(req)));
+app.use('/articles', authCheckMiddleware, (req, res) => res.send(renderedApp(req)));
 app.use('/signup', signupRoutes);
 app.use('/auth', authRoutes);
 app.use('/', (req, res) => res.send(renderedApp(req)));

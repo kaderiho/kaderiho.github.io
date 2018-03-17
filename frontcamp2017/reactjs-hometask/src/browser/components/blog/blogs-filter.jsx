@@ -2,20 +2,31 @@ import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { visibilityFilter } from '../../actions/filter';
+import TextFieldGroup from '../common/text-field-group';
 
 class BlogsFilter extends React.Component {
     constructor(initProps){
         super(initProps);
+
+        this.state = {
+            filter: ''
+        };
+
+        this.onChange = (e) => {
+            this.setState({
+                [e.target.name] : e.target.value
+            });
+            this.props.onChange(e.target.value);
+        };
     }
 
     render() {
-        let filterInput;
-
         return (
-            <input onChange={() => this.props.onChange(filterInput.value)}
-                   placeholder="Filter by author name"
-                   ref={node => filterInput = node}
-                   type="text" />
+            <TextFieldGroup label="Filter by author name"
+                            onChange={this.onChange}
+                            value={this.state.filter}
+                            field="filter"
+                            type="text"/>
         )
     }
 }

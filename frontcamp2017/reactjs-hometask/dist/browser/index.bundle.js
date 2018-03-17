@@ -26137,7 +26137,7 @@ var NavigationBar = function (_React$Component) {
                     { className: 'nav-item' },
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { className: 'nav-link', to: '/blogs' },
+                        { className: 'nav-link', to: '/articles' },
                         'Articles'
                     )
                 ),
@@ -26329,7 +26329,13 @@ var _reactRedux = __webpack_require__(10);
 
 var _filter = __webpack_require__(152);
 
+var _textFieldGroup = __webpack_require__(243);
+
+var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -26343,23 +26349,26 @@ var BlogsFilter = function (_React$Component) {
     function BlogsFilter(initProps) {
         _classCallCheck(this, BlogsFilter);
 
-        return _possibleConstructorReturn(this, (BlogsFilter.__proto__ || Object.getPrototypeOf(BlogsFilter)).call(this, initProps));
+        var _this = _possibleConstructorReturn(this, (BlogsFilter.__proto__ || Object.getPrototypeOf(BlogsFilter)).call(this, initProps));
+
+        _this.state = {
+            filter: ''
+        };
+
+        _this.onChange = function (e) {
+            _this.setState(_defineProperty({}, e.target.name, e.target.value));
+            _this.props.onChange(e.target.value);
+        };
+        return _this;
     }
 
     _createClass(BlogsFilter, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
-            var filterInput = void 0;
-
-            return _react2.default.createElement('input', { onChange: function onChange() {
-                    return _this2.props.onChange(filterInput.value);
-                },
-                placeholder: 'Filter by author name',
-                ref: function ref(node) {
-                    return filterInput = node;
-                },
+            return _react2.default.createElement(_textFieldGroup2.default, { label: 'Filter by author name',
+                onChange: this.onChange,
+                value: this.state.filter,
+                field: 'filter',
                 type: 'text' });
         }
     }]);
@@ -27559,7 +27568,17 @@ var _reactRedux = __webpack_require__(10);
 
 var _blogs = __webpack_require__(62);
 
+var _textFieldGroup = __webpack_require__(243);
+
+var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _shortid = __webpack_require__(274);
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27567,79 +27586,79 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var nextBlogId = 0;
-
 var BlogAdding = function (_React$Component) {
     _inherits(BlogAdding, _React$Component);
 
     function BlogAdding(initProps) {
         _classCallCheck(this, BlogAdding);
 
-        return _possibleConstructorReturn(this, (BlogAdding.__proto__ || Object.getPrototypeOf(BlogAdding)).call(this, initProps));
+        var _this = _possibleConstructorReturn(this, (BlogAdding.__proto__ || Object.getPrototypeOf(BlogAdding)).call(this, initProps));
+
+        _this.state = {
+            author: '',
+            message: ''
+        };
+
+        _this.onChange = function (e) {
+            _this.setState(_defineProperty({}, e.target.name, e.target.value));
+        };
+
+        _this.onSubmit = function (e) {
+            var _this$state = _this.state,
+                message = _this$state.message,
+                author = _this$state.author;
+
+
+            e.preventDefault();
+
+            if (!message.trim() || !author.trim()) {
+                return;
+            }
+
+            _this.props.onSubmit({
+                id: _shortid2.default.generate(),
+                date: new Date(),
+                author: author,
+                text: message
+            });
+
+            _this.setState({
+                message: '',
+                author: ''
+            });
+        };
+        return _this;
     }
 
     _createClass(BlogAdding, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _state = this.state,
+                message = _state.message,
+                author = _state.author;
 
-            var inputMessage = void 0;
-            var inputAuthor = void 0;
 
             return _react2.default.createElement(
                 'form',
-                { onSubmit: function onSubmit(e) {
-                        e.preventDefault();
-
-                        if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {
-                            return;
-                        }
-
-                        _this2.props.onSubmit({
-                            author: inputAuthor.value,
-                            text: inputMessage.value,
-                            id: nextBlogId++,
-                            date: new Date()
-                        });
-
-                        inputMessage.value = inputAuthor.value = '';
-                    } },
+                { onSubmit: this.onSubmit },
+                _react2.default.createElement(_textFieldGroup2.default, { label: 'Your article message',
+                    onChange: this.onChange,
+                    field: 'message',
+                    value: message,
+                    type: 'text' }),
+                _react2.default.createElement(_textFieldGroup2.default, { onChange: this.onChange,
+                    label: 'Author name',
+                    field: 'author',
+                    value: author,
+                    type: 'text' }),
                 _react2.default.createElement(
-                    'p',
-                    null,
+                    'div',
+                    { className: 'form-group' },
                     _react2.default.createElement(
-                        'label',
-                        null,
-                        'Put your message there: ',
-                        _react2.default.createElement('br', null),
-                        _react2.default.createElement('input', { ref: function ref(node) {
-                                inputMessage = node;
-                            },
-                            placeholder: 'Your message',
-                            type: 'text'
-                        })
+                        'button',
+                        { type: 'submit', className: 'btn btn-primary btn-lg' },
+                        'Add'
                     )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        'Author name: ',
-                        _react2.default.createElement('br', null),
-                        _react2.default.createElement('input', { ref: function ref(node) {
-                                inputAuthor = node;
-                            },
-                            placeholder: 'Author nickname',
-                            type: 'text'
-                        })
-                    )
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'submit', value: 'Submit' },
-                    'Add'
                 )
             );
         }

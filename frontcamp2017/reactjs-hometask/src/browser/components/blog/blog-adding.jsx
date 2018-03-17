@@ -2,54 +2,69 @@ import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { addBlog } from '../../actions/blogs';
-
-let nextBlogId = 0;
+import TextFieldGroup from '../common/text-field-group';
+import shortid from 'shortid';
 
 class BlogAdding extends React.Component {
     constructor(initProps) {
         super(initProps);
+
+        this.state = {
+            author: '',
+            message: ''
+        };
+
+        this.onChange = (e) => {
+            this.setState({
+                [e.target.name] : e.target.value
+            });
+        };
+
+        this.onSubmit = (e) => {
+            const { message, author } = this.state;
+
+            e.preventDefault();
+
+            if (!message.trim() || !author.trim()) {
+                return;
+            }
+
+            this.props.onSubmit({
+                id: shortid.generate(),
+                date: new Date(),
+                author: author,
+                text: message
+            });
+
+            this.setState({
+                message: '',
+                author: ''
+            })
+        }
     }
 
     render() {
-        let inputMessage;
-        let inputAuthor;
+        const { message, author } = this.state;
 
         return (
-            <form onSubmit={(e) => {
-                e.preventDefault();
+            <form onSubmit={this.onSubmit}>
+                <TextFieldGroup label="Your article message"
+                                onChange={this.onChange}
+                                field="message"
+                                value={message}
+                                type="text"/>
 
-                if (!inputMessage.value.trim() || !inputAuthor.value.trim()) {
-                    return;
-                }
+                <TextFieldGroup onChange={this.onChange}
+                                label="Author name"
+                                field="author"
+                                value={author}
+                                type="text"/>
 
-                this.props.onSubmit({
-                    author: inputAuthor.value,
-                    text: inputMessage.value,
-                    id: nextBlogId++,
-                    date: new Date()
-                });
-
-                inputMessage.value = inputAuthor.value = '';
-            }}>
-                <p>
-                    <label>
-                        Put your message there: <br/>
-                        <input ref={node => { inputMessage = node }}
-                               placeholder="Your message"
-                               type="text"
-                        />
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        Author name: <br/>
-                        <input ref={node => { inputAuthor = node }}
-                               placeholder="Author nickname"
-                               type="text"
-                        />
-                    </label>
-                </p>
-                <button type="submit" value="Submit">Add</button>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary btn-lg">
+                        Add
+                    </button>
+                </div>
             </form>
         );
     }
