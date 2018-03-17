@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import allReducers from '../browser/reducers/index';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import thunk from 'redux-thunk'
-import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './actions/authActions';
 
 const preloadedState = window.__INITIAL_DATA__;
@@ -23,7 +23,7 @@ let store = createStore(
 
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.getItem('jwtToken'));
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+    store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
 }
 
 hydrate(
