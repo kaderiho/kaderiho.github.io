@@ -9,17 +9,17 @@ class ArticleItem extends React.Component {
     }
 
     render(){
-        const { date: blogDate, text: blogText, author: blogAuthor } = this.props.blog;
+        const { date: articleDate, message: articleMessage, author: articleAuthor } = this.props.blog;
 
         return (
             <article className="blogsList-blogItem">
                 <p className="blogText">
-                    {blogText}
+                    {articleMessage}
                 </p>
-                <span className="blogDate">{new Date(blogDate).toLocaleTimeString()}</span>
+                <span className="blogDate">{new Date(articleDate).toLocaleTimeString()}</span>
                 <input type="button" value="x" onClick={() => this.props.removeArticle(this.props.blog)}/>
                 <p>
-                    <b>Author: {blogAuthor}</b>
+                    <b>Author: {articleAuthor}</b>
                 </p>
             </article>
         )

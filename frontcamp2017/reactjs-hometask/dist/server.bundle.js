@@ -2673,9 +2673,9 @@ var ArticleItem = function (_React$Component) {
             var _this2 = this;
 
             var _props$blog = this.props.blog,
-                blogDate = _props$blog.date,
-                blogText = _props$blog.text,
-                blogAuthor = _props$blog.author;
+                articleDate = _props$blog.date,
+                articleMessage = _props$blog.message,
+                articleAuthor = _props$blog.author;
 
 
             return _react2.default.createElement(
@@ -2684,12 +2684,12 @@ var ArticleItem = function (_React$Component) {
                 _react2.default.createElement(
                     'p',
                     { className: 'blogText' },
-                    blogText
+                    articleMessage
                 ),
                 _react2.default.createElement(
                     'span',
                     { className: 'blogDate' },
-                    new Date(blogDate).toLocaleTimeString()
+                    new Date(articleDate).toLocaleTimeString()
                 ),
                 _react2.default.createElement('input', { type: 'button', value: 'x', onClick: function onClick() {
                         return _this2.props.removeArticle(_this2.props.blog);
@@ -2701,7 +2701,7 @@ var ArticleItem = function (_React$Component) {
                         'b',
                         null,
                         'Author: ',
-                        blogAuthor
+                        articleAuthor
                     )
                 )
             );
