@@ -4240,18 +4240,29 @@ function verifyPlainObject(value, displayName, methodName) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.addBlog = exports.removeBlog = undefined;
+
+var _axios = __webpack_require__(245);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var removeBlog = exports.removeBlog = function removeBlog(blog) {
     return {
         type: 'REMOVE_BLOG',
         payLoad: blog
     };
-};
-
+}; // import { ADD_ARTICLE } from './types';
 var addBlog = exports.addBlog = function addBlog(blog) {
-    return {
-        type: 'ADD_BLOG',
-        payLoad: blog
+    return function (dispatch) {
+        return _axios2.default.post('/articles', blog);
     };
+
+    // return {
+    //     type: 'ADD_BLOG',
+    //     payLoad: blog
+    // }
 };
 
 /***/ }),
@@ -33289,6 +33300,7 @@ Object.defineProperty(exports, "__esModule", {
 var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
+var ADD_ARTICLE = exports.ADD_ARTICLE = 'ADD_ARTICLE';
 
 /***/ }),
 /* 283 */

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,64 +73,55 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom");
+module.exports = require("react-redux");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("react-dom");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("react-router-dom");
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-module.exports = {
-    dbURI: "mongodb://kostya.aderiho:aderiho280993@ds121118.mlab.com:21118/frontcamp",
-    jwtSecret: 'somesecretjwttokenstring'
-};
+module.exports = require("mongoose");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport");
+module.exports = require("express");
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("express");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
+var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
+var ADD_ARTICLE = exports.ADD_ARTICLE = 'ADD_ARTICLE';
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+module.exports = require("axios");
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport-local");
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -144,25 +135,141 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(11);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _reactRedux = __webpack_require__(2);
+var TextFieldGroup = function TextFieldGroup(_ref) {
+    var field = _ref.field,
+        value = _ref.value,
+        label = _ref.label,
+        error = _ref.error,
+        type = _ref.type,
+        onChange = _ref.onChange;
 
-var _index = __webpack_require__(20);
+    return _react2.default.createElement(
+        "div",
+        { className: "form-group" },
+        _react2.default.createElement(
+            "label",
+            { className: "control-label" },
+            label
+        ),
+        _react2.default.createElement("input", { className: "form-control",
+            onChange: onChange,
+            value: value,
+            name: field,
+            type: type }),
+        error && _react2.default.createElement(
+            "span",
+            { className: "help-block" },
+            error
+        )
+    );
+};
+
+TextFieldGroup.defaultProps = {
+    type: 'text'
+};
+
+exports.default = TextFieldGroup;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _validator = __webpack_require__(48);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _isEmpty = __webpack_require__(17);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var validateInput = function validateInput(data) {
+    var errors = {};
+
+    if (!_validator2.default.isEmail(data.email)) {
+        errors.email = 'Its should be an email';
+    }
+
+    if (_validator2.default.isEmpty(data.password)) {
+        errors.password = 'The password is required';
+    }
+
+    return {
+        errors: errors,
+        isValid: (0, _isEmpty2.default)(errors)
+    };
+};
+
+exports.default = validateInput;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    dbURI: "mongodb://kostya.aderiho:aderiho280993@ds121118.mlab.com:21118/frontcamp",
+    jwtSecret: 'somesecretjwttokenstring'
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(15);
+
+var _reactRedux = __webpack_require__(1);
+
+var _index = __webpack_require__(27);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _indexTemplate = __webpack_require__(23);
+var _indexTemplate = __webpack_require__(33);
 
 var _indexTemplate2 = _interopRequireDefault(_indexTemplate);
 
-var _server = __webpack_require__(25);
+var _server = __webpack_require__(35);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactRouterDom = __webpack_require__(7);
+var _reactRouterDom = __webpack_require__(3);
 
-var _app = __webpack_require__(26);
+var _app = __webpack_require__(36);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -192,13 +299,31 @@ var renderedApp = function renderedApp(req) {
 exports.default = renderedApp;
 
 /***/ }),
-/* 11 */
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux");
 
 /***/ }),
-/* 12 */
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("shortid");
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/isEmpty");
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -207,22 +332,89 @@ module.exports = require("redux");
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.logout = exports.login = exports.setCurrentUser = undefined;
+
+var _axios = __webpack_require__(7);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _setAuthorizationToken = __webpack_require__(38);
+
+var _setAuthorizationToken2 = _interopRequireDefault(_setAuthorizationToken);
+
+var _types = __webpack_require__(6);
+
+var _jsonwebtoken = __webpack_require__(12);
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var setCurrentUser = exports.setCurrentUser = function setCurrentUser(user) {
+    return {
+        type: _types.SET_CURRENT_USER,
+        user: user
+    };
+};
+
+var login = exports.login = function login(userData) {
+    return function (dispatch) {
+        return _axios2.default.post('/auth/login', userData).then(function (res) {
+            var token = res.data.token;
+
+            localStorage.setItem('jwtToken', token);
+            (0, _setAuthorizationToken2.default)(token);
+
+            dispatch(setCurrentUser(_jsonwebtoken2.default.decode(token)));
+        });
+    };
+};
+
+var logout = exports.logout = function logout() {
+    return function (dispatch) {
+        localStorage.removeItem('jwtToken');
+        (0, _setAuthorizationToken2.default)(false);
+        dispatch(setCurrentUser({}));
+    };
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.addBlog = exports.removeBlog = undefined;
+
+var _axios = __webpack_require__(7);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var removeBlog = exports.removeBlog = function removeBlog(blog) {
     return {
         type: 'REMOVE_BLOG',
         payLoad: blog
     };
-};
-
+}; // import { ADD_ARTICLE } from './types';
 var addBlog = exports.addBlog = function addBlog(blog) {
-    return {
-        type: 'ADD_BLOG',
-        payLoad: blog
+    return function (dispatch) {
+        return _axios2.default.post('/articles', blog);
     };
+
+    // return {
+    //     type: 'ADD_BLOG',
+    //     payLoad: blog
+    // }
 };
 
 /***/ }),
-/* 13 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -231,80 +423,72 @@ var addBlog = exports.addBlog = function addBlog(blog) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.deleteFlashMessage = exports.addFlashMessage = undefined;
 
-var _validator = __webpack_require__(40);
+var _types = __webpack_require__(6);
 
-var _validator2 = _interopRequireDefault(_validator);
-
-var _isEmpty = __webpack_require__(41);
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var validateInput = function validateInput(data) {
-    var errors = {};
-
-    if (!_validator2.default.isEmail(data.email)) {
-        errors.email = 'Its should be an email';
-    }
-
-    if (_validator2.default.isEmpty(data.password)) {
-        errors.password = 'The password is required';
-    }
-
+var addFlashMessage = exports.addFlashMessage = function addFlashMessage(message) {
     return {
-        errors: errors,
-        isValid: (0, _isEmpty2.default)(errors)
+        type: _types.ADD_FLASH_MESSAGE,
+        message: message
     };
 };
 
-exports.default = validateInput;
+var deleteFlashMessage = exports.deleteFlashMessage = function deleteFlashMessage(message) {
+    return {
+        type: _types.DELETE_FLASH_MESSAGE,
+        message: message
+    };
+};
 
 /***/ }),
-/* 14 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _db = __webpack_require__(4);
+var _db = __webpack_require__(10);
 
 var _db2 = _interopRequireDefault(_db);
 
-var _passport = __webpack_require__(5);
+var _passport = __webpack_require__(11);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _mongoose = __webpack_require__(3);
+var _mongoose = __webpack_require__(4);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _express = __webpack_require__(6);
+var _express = __webpack_require__(5);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _localSignup = __webpack_require__(15);
+var _localSignup = __webpack_require__(22);
 
 var _localSignup2 = _interopRequireDefault(_localSignup);
 
-var _localLogin = __webpack_require__(18);
+var _localLogin = __webpack_require__(25);
 
 var _localLogin2 = _interopRequireDefault(_localLogin);
 
-var _authCheck = __webpack_require__(19);
+var _authCheck = __webpack_require__(26);
 
 var _authCheck2 = _interopRequireDefault(_authCheck);
 
-var _renderedApp = __webpack_require__(10);
+var _renderedApp = __webpack_require__(13);
 
 var _renderedApp2 = _interopRequireDefault(_renderedApp);
 
-var _signup = __webpack_require__(45);
+var _articles = __webpack_require__(54);
+
+var _articles2 = _interopRequireDefault(_articles);
+
+var _signup = __webpack_require__(55);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _auth = __webpack_require__(46);
+var _auth = __webpack_require__(56);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -327,9 +511,7 @@ app.use(_passport2.default.initialize());
 _passport2.default.use('local-signup', _localSignup2.default);
 _passport2.default.use('local-login', _localLogin2.default);
 
-app.use('/articles', _authCheck2.default, function (req, res) {
-    return res.send((0, _renderedApp2.default)(req));
-});
+app.use('/articles', _authCheck2.default, _articles2.default);
 app.use('/signup', _signup2.default);
 app.use('/auth', _auth2.default);
 app.use('/', function (req, res) {
@@ -341,14 +523,14 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 15 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PassportLocalStrategy = __webpack_require__(8).Strategy;
-var User = __webpack_require__(16);
+var PassportLocalStrategy = __webpack_require__(14).Strategy;
+var User = __webpack_require__(23);
 
 module.exports = new PassportLocalStrategy({
     usernameField: 'email',
@@ -371,14 +553,14 @@ module.exports = new PassportLocalStrategy({
 });
 
 /***/ }),
-/* 16 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(3);
-var bcrypt = __webpack_require__(17);
+var mongoose = __webpack_require__(4);
+var bcrypt = __webpack_require__(24);
 
 var UserSchema = new mongoose.Schema({
     email: String,
@@ -428,22 +610,22 @@ UserSchema.pre('save', function saveHook(next) {
 module.exports = mongoose.model('UserModel', UserSchema);
 
 /***/ }),
-/* 17 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 18 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PassportLocalStrategy = __webpack_require__(8).Strategy;
-var User = __webpack_require__(3).model('UserModel');
-var config = __webpack_require__(4);
-var jwt = __webpack_require__(9);
+var PassportLocalStrategy = __webpack_require__(14).Strategy;
+var User = __webpack_require__(4).model('UserModel');
+var config = __webpack_require__(10);
+var jwt = __webpack_require__(12);
 
 module.exports = new PassportLocalStrategy({
     usernameField: 'email',
@@ -491,22 +673,24 @@ module.exports = new PassportLocalStrategy({
 });
 
 /***/ }),
-/* 19 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var User = __webpack_require__(3).model('UserModel');
-var config = __webpack_require__(4);
-var jwt = __webpack_require__(9);
+var User = __webpack_require__(4).model('UserModel');
+var config = __webpack_require__(10);
+var jwt = __webpack_require__(12);
 
 module.exports = function (req, res, next) {
-    if (!req.headers.authorization) {
+    var authorizationHeader = req.headers['authorization'];
+
+    if (!authorizationHeader) {
         return res.redirect('auth/login');
     }
 
-    var token = req.headers.authorization.split(' ')[1];
+    var token = authorizationHeader.split(' ')[1];
 
     return jwt.verify(token, config.jwtSecret, function (err, decoded) {
         if (err) {
@@ -526,7 +710,7 @@ module.exports = function (req, res, next) {
 };
 
 /***/ }),
-/* 20 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -536,21 +720,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _flashMessages = __webpack_require__(48);
+var _flashMessages = __webpack_require__(28);
 
 var _flashMessages2 = _interopRequireDefault(_flashMessages);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(15);
 
-var _filter = __webpack_require__(21);
+var _filter = __webpack_require__(30);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _auth = __webpack_require__(69);
+var _auth = __webpack_require__(31);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _blogs = __webpack_require__(22);
+var _blogs = __webpack_require__(32);
 
 var _blogs2 = _interopRequireDefault(_blogs);
 
@@ -564,7 +748,61 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 21 */
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _types = __webpack_require__(6);
+
+var _findIndex = __webpack_require__(29);
+
+var _findIndex2 = _interopRequireDefault(_findIndex);
+
+var _shortid = __webpack_require__(16);
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _types.ADD_FLASH_MESSAGE:
+            return [].concat(_toConsumableArray(state), [{
+                id: _shortid2.default.generate(),
+                type: action.message.type,
+                text: action.message.text
+            }]);
+        case _types.DELETE_FLASH_MESSAGE:
+            var index = (0, _findIndex2.default)(state, { id: action.message.id });
+
+            if (index >= 0) {
+                return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
+            }
+            return state;
+        default:
+            return state;
+    }
+};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/findIndex");
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -588,7 +826,46 @@ var visibilityFilter = function visibilityFilter() {
 exports.default = visibilityFilter;
 
 /***/ }),
-/* 22 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isEmpty = __webpack_require__(17);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+var _types = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+    isAuthenticated: false,
+    user: {}
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _types.SET_CURRENT_USER:
+            return {
+                isAuthenticated: !(0, _isEmpty2.default)(action.user),
+                user: action.user
+            };
+        default:
+            return state;
+    }
+};
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -619,7 +896,7 @@ var blogs = function blogs() {
 exports.default = blogs;
 
 /***/ }),
-/* 23 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -629,7 +906,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _serializeJavascript = __webpack_require__(24);
+var _serializeJavascript = __webpack_require__(34);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
@@ -640,19 +917,19 @@ exports.default = function (appComponent, preLoadedState) {
 };
 
 /***/ }),
-/* 24 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 25 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 26 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -668,31 +945,31 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRouterDom = __webpack_require__(7);
+var _reactRouterDom = __webpack_require__(3);
 
-var _navigationBar = __webpack_require__(27);
+var _navigationBar = __webpack_require__(37);
 
 var _navigationBar2 = _interopRequireDefault(_navigationBar);
 
-var _homePage = __webpack_require__(28);
+var _homePage = __webpack_require__(39);
 
 var _homePage2 = _interopRequireDefault(_homePage);
 
-var _blogsPage = __webpack_require__(29);
+var _blogsPage = __webpack_require__(40);
 
 var _blogsPage2 = _interopRequireDefault(_blogsPage);
 
-var _loginPage = __webpack_require__(35);
+var _loginPage = __webpack_require__(46);
 
 var _loginPage2 = _interopRequireDefault(_loginPage);
 
-var _signUpPage = __webpack_require__(38);
+var _signUpPage = __webpack_require__(49);
 
 var _signUpPage2 = _interopRequireDefault(_signUpPage);
 
-var _flashMessagesList = __webpack_require__(63);
+var _flashMessagesList = __webpack_require__(52);
 
 var _flashMessagesList2 = _interopRequireDefault(_flashMessagesList);
 
@@ -739,7 +1016,7 @@ var App = function (_React$Component) {
 exports.default = App;
 
 /***/ }),
-/* 27 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -755,13 +1032,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRouterDom = __webpack_require__(7);
+var _reactRouterDom = __webpack_require__(3);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _authActions = __webpack_require__(67);
+var _authActions = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -878,7 +1155,34 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { logout: _authActions.logout })(NavigationBar);
 
 /***/ }),
-/* 28 */
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = __webpack_require__(7);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var setAuthorizationToken = function setAuthorizationToken(token) {
+    if (token) {
+        _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+        delete _axios2.default.defaults.headers.common['Authorization'];
+    }
+};
+
+exports.default = setAuthorizationToken;
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -894,7 +1198,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -934,7 +1238,7 @@ var HomePage = function (_React$Component) {
 exports.default = HomePage;
 
 /***/ }),
-/* 29 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -948,17 +1252,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _blogsFilter = __webpack_require__(30);
+var _blogsFilter = __webpack_require__(41);
 
 var _blogsFilter2 = _interopRequireDefault(_blogsFilter);
 
-var _blogAdding = __webpack_require__(32);
+var _blogAdding = __webpack_require__(43);
 
 var _blogAdding2 = _interopRequireDefault(_blogAdding);
 
-var _blogsList = __webpack_require__(33);
+var _blogsList = __webpack_require__(44);
 
 var _blogsList2 = _interopRequireDefault(_blogsList);
 
@@ -977,7 +1281,7 @@ var BlogsPage = function BlogsPage() {
 exports.default = BlogsPage;
 
 /***/ }),
-/* 30 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,13 +1297,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _filter = __webpack_require__(31);
+var _filter = __webpack_require__(42);
 
-var _textFieldGroup = __webpack_require__(42);
+var _textFieldGroup = __webpack_require__(8);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
 
@@ -1057,7 +1361,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(BlogsFilter);
 
 /***/ }),
-/* 31 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1074,7 +1378,7 @@ var visibilityFilter = exports.visibilityFilter = function visibilityFilter(filt
 };
 
 /***/ }),
-/* 32 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1090,17 +1394,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _blogs = __webpack_require__(12);
+var _blogs = __webpack_require__(19);
 
-var _textFieldGroup = __webpack_require__(42);
+var _textFieldGroup = __webpack_require__(8);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
 
-var _shortid = __webpack_require__(53);
+var _shortid = __webpack_require__(16);
 
 var _shortid2 = _interopRequireDefault(_shortid);
 
@@ -1206,7 +1510,7 @@ function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogAdding);
 
 /***/ }),
-/* 33 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1222,11 +1526,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _blogItem = __webpack_require__(34);
+var _blogItem = __webpack_require__(45);
 
 var _blogItem2 = _interopRequireDefault(_blogItem);
 
@@ -1274,7 +1578,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(BlogsList);
 
 /***/ }),
-/* 34 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1290,11 +1594,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _blogs = __webpack_require__(12);
+var _blogs = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1368,7 +1672,7 @@ function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(BlogItem);
 
 /***/ }),
-/* 35 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1384,7 +1688,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _loginForm = __webpack_require__(36);
+var _loginForm = __webpack_require__(47);
 
 var _loginForm2 = _interopRequireDefault(_loginForm);
 
@@ -1426,7 +1730,7 @@ var LoginPage = function (_React$Component) {
 exports.default = LoginPage;
 
 /***/ }),
-/* 36 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1438,19 +1742,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _signup = __webpack_require__(13);
+var _signup = __webpack_require__(9);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _textFieldGroup = __webpack_require__(42);
+var _textFieldGroup = __webpack_require__(8);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
 
-var _authActions = __webpack_require__(67);
+var _authActions = __webpack_require__(18);
 
-var _reactRouterDom = __webpack_require__(7);
+var _reactRouterDom = __webpack_require__(3);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
 var _react = __webpack_require__(0);
 
@@ -1579,8 +1883,13 @@ var LoginForm = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(null, { login: _authActions.login })(LoginForm);
 
 /***/ }),
-/* 37 */,
-/* 38 */
+/* 48 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1596,15 +1905,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _signupForm = __webpack_require__(39);
+var _signupForm = __webpack_require__(50);
 
 var _signupForm2 = _interopRequireDefault(_signupForm);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _signupActions = __webpack_require__(43);
+var _signupActions = __webpack_require__(51);
 
-var _flashMessages = __webpack_require__(49);
+var _flashMessages = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1649,7 +1958,7 @@ var SignUpPage = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _signupActions.userSignupRequest, addFlashMessage: _flashMessages.addFlashMessage })(SignUpPage);
 
 /***/ }),
-/* 39 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1661,17 +1970,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _signup = __webpack_require__(13);
+var _signup = __webpack_require__(9);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _textFieldGroup = __webpack_require__(42);
+var _textFieldGroup = __webpack_require__(8);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
 
-var _reactRouterDom = __webpack_require__(7);
+var _reactRouterDom = __webpack_require__(3);
 
-var _reactDom = __webpack_require__(1);
+var _reactDom = __webpack_require__(2);
 
 var _react = __webpack_require__(0);
 
@@ -1808,71 +2117,7 @@ var SignUpForm = function (_React$Component) {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("validator");
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash/isEmpty");
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TextFieldGroup = function TextFieldGroup(_ref) {
-    var field = _ref.field,
-        value = _ref.value,
-        label = _ref.label,
-        error = _ref.error,
-        type = _ref.type,
-        onChange = _ref.onChange;
-
-    return _react2.default.createElement(
-        "div",
-        { className: "form-group" },
-        _react2.default.createElement(
-            "label",
-            { className: "control-label" },
-            label
-        ),
-        _react2.default.createElement("input", { className: "form-control",
-            onChange: onChange,
-            value: value,
-            name: field,
-            type: type }),
-        error && _react2.default.createElement(
-            "span",
-            { className: "help-block" },
-            error
-        )
-    );
-};
-
-TextFieldGroup.defaultProps = {
-    type: 'text'
-};
-
-exports.default = TextFieldGroup;
-
-/***/ }),
-/* 43 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1883,7 +2128,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userSignupRequest = undefined;
 
-var _axios = __webpack_require__(44);
+var _axios = __webpack_require__(7);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -1896,598 +2141,7 @@ var userSignupRequest = exports.userSignupRequest = function userSignupRequest(u
 };
 
 /***/ }),
-/* 44 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _signup = __webpack_require__(13);
-
-var _signup2 = _interopRequireDefault(_signup);
-
-var _renderedApp = __webpack_require__(10);
-
-var _renderedApp2 = _interopRequireDefault(_renderedApp);
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _express = __webpack_require__(6);
-
-var _express2 = _interopRequireDefault(_express);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = new _express2.default.Router();
-
-router.get('/', function (req, res, next) {
-    res.send((0, _renderedApp2.default)(req));
-});
-
-router.post('/', function (req, res, next) {
-    // Validation of user's credentials
-    var _validateInput = (0, _signup2.default)(req.body),
-        errors = _validateInput.errors,
-        isValid = _validateInput.isValid;
-
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
-
-    return _passport2.default.authenticate('local-signup', function (err) {
-        if (err) {
-            if (err.name === 'MongoError' && err.code === 11000) {
-                return res.status(400).json({ form: 'The email has already token' });
-            }
-
-            return res.status(400).json({ form: 'Could not process the form.' });
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: 'You have successfully signed up! Now you should be able to log in.'
-        });
-    })(req, res, next);
-});
-
-module.exports = router;
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _express = __webpack_require__(6);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _signup = __webpack_require__(13);
-
-var _signup2 = _interopRequireDefault(_signup);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = new _express2.default.Router();
-
-router.post('/login', function (req, res, next) {
-    var _validateInput = (0, _signup2.default)(req.body),
-        errors = _validateInput.errors,
-        isValid = _validateInput.isValid;
-
-    if (!isValid) {
-        return res.status(401).json(errors);
-    }
-
-    return _passport2.default.authenticate('local-login', function (err, token, userData) {
-        if (err) {
-            if (err.name === 'IncorrectCredentialsError') {
-                return res.status(400).json({ form: 'Incorrect email or password' });
-            }
-
-            return res.status(400).json({ form: 'Could not process the form.' });
-        }
-
-        return res.json({
-            message: 'You have successfully logged in!',
-            user: userData,
-            success: true,
-            token: token
-        });
-    })(req, res, next);
-});
-
-module.exports = router;
-
-/***/ }),
-/* 47 */,
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _types = __webpack_require__(62);
-
-var _findIndex = __webpack_require__(65);
-
-var _findIndex2 = _interopRequireDefault(_findIndex);
-
-var _shortid = __webpack_require__(53);
-
-var _shortid2 = _interopRequireDefault(_shortid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    switch (action.type) {
-        case _types.ADD_FLASH_MESSAGE:
-            return [].concat(_toConsumableArray(state), [{
-                id: _shortid2.default.generate(),
-                type: action.message.type,
-                text: action.message.text
-            }]);
-        case _types.DELETE_FLASH_MESSAGE:
-            var index = (0, _findIndex2.default)(state, { id: action.message.id });
-
-            if (index >= 0) {
-                return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
-            }
-            return state;
-        default:
-            return state;
-    }
-};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.deleteFlashMessage = exports.addFlashMessage = undefined;
-
-var _types = __webpack_require__(62);
-
-var addFlashMessage = exports.addFlashMessage = function addFlashMessage(message) {
-    return {
-        type: _types.ADD_FLASH_MESSAGE,
-        message: message
-    };
-};
-
-var deleteFlashMessage = exports.deleteFlashMessage = function deleteFlashMessage(message) {
-    return {
-        type: _types.DELETE_FLASH_MESSAGE,
-        message: message
-    };
-};
-
-/***/ }),
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var randomFromSeed = __webpack_require__(55);
-
-var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
-var alphabet;
-var previousSeed;
-
-var shuffled;
-
-function reset() {
-    shuffled = false;
-}
-
-function setCharacters(_alphabet_) {
-    if (!_alphabet_) {
-        if (alphabet !== ORIGINAL) {
-            alphabet = ORIGINAL;
-            reset();
-        }
-        return;
-    }
-
-    if (_alphabet_ === alphabet) {
-        return;
-    }
-
-    if (_alphabet_.length !== ORIGINAL.length) {
-        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. You submitted ' + _alphabet_.length + ' characters: ' + _alphabet_);
-    }
-
-    var unique = _alphabet_.split('').filter(function(item, ind, arr){
-       return ind !== arr.lastIndexOf(item);
-    });
-
-    if (unique.length) {
-        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. These characters were not unique: ' + unique.join(', '));
-    }
-
-    alphabet = _alphabet_;
-    reset();
-}
-
-function characters(_alphabet_) {
-    setCharacters(_alphabet_);
-    return alphabet;
-}
-
-function setSeed(seed) {
-    randomFromSeed.seed(seed);
-    if (previousSeed !== seed) {
-        reset();
-        previousSeed = seed;
-    }
-}
-
-function shuffle() {
-    if (!alphabet) {
-        setCharacters(ORIGINAL);
-    }
-
-    var sourceArray = alphabet.split('');
-    var targetArray = [];
-    var r = randomFromSeed.nextValue();
-    var characterIndex;
-
-    while (sourceArray.length > 0) {
-        r = randomFromSeed.nextValue();
-        characterIndex = Math.floor(r * sourceArray.length);
-        targetArray.push(sourceArray.splice(characterIndex, 1)[0]);
-    }
-    return targetArray.join('');
-}
-
-function getShuffled() {
-    if (shuffled) {
-        return shuffled;
-    }
-    shuffled = shuffle();
-    return shuffled;
-}
-
-/**
- * lookup shuffled letter
- * @param index
- * @returns {string}
- */
-function lookup(index) {
-    var alphabetShuffled = getShuffled();
-    return alphabetShuffled[index];
-}
-
-module.exports = {
-    characters: characters,
-    seed: setSeed,
-    lookup: lookup,
-    shuffled: getShuffled
-};
-
-
-/***/ }),
 /* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var randomByte = __webpack_require__(56);
-
-function encode(lookup, number) {
-    var loopCounter = 0;
-    var done;
-
-    var str = '';
-
-    while (!done) {
-        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
-        done = number < (Math.pow(16, loopCounter + 1 ) );
-        loopCounter++;
-    }
-    return str;
-}
-
-module.exports = encode;
-
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = __webpack_require__(54);
-
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var alphabet = __webpack_require__(51);
-var encode = __webpack_require__(52);
-var decode = __webpack_require__(58);
-var build = __webpack_require__(59);
-var isValid = __webpack_require__(60);
-
-// if you are using cluster or multiple servers use this to make each instance
-// has a unique value for worker
-// Note: I don't know if this is automatically set when using third
-// party cluster solutions such as pm2.
-var clusterWorkerId = __webpack_require__(61) || 0;
-
-/**
- * Set the seed.
- * Highly recommended if you don't want people to try to figure out your id schema.
- * exposed as shortid.seed(int)
- * @param seed Integer value to seed the random alphabet.  ALWAYS USE THE SAME SEED or you might get overlaps.
- */
-function seed(seedValue) {
-    alphabet.seed(seedValue);
-    return module.exports;
-}
-
-/**
- * Set the cluster worker or machine id
- * exposed as shortid.worker(int)
- * @param workerId worker must be positive integer.  Number less than 16 is recommended.
- * returns shortid module so it can be chained.
- */
-function worker(workerId) {
-    clusterWorkerId = workerId;
-    return module.exports;
-}
-
-/**
- *
- * sets new characters to use in the alphabet
- * returns the shuffled alphabet
- */
-function characters(newCharacters) {
-    if (newCharacters !== undefined) {
-        alphabet.characters(newCharacters);
-    }
-
-    return alphabet.shuffled();
-}
-
-/**
- * Generate unique id
- * Returns string id
- */
-function generate() {
-  return build(clusterWorkerId);
-}
-
-// Export all other functions as properties of the generate function
-module.exports = generate;
-module.exports.generate = generate;
-module.exports.seed = seed;
-module.exports.worker = worker;
-module.exports.characters = characters;
-module.exports.decode = decode;
-module.exports.isValid = isValid;
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Found this seed-based random generator somewhere
-// Based on The Central Randomizer 1.3 (C) 1997 by Paul Houle (houle@msc.cornell.edu)
-
-var seed = 1;
-
-/**
- * return a random number based on a seed
- * @param seed
- * @returns {number}
- */
-function getNextValue() {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed/(233280.0);
-}
-
-function setSeed(_seed_) {
-    seed = _seed_;
-}
-
-module.exports = {
-    nextValue: getNextValue,
-    seed: setSeed
-};
-
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var crypto = __webpack_require__(57);
-var randomBytes = crypto.randomBytes;
-
-function randomByte() {
-    return randomBytes(1)[0] & 0x30;
-}
-
-module.exports = randomByte;
-
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports) {
-
-module.exports = require("crypto");
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var alphabet = __webpack_require__(51);
-
-/**
- * Decode the id to get the version and worker
- * Mainly for debugging and testing.
- * @param id - the shortid-generated id.
- */
-function decode(id) {
-    var characters = alphabet.shuffled();
-    return {
-        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
-        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
-    };
-}
-
-module.exports = decode;
-
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var encode = __webpack_require__(52);
-var alphabet = __webpack_require__(51);
-
-// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
-// This number should be updated every year or so to keep the generated id short.
-// To regenerate `new Date() - 0` and bump the version. Always bump the version!
-var REDUCE_TIME = 1459707606518;
-
-// don't change unless we change the algos or REDUCE_TIME
-// must be an integer and less than 16
-var version = 6;
-
-// Counter is used when shortid is called multiple times in one second.
-var counter;
-
-// Remember the last time shortid was called in case counter is needed.
-var previousSeconds;
-
-/**
- * Generate unique id
- * Returns string id
- */
-function build(clusterWorkerId) {
-
-    var str = '';
-
-    var seconds = Math.floor((Date.now() - REDUCE_TIME) * 0.001);
-
-    if (seconds === previousSeconds) {
-        counter++;
-    } else {
-        counter = 0;
-        previousSeconds = seconds;
-    }
-
-    str = str + encode(alphabet.lookup, version);
-    str = str + encode(alphabet.lookup, clusterWorkerId);
-    if (counter > 0) {
-        str = str + encode(alphabet.lookup, counter);
-    }
-    str = str + encode(alphabet.lookup, seconds);
-
-    return str;
-}
-
-module.exports = build;
-
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var alphabet = __webpack_require__(51);
-
-function isShortId(id) {
-    if (!id || typeof id !== 'string' || id.length < 6 ) {
-        return false;
-    }
-
-    var characters = alphabet.characters();
-    var len = id.length;
-    for(var i = 0; i < len;i++) {
-        if (characters.indexOf(id[i]) === -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-module.exports = isShortId;
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = parseInt(process.env.NODE_UNIQUE_ID || 0, 10);
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
-var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
-var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
-
-/***/ }),
-/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2503,9 +2157,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _flashMessage = __webpack_require__(64);
+var _flashMessage = __webpack_require__(53);
 
 var _flashMessage2 = _interopRequireDefault(_flashMessage);
 
@@ -2551,7 +2205,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, {})(FlashMessagesList);
 
 /***/ }),
-/* 64 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2567,9 +2221,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _flashMessages = __webpack_require__(49);
+var _flashMessages = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2629,133 +2283,145 @@ function matchDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(FlashMessage);
 
 /***/ }),
-/* 65 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash/findIndex");
-
-/***/ }),
-/* 66 */,
-/* 67 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.logout = exports.login = exports.setCurrentUser = undefined;
+var _renderedApp = __webpack_require__(13);
 
-var _axios = __webpack_require__(44);
+var _renderedApp2 = _interopRequireDefault(_renderedApp);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _express = __webpack_require__(5);
 
-var _setAuthorizationToken = __webpack_require__(68);
-
-var _setAuthorizationToken2 = _interopRequireDefault(_setAuthorizationToken);
-
-var _types = __webpack_require__(62);
-
-var _jsonwebtoken = __webpack_require__(9);
-
-var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+var _express2 = _interopRequireDefault(_express);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var setCurrentUser = exports.setCurrentUser = function setCurrentUser(user) {
-    return {
-        type: _types.SET_CURRENT_USER,
-        user: user
-    };
-};
+var router = _express2.default.Router();
 
-var login = exports.login = function login(userData) {
-    return function (dispatch) {
-        return _axios2.default.post('/auth/login', userData).then(function (res) {
-            var token = res.data.token;
+router.get('/', function (req, res) {
+    // TODO: check articles in DB and pass them into renderedApp as a state
+    res.send((0, _renderedApp2.default)(req));
+});
 
-            localStorage.setItem('jwtToken', token);
-            (0, _setAuthorizationToken2.default)(token);
+router.post('/', function (req, res) {
+    res.status(200).json({ success: true });
+});
 
-            dispatch(setCurrentUser(_jsonwebtoken2.default.decode(token)));
+module.exports = router;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _signup = __webpack_require__(9);
+
+var _signup2 = _interopRequireDefault(_signup);
+
+var _renderedApp = __webpack_require__(13);
+
+var _renderedApp2 = _interopRequireDefault(_renderedApp);
+
+var _passport = __webpack_require__(11);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _express = __webpack_require__(5);
+
+var _express2 = _interopRequireDefault(_express);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = new _express2.default.Router();
+
+router.get('/', function (req, res, next) {
+    res.send((0, _renderedApp2.default)(req));
+});
+
+router.post('/', function (req, res, next) {
+    // Validation of user's credentials
+    var _validateInput = (0, _signup2.default)(req.body),
+        errors = _validateInput.errors,
+        isValid = _validateInput.isValid;
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    return _passport2.default.authenticate('local-signup', function (err) {
+        if (err) {
+            if (err.name === 'MongoError' && err.code === 11000) {
+                return res.status(400).json({ form: 'The email has already token' });
+            }
+
+            return res.status(400).json({ form: 'Could not process the form.' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'You have successfully signed up! Now you should be able to log in.'
         });
-    };
-};
+    })(req, res, next);
+});
 
-var logout = exports.logout = function logout() {
-    return function (dispatch) {
-        localStorage.removeItem('jwtToken');
-        (0, _setAuthorizationToken2.default)(false);
-        dispatch(setCurrentUser({}));
-    };
-};
+module.exports = router;
 
 /***/ }),
-/* 68 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+var _express = __webpack_require__(5);
 
-var _axios = __webpack_require__(44);
+var _express2 = _interopRequireDefault(_express);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _passport = __webpack_require__(11);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _passport2 = _interopRequireDefault(_passport);
 
-var setAuthorizationToken = function setAuthorizationToken(token) {
-    if (token) {
-        _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    } else {
-        delete _axios2.default.defaults.headers.common['Authorization'];
-    }
-};
+var _signup = __webpack_require__(9);
 
-exports.default = setAuthorizationToken;
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _isEmpty = __webpack_require__(41);
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-var _types = __webpack_require__(62);
+var _signup2 = _interopRequireDefault(_signup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = {
-    isAuthenticated: false,
-    user: {}
-};
+var router = new _express2.default.Router();
 
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+router.post('/login', function (req, res, next) {
+    var _validateInput = (0, _signup2.default)(req.body),
+        errors = _validateInput.errors,
+        isValid = _validateInput.isValid;
 
-    switch (action.type) {
-        case _types.SET_CURRENT_USER:
-            return {
-                isAuthenticated: !(0, _isEmpty2.default)(action.user),
-                user: action.user
-            };
-        default:
-            return state;
+    if (!isValid) {
+        return res.status(401).json(errors);
     }
-};
+
+    return _passport2.default.authenticate('local-login', function (err, token, userData) {
+        if (err) {
+            if (err.name === 'IncorrectCredentialsError') {
+                return res.status(400).json({ form: 'Incorrect email or password' });
+            }
+
+            return res.status(400).json({ form: 'Could not process the form.' });
+        }
+
+        return res.json({
+            message: 'You have successfully logged in!',
+            user: userData,
+            success: true,
+            token: token
+        });
+    })(req, res, next);
+});
+
+module.exports = router;
 
 /***/ })
 /******/ ]);

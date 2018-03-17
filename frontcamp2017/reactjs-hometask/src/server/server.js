@@ -6,8 +6,9 @@ import express from 'express';
 import localSignupPassportStrategy from './passport/local-signup';
 import localLoginPassportStrategy from './passport/local-login';
 
-import authCheckMiddleware from './middleware/auth-check';
+import authenticate from './middleware/auth-check';
 import renderedApp from '../shared/renderedApp';
+import articlesRoutes from './routes/articles';
 import signupRoutes from './routes/signup';
 import authRoutes from './routes/auth';
 
@@ -28,7 +29,7 @@ app.use(passport.initialize());
 passport.use('local-signup', localSignupPassportStrategy);
 passport.use('local-login', localLoginPassportStrategy);
 
-app.use('/articles', authCheckMiddleware, (req, res) => res.send(renderedApp(req)));
+app.use('/articles', authenticate, articlesRoutes);
 app.use('/signup', signupRoutes);
 app.use('/auth', authRoutes);
 app.use('/', (req, res) => res.send(renderedApp(req)));

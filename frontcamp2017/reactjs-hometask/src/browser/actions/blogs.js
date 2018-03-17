@@ -1,3 +1,6 @@
+// import { ADD_ARTICLE } from './types';
+import axios from 'axios';
+
 export const removeBlog = (blog) => {
     return {
         type: 'REMOVE_BLOG',
@@ -6,8 +9,13 @@ export const removeBlog = (blog) => {
 };
 
 export const addBlog = (blog) => {
-    return {
-        type: 'ADD_BLOG',
-        payLoad: blog
-    }
+    return dispatch => {
+        return axios.post('/articles', blog)
+    };
+
+
+    // return {
+    //     type: 'ADD_BLOG',
+    //     payLoad: blog
+    // }
 };
