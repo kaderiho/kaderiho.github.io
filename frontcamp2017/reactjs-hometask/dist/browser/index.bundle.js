@@ -5133,6 +5133,12 @@ var _reduxThunk = __webpack_require__(267);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+var _jsonwebtoken = __webpack_require__(451);
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _authActions = __webpack_require__(369);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var preloadedState = window.__INITIAL_DATA__;
@@ -5143,7 +5149,10 @@ var store = (0, _redux.createStore)(_index2.default, preloadedState, (0, _redux.
     return f;
 }));
 
-(0, _setAuthorizationToken2.default)(localStorage.getItem('jwtToken'));
+if (localStorage.jwtToken) {
+    (0, _setAuthorizationToken2.default)(localStorage.getItem('jwtToken'));
+    store.dispatch((0, _authActions.setCurrentUser)(_jsonwebtoken2.default.decode(localStorage.jwtToken)));
+}
 
 (0, _reactDom.hydrate)(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
@@ -32647,6 +32656,10 @@ var _filter = __webpack_require__(265);
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _auth = __webpack_require__(561);
+
+var _auth2 = _interopRequireDefault(_auth);
+
 var _blogs = __webpack_require__(266);
 
 var _blogs2 = _interopRequireDefault(_blogs);
@@ -32656,7 +32669,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _redux.combineReducers)({
     visibilityFilter: _filter2.default,
     flashMessages: _flashMessages2.default,
-    blogs: _blogs2.default
+    blogs: _blogs2.default,
+    auth: _auth2.default
 });
 
 /***/ }),
@@ -33211,8 +33225,9 @@ module.exports = 0;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
+var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 /***/ }),
 /* 283 */
@@ -36256,7 +36271,7 @@ module.exports = toNumber;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.login = undefined;
+exports.login = exports.setCurrentUser = undefined;
 
 var _axios = __webpack_require__(245);
 
@@ -36266,11 +36281,20 @@ var _setAuthorizationToken = __webpack_require__(370);
 
 var _setAuthorizationToken2 = _interopRequireDefault(_setAuthorizationToken);
 
+var _types = __webpack_require__(282);
+
 var _jsonwebtoken = __webpack_require__(451);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var setCurrentUser = exports.setCurrentUser = function setCurrentUser(user) {
+    return {
+        type: _types.SET_CURRENT_USER,
+        user: user
+    };
+};
 
 var login = exports.login = function login(userData) {
     return function (dispatch) {
@@ -36280,7 +36304,7 @@ var login = exports.login = function login(userData) {
             localStorage.setItem('jwtToken', token);
             (0, _setAuthorizationToken2.default)(token);
 
-            console.log(_jsonwebtoken2.default.decode(token));
+            dispatch(setCurrentUser(_jsonwebtoken2.default.decode(token)));
         });
     };
 };
@@ -62808,6 +62832,45 @@ function toNumber(value) {
 
 module.exports = once;
 
+
+/***/ }),
+/* 561 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isEmpty = __webpack_require__(217);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+var _types = __webpack_require__(282);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+    isAuthenticated: false,
+    user: {}
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _types.SET_CURRENT_USER:
+            return {
+                isAuthenticated: !(0, _isEmpty2.default)(action.user),
+                user: action.user
+            };
+        default:
+            return state;
+    }
+};
 
 /***/ })
 /******/ ]);

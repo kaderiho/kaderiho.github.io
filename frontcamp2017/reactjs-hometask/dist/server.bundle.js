@@ -546,6 +546,10 @@ var _filter = __webpack_require__(21);
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _auth = __webpack_require__(69);
+
+var _auth2 = _interopRequireDefault(_auth);
+
 var _blogs = __webpack_require__(22);
 
 var _blogs2 = _interopRequireDefault(_blogs);
@@ -555,7 +559,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _redux.combineReducers)({
     visibilityFilter: _filter2.default,
     flashMessages: _flashMessages2.default,
-    blogs: _blogs2.default
+    blogs: _blogs2.default,
+    auth: _auth2.default
 });
 
 /***/ }),
@@ -2416,8 +2421,9 @@ module.exports = parseInt(process.env.NODE_UNIQUE_ID || 0, 10);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
+var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 /***/ }),
 /* 63 */
@@ -2578,7 +2584,7 @@ module.exports = require("lodash/findIndex");
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.login = undefined;
+exports.login = exports.setCurrentUser = undefined;
 
 var _axios = __webpack_require__(44);
 
@@ -2588,11 +2594,20 @@ var _setAuthorizationToken = __webpack_require__(68);
 
 var _setAuthorizationToken2 = _interopRequireDefault(_setAuthorizationToken);
 
+var _types = __webpack_require__(62);
+
 var _jsonwebtoken = __webpack_require__(9);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var setCurrentUser = exports.setCurrentUser = function setCurrentUser(user) {
+    return {
+        type: _types.SET_CURRENT_USER,
+        user: user
+    };
+};
 
 var login = exports.login = function login(userData) {
     return function (dispatch) {
@@ -2602,7 +2617,7 @@ var login = exports.login = function login(userData) {
             localStorage.setItem('jwtToken', token);
             (0, _setAuthorizationToken2.default)(token);
 
-            console.log(_jsonwebtoken2.default.decode(token));
+            dispatch(setCurrentUser(_jsonwebtoken2.default.decode(token)));
         });
     };
 };
@@ -2633,6 +2648,45 @@ var setAuthorizationToken = function setAuthorizationToken(token) {
 };
 
 exports.default = setAuthorizationToken;
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isEmpty = __webpack_require__(41);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+var _types = __webpack_require__(62);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+    isAuthenticated: false,
+    user: {}
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _types.SET_CURRENT_USER:
+            return {
+                isAuthenticated: !(0, _isEmpty2.default)(action.user),
+                user: action.user
+            };
+        default:
+            return state;
+    }
+};
 
 /***/ })
 /******/ ]);
