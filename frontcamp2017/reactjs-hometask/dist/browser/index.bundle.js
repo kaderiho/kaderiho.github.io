@@ -4231,43 +4231,7 @@ function verifyPlainObject(value, displayName, methodName) {
 }
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.addBlog = exports.removeBlog = undefined;
-
-var _axios = __webpack_require__(245);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var removeBlog = exports.removeBlog = function removeBlog(blog) {
-    return {
-        type: 'REMOVE_BLOG',
-        payLoad: blog
-    };
-}; // import { ADD_ARTICLE } from './types';
-var addBlog = exports.addBlog = function addBlog(blog) {
-    return function (dispatch) {
-        return _axios2.default.post('/articles/api', blog).then(function (article) {
-            console.log(article);
-        }, function (err) {});
-    };
-
-    // return {
-    //     type: 'ADD_BLOG',
-    //     payLoad: article
-    // }
-};
-
-/***/ }),
+/* 62 */,
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32416,6 +32380,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _types = __webpack_require__(282);
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var blogs = function blogs() {
@@ -32423,9 +32389,9 @@ var blogs = function blogs() {
     var action = arguments[1];
 
     switch (action.type) {
-        case 'ADD_BLOG':
+        case _types.ADD_ARTICLE:
             return [].concat(_toConsumableArray(state), [action.payLoad]);
-        case 'REMOVE_BLOG':
+        case _types.REMOVE_ARTICLE:
             return state.filter(function (blog) {
                 return blog.id != action.payLoad.id;
             });
@@ -32936,6 +32902,7 @@ Object.defineProperty(exports, "__esModule", {
 var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
+var REMOVE_ARTICLE = exports.REMOVE_ARTICLE = 'REMOVE_ARTICLE';
 var ADD_ARTICLE = exports.ADD_ARTICLE = 'ADD_ARTICLE';
 
 /***/ }),
@@ -36501,11 +36468,15 @@ var _reactDom = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(10);
 
-var _blogs = __webpack_require__(62);
+var _articles = __webpack_require__(574);
 
 var _textFieldGroup = __webpack_require__(243);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _axios = __webpack_require__(245);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 var _shortid = __webpack_require__(274);
 
@@ -36550,12 +36521,14 @@ var ArticleAdding = function (_React$Component) {
                 return;
             }
 
-            _this.props.onSubmit({
+            _axios2.default.post('/articles/api', {
                 id: _shortid2.default.generate(),
                 date: new Date(),
-                author: author,
-                message: message
-            });
+                message: message,
+                author: author
+            }).then(function (res) {
+                _this.props.addArticle(res.data);
+            }, function (err) {});
 
             _this.setState({
                 message: '',
@@ -36604,8 +36577,8 @@ var ArticleAdding = function (_React$Component) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onSubmit: function onSubmit(blog) {
-            dispatch((0, _blogs.addBlog)(blog));
+        addArticle: function addArticle(article) {
+            dispatch((0, _articles.addArticle)(article));
         }
     };
 }
@@ -36781,7 +36754,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(10);
 
-var _blogs = __webpack_require__(62);
+var _articles = __webpack_require__(574);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36822,10 +36795,10 @@ var ArticleItem = function (_React$Component) {
                 _react2.default.createElement(
                     'span',
                     { className: 'blogDate' },
-                    blogDate.toLocaleTimeString()
+                    new Date(blogDate).toLocaleTimeString()
                 ),
                 _react2.default.createElement('input', { type: 'button', value: 'x', onClick: function onClick() {
-                        return _this2.props.onRemoveBlog(_this2.props.blog);
+                        return _this2.props.removeArticle(_this2.props.blog);
                     } }),
                 _react2.default.createElement(
                     'p',
@@ -36846,13 +36819,41 @@ var ArticleItem = function (_React$Component) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onRemoveBlog: function onRemoveBlog(blog) {
-            dispatch((0, _blogs.removeBlog)(blog));
+        removeArticle: function removeArticle(article) {
+            dispatch((0, _articles.removeArticle)(article));
         }
     };
 }
 
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(ArticleItem);
+
+/***/ }),
+/* 574 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.addArticle = exports.removeArticle = undefined;
+
+var _types = __webpack_require__(282);
+
+var removeArticle = exports.removeArticle = function removeArticle(article) {
+    return {
+        type: _types.REMOVE_ARTICLE,
+        payLoad: article
+    };
+};
+
+var addArticle = exports.addArticle = function addArticle(article) {
+    return {
+        type: _types.ADD_ARTICLE,
+        payLoad: article
+    };
+};
 
 /***/ })
 /******/ ]);

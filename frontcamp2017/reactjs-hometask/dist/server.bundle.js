@@ -112,6 +112,7 @@ Object.defineProperty(exports, "__esModule", {
 var DELETE_FLASH_MESSAGE = exports.DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 var ADD_FLASH_MESSAGE = exports.ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 var SET_CURRENT_USER = exports.SET_CURRENT_USER = 'SET_CURRENT_USER';
+var REMOVE_ARTICLE = exports.REMOVE_ARTICLE = 'REMOVE_ARTICLE';
 var ADD_ARTICLE = exports.ADD_ARTICLE = 'ADD_ARTICLE';
 
 /***/ }),
@@ -275,10 +276,13 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Create store on server-side
-var renderedApp = function renderedApp(req) {
-    var store = (0, _redux.createStore)(_index2.default);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Create store on server-side
+
+
+var renderedApp = function renderedApp(req, statePropName, statePropValue) {
+    var store = (0, _redux.createStore)(_index2.default, _defineProperty({}, statePropName, statePropValue));
     var context = {};
+
     var markup = _server2.default.renderToString(
     // context - is an object for passing data to the certain component
     _react2.default.createElement(
@@ -379,43 +383,7 @@ var logout = exports.logout = function logout() {
 };
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.addBlog = exports.removeBlog = undefined;
-
-var _axios = __webpack_require__(7);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var removeBlog = exports.removeBlog = function removeBlog(blog) {
-    return {
-        type: 'REMOVE_BLOG',
-        payLoad: blog
-    };
-}; // import { ADD_ARTICLE } from './types';
-var addBlog = exports.addBlog = function addBlog(blog) {
-    return function (dispatch) {
-        return _axios2.default.post('/articles/api', blog).then(function (article) {
-            console.log(article);
-        }, function (err) {});
-    };
-
-    // return {
-    //     type: 'ADD_BLOG',
-    //     payLoad: article
-    // }
-};
-
-/***/ }),
+/* 19 */,
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -887,6 +855,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _types = __webpack_require__(6);
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var blogs = function blogs() {
@@ -894,9 +864,9 @@ var blogs = function blogs() {
     var action = arguments[1];
 
     switch (action.type) {
-        case 'ADD_BLOG':
+        case _types.ADD_ARTICLE:
             return [].concat(_toConsumableArray(state), [action.payLoad]);
-        case 'REMOVE_BLOG':
+        case _types.REMOVE_ARTICLE:
             return state.filter(function (blog) {
                 return blog.id != action.payLoad.id;
             });
@@ -1945,11 +1915,15 @@ var _express2 = _interopRequireDefault(_express);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var Article = __webpack_require__(63);
+
+
 var router = _express2.default.Router();
 
-// TODO: check articles in DB and pass them into renderedApp as a state
 router.get('/', function (req, res) {
-    res.send((0, _renderedApp2.default)(req));
+    Article.find({}).then(function (articlesList) {
+        res.send((0, _renderedApp2.default)(req, 'blogs', articlesList));
+    }, function (err) {});
 });
 
 module.exports = router;
@@ -2319,7 +2293,12 @@ var updateArticle = function updateArticle(req, res, next) {
 };
 
 var createArticle = function createArticle(req, res) {
-    Article.create({ author: req.body.author, message: req.body.message }).then(function (data) {
+    Article.create({
+        message: req.body.message,
+        author: req.body.author,
+        date: req.body.date,
+        id: req.body.id
+    }).then(function (data) {
         return res.json(data);
     }, function (err) {
         next(err);
@@ -2349,9 +2328,10 @@ module.exports.getArticle = getArticle;
 
 var mongoose = __webpack_require__(4);
 var ArticlesSchema = new mongoose.Schema({
-    id: Number,
+    message: String,
     author: String,
-    message: String
+    date: String,
+    id: String
 });
 var ArticlesModel = mongoose.model('ArticlesModel', ArticlesSchema);
 
@@ -2382,11 +2362,15 @@ var _reactDom = __webpack_require__(2);
 
 var _reactRedux = __webpack_require__(1);
 
-var _blogs = __webpack_require__(19);
+var _articles = __webpack_require__(72);
 
 var _textFieldGroup = __webpack_require__(8);
 
 var _textFieldGroup2 = _interopRequireDefault(_textFieldGroup);
+
+var _axios = __webpack_require__(7);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 var _shortid = __webpack_require__(16);
 
@@ -2431,12 +2415,14 @@ var ArticleAdding = function (_React$Component) {
                 return;
             }
 
-            _this.props.onSubmit({
+            _axios2.default.post('/articles/api', {
                 id: _shortid2.default.generate(),
                 date: new Date(),
-                author: author,
-                message: message
-            });
+                message: message,
+                author: author
+            }).then(function (res) {
+                _this.props.addArticle(res.data);
+            }, function (err) {});
 
             _this.setState({
                 message: '',
@@ -2485,8 +2471,8 @@ var ArticleAdding = function (_React$Component) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onSubmit: function onSubmit(blog) {
-            dispatch((0, _blogs.addBlog)(blog));
+        addArticle: function addArticle(article) {
+            dispatch((0, _articles.addArticle)(article));
         }
     };
 }
@@ -2662,7 +2648,7 @@ var _reactDom = __webpack_require__(2);
 
 var _reactRedux = __webpack_require__(1);
 
-var _blogs = __webpack_require__(19);
+var _articles = __webpack_require__(72);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2703,10 +2689,10 @@ var ArticleItem = function (_React$Component) {
                 _react2.default.createElement(
                     'span',
                     { className: 'blogDate' },
-                    blogDate.toLocaleTimeString()
+                    new Date(blogDate).toLocaleTimeString()
                 ),
                 _react2.default.createElement('input', { type: 'button', value: 'x', onClick: function onClick() {
-                        return _this2.props.onRemoveBlog(_this2.props.blog);
+                        return _this2.props.removeArticle(_this2.props.blog);
                     } }),
                 _react2.default.createElement(
                     'p',
@@ -2727,13 +2713,41 @@ var ArticleItem = function (_React$Component) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onRemoveBlog: function onRemoveBlog(blog) {
-            dispatch((0, _blogs.removeBlog)(blog));
+        removeArticle: function removeArticle(article) {
+            dispatch((0, _articles.removeArticle)(article));
         }
     };
 }
 
 exports.default = (0, _reactRedux.connect)(null, matchDispatchToProps)(ArticleItem);
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.addArticle = exports.removeArticle = undefined;
+
+var _types = __webpack_require__(6);
+
+var removeArticle = exports.removeArticle = function removeArticle(article) {
+    return {
+        type: _types.REMOVE_ARTICLE,
+        payLoad: article
+    };
+};
+
+var addArticle = exports.addArticle = function addArticle(article) {
+    return {
+        type: _types.ADD_ARTICLE,
+        payLoad: article
+    };
+};
 
 /***/ })
 /******/ ]);

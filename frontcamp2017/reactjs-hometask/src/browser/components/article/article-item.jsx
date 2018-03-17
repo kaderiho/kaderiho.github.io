@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { removeBlog } from '../../actions/blogs';
+import { removeArticle } from '../../actions/articles';
 
 class ArticleItem extends React.Component {
     constructor(initProps){
@@ -16,8 +16,8 @@ class ArticleItem extends React.Component {
                 <p className="blogText">
                     {blogText}
                 </p>
-                <span className="blogDate">{blogDate.toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={() => this.props.onRemoveBlog(this.props.blog)}/>
+                <span className="blogDate">{new Date(blogDate).toLocaleTimeString()}</span>
+                <input type="button" value="x" onClick={() => this.props.removeArticle(this.props.blog)}/>
                 <p>
                     <b>Author: {blogAuthor}</b>
                 </p>
@@ -28,8 +28,8 @@ class ArticleItem extends React.Component {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onRemoveBlog: (blog) => {
-            dispatch(removeBlog(blog))
+        removeArticle: (article) => {
+            dispatch(removeArticle(article))
         }
     };
 }

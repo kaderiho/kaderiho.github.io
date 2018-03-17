@@ -24,10 +24,14 @@ const updateArticle = (req, res, next) => {
 };
 
 const createArticle = (req, res) => {
-    Article.create({ author: req.body.author, message: req.body.message })
-        .then((data) => res.json(data), (err) => {
-            next(err);
-        })
+    Article.create({
+        message: req.body.message,
+        author: req.body.author,
+        date: req.body.date,
+        id: req.body.id
+    }).then((data) => res.json(data), (err) => {
+        next(err);
+    })
 };
 
 const deleteArticle = (req, res, next) => {

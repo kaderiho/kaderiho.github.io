@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const ArticlesSchema = new mongoose.Schema({
-    id: Number,
+    message: String,
     author: String,
-    message: String
+    date: String,
+    id: String
 });
 const ArticlesModel = mongoose.model('ArticlesModel', ArticlesSchema);
 

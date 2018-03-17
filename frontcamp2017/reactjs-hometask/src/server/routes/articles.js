@@ -1,11 +1,13 @@
 import renderedApp from '../../shared/renderedApp';
+const Article = require('../models/ArticleModel');
 import express from 'express';
 
 let router = express.Router();
 
-// TODO: check articles in DB and pass them into renderedApp as a state
 router.get('/', (req, res) => {
-    res.send(renderedApp(req))
+    Article.find({}).then((articlesList) => {
+        res.send(renderedApp(req, 'blogs', articlesList))
+    }, (err) => {});
 });
 
 module.exports = router;

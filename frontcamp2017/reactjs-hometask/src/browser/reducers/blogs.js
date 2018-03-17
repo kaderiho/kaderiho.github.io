@@ -1,8 +1,10 @@
+import { ADD_ARTICLE, REMOVE_ARTICLE } from '../actions/types';
+
 const blogs = (state = [], action) => {
     switch (action.type) {
-        case 'ADD_BLOG':
+        case ADD_ARTICLE:
             return [...state, action.payLoad];
-        case 'REMOVE_BLOG':
+        case REMOVE_ARTICLE:
             return state.filter((blog) => blog.id != action.payLoad.id);
         default:
             return state;

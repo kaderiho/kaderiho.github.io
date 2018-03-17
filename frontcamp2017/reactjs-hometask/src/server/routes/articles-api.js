@@ -1,4 +1,4 @@
-const {deleteArticle, updateArticle, createArticle, getArticle, getArticles} = require('../controllers/articleController');
+const { deleteArticle, updateArticle, createArticle, getArticle, getArticles } = require('../controllers/articleController');
 const express   = require('express');
 const router    = express.Router();
 

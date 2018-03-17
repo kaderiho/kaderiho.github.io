@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { addBlog } from '../../actions/blogs';
+import { addArticle } from '../../actions/articles';
 import TextFieldGroup from '../common/text-field-group';
+import axios from 'axios';
 import shortid from 'shortid';
 
 class ArticleAdding extends React.Component {
@@ -29,12 +30,14 @@ class ArticleAdding extends React.Component {
                 return;
             }
 
-            this.props.onSubmit({
+            axios.post('/articles/api', {
                 id: shortid.generate(),
                 date: new Date(),
-                author,
-                message
-            });
+                message,
+                author
+            }).then((res) => {
+                this.props.addArticle(res.data);
+            }, (err) => {});
 
             this.setState({
                 message: '',
@@ -73,8 +76,8 @@ class ArticleAdding extends React.Component {
 
 function matchDispatchToProps(dispatch) {
     return {
-        onSubmit: (blog) => {
-            dispatch(addBlog(blog))
+        addArticle: (article) => {
+            dispatch(addArticle(article))
         }
     }
 }

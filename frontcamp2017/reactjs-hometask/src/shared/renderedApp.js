@@ -8,9 +8,10 @@ import ReactDOMServer  from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import App from './components/app';
 
-const renderedApp = function(req) {
-    const store = createStore(allReducers);
+const renderedApp = function(req, statePropName, statePropValue) {
+    const store = createStore(allReducers, { [statePropName]: statePropValue });
     const context = {};
+
     const markup = ReactDOMServer.renderToString(
         // context - is an object for passing data to the certain component
         <StaticRouter location={req.url} context={context}>
