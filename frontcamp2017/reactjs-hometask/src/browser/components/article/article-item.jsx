@@ -2,10 +2,19 @@ import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { removeArticle } from '../../actions/articles';
+import axios from 'axios';
 
 class ArticleItem extends React.Component {
     constructor(initProps){
         super(initProps);
+
+        this.removeArticle = () => {
+            axios.delete(`/articles/api`, { params: {id : this.props.blog._id} })
+                .then((deletedArticle) => {
+                    this.props.removeArticle(deletedArticle.data);
+                },
+                (err) => {});
+        }
     }
 
     render(){
@@ -17,7 +26,7 @@ class ArticleItem extends React.Component {
                     {articleMessage}
                 </p>
                 <span className="blogDate">{new Date(articleDate).toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={() => this.props.removeArticle(this.props.blog)}/>
+                <input type="button" value="x" onClick={this.removeArticle}/>
                 <p>
                     <b>Author: {articleAuthor}</b>
                 </p>

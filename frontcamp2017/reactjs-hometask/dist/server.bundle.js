@@ -867,8 +867,8 @@ var blogs = function blogs() {
         case _types.ADD_ARTICLE:
             return [].concat(_toConsumableArray(state), [action.payLoad]);
         case _types.REMOVE_ARTICLE:
-            return state.filter(function (blog) {
-                return blog.id != action.payLoad.id;
+            return state.filter(function (article) {
+                return article.id != action.payLoad.id;
             });
         default:
             return state;
@@ -2251,7 +2251,7 @@ var express = __webpack_require__(5);
 var router = express.Router();
 
 // CRUD Article requests
-router.delete('/:id', deleteArticle);
+router.delete('/', deleteArticle);
 router.put('/:id', updateArticle);
 router.post('/', createArticle);
 router.get('/:id', getArticle);
@@ -2306,7 +2306,7 @@ var createArticle = function createArticle(req, res) {
 };
 
 var deleteArticle = function deleteArticle(req, res, next) {
-    Article.findByIdAndRemove(req.params.id).then(function (data) {
+    Article.findByIdAndRemove(req.query.id).then(function (data) {
         return res.json(data);
     }, function (err) {
         next(err);
@@ -2650,6 +2650,10 @@ var _reactRedux = __webpack_require__(1);
 
 var _articles = __webpack_require__(72);
 
+var _axios = __webpack_require__(7);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2664,14 +2668,19 @@ var ArticleItem = function (_React$Component) {
     function ArticleItem(initProps) {
         _classCallCheck(this, ArticleItem);
 
-        return _possibleConstructorReturn(this, (ArticleItem.__proto__ || Object.getPrototypeOf(ArticleItem)).call(this, initProps));
+        var _this = _possibleConstructorReturn(this, (ArticleItem.__proto__ || Object.getPrototypeOf(ArticleItem)).call(this, initProps));
+
+        _this.removeArticle = function () {
+            _axios2.default.delete('/articles/api', { params: { id: _this.props.blog._id } }).then(function (deletedArticle) {
+                _this.props.removeArticle(deletedArticle.data);
+            }, function (err) {});
+        };
+        return _this;
     }
 
     _createClass(ArticleItem, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var _props$blog = this.props.blog,
                 articleDate = _props$blog.date,
                 articleMessage = _props$blog.message,
@@ -2691,9 +2700,7 @@ var ArticleItem = function (_React$Component) {
                     { className: 'blogDate' },
                     new Date(articleDate).toLocaleTimeString()
                 ),
-                _react2.default.createElement('input', { type: 'button', value: 'x', onClick: function onClick() {
-                        return _this2.props.removeArticle(_this2.props.blog);
-                    } }),
+                _react2.default.createElement('input', { type: 'button', value: 'x', onClick: this.removeArticle }),
                 _react2.default.createElement(
                     'p',
                     null,

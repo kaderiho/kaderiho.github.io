@@ -3,7 +3,7 @@ const express   = require('express');
 const router    = express.Router();
 
 // CRUD Article requests
-router.delete('/:id', deleteArticle);
+router.delete('/', deleteArticle);
 router.put('/:id', updateArticle);
 router.post('/', createArticle);
 router.get('/:id', getArticle);

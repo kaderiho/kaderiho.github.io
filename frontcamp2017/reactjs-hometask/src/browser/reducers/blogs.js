@@ -5,7 +5,7 @@ const blogs = (state = [], action) => {
         case ADD_ARTICLE:
             return [...state, action.payLoad];
         case REMOVE_ARTICLE:
-            return state.filter((blog) => blog.id != action.payLoad.id);
+            return state.filter((article) => article.id != action.payLoad.id);
         default:
             return state;
     }

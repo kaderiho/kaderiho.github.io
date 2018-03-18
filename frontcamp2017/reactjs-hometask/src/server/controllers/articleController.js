@@ -35,7 +35,7 @@ const createArticle = (req, res) => {
 };
 
 const deleteArticle = (req, res, next) => {
-    Article.findByIdAndRemove(req.params.id)
+    Article.findByIdAndRemove(req.query.id)
         .then((data) => res.json(data), (err) => {
             next(err);
         })
