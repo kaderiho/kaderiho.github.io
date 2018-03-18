@@ -41,6 +41,7 @@
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "nodemon": "^1.17.1",
+    "passport-google-oauth20": "^1.0.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

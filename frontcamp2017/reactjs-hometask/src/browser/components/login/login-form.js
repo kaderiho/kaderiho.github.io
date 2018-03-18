@@ -85,6 +85,7 @@ class LoginForm extends React.Component {
                     <button type="submit" className="btn btn-primary btn-lg" disabled={isLoading}>
                         Login
                     </button>
+                    <a href="/auth/google" className="btn btn--primary">Google+</a>
                 </div>
             </form>
         )

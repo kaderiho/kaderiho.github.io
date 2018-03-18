@@ -3,6 +3,7 @@ import passport from 'passport';
 import mongoose from 'mongoose';
 import express from 'express';
 
+import GoogleLoginPassportStrategy from './passport/google-login';
 import localSignupPassportStrategy from './passport/local-signup';
 import localLoginPassportStrategy from './passport/local-login';
 
@@ -27,6 +28,7 @@ app.use(express.static('dist'));
 app.use(passport.initialize());
 
 // Load passport strategies
+passport.use(GoogleLoginPassportStrategy);
 passport.use('local-signup', localSignupPassportStrategy);
 passport.use('local-login', localLoginPassportStrategy);
 

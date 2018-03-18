@@ -29,4 +29,12 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+router.get('/google', passport.authenticate('google', {
+    scope: ['profile']
+}));
+
+router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+    res.redirect('/');
+});
+
 module.exports = router;

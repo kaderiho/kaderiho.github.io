@@ -27650,6 +27650,11 @@ var LoginForm = function (_React$Component) {
                         'button',
                         { type: 'submit', className: 'btn btn-primary btn-lg', disabled: isLoading },
                         'Login'
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { href: '/auth/google', className: 'btn btn--primary' },
+                        'Google+'
                     )
                 )
             );
