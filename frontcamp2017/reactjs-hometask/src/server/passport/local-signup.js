@@ -9,8 +9,10 @@ module.exports = new PassportLocalStrategy({
 }, (req, email, password, done) => {
     const newUser = new User();
 
-    newUser.email = email.trim();
-    newUser.password = password.trim();
+    newUser.local = {
+        email: email.trim(),
+        password: newUser.generateHash(password.trim())
+    };
 
     newUser.save((err) => {
         if (err) { return done(err) }

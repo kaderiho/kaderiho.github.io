@@ -9,7 +9,7 @@ module.exports = new PassportLocalStrategy({
     session: false,
     passReqToCallback: true
 }, (req, email, password, done) => {
-    return User.findOne({ email : email }, (err, user) => {
+    return User.findOne({ 'local.email' : email }, (err, user) => {
         if (err) { return done(err); }
 
         if (!user) {
@@ -36,7 +36,7 @@ module.exports = new PassportLocalStrategy({
 
             const token = jwt.sign(payload, config.jwtSecret);
             const data = {
-                email: user.email
+                email: user.local.email
             };
 
             return done(null, token, data);

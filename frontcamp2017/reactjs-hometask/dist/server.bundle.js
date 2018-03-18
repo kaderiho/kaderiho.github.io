@@ -520,8 +520,10 @@ module.exports = new PassportLocalStrategy({
 }, function (req, email, password, done) {
     var newUser = new User();
 
-    newUser.email = email.trim();
-    newUser.password = password.trim();
+    newUser.local = {
+        email: email.trim(),
+        password: newUser.generateHash(password.trim())
+    };
 
     newUser.save(function (err) {
         if (err) {
@@ -543,49 +545,24 @@ var mongoose = __webpack_require__(4);
 var bcrypt = __webpack_require__(24);
 
 var UserSchema = new mongoose.Schema({
-    email: String,
-    password: String
+    local: {
+        email: String,
+        password: String
+    },
+
+    google: {
+        username: String,
+        googleId: String
+    }
 });
 
 UserSchema.methods.comparePassword = function comparePasswords(password, callback) {
-    bcrypt.compare(password, this.password, callback);
+    bcrypt.compare(password, this.local.password, callback);
 };
 
-UserSchema.pre('save', function saveHook(next) {
-    var user = this;
-
-    // proceed further only if the password is modified or the user is new
-    if (!user.isModified('password')) return next();
-
-    return bcrypt.genSalt(function (saltError, salt) {
-        if (saltError) {
-            return next(saltError);
-        }
-
-        return bcrypt.hash(user.password, salt, function (hashError, hash) {
-            if (hashError) {
-                return next(hashError);
-            }
-
-            // replace a password string with hash value
-            user.password = hash;
-
-            return next();
-        });
-    });
-});
-
-// Method for generating password hash
-// UserSchema.methods.generateHash = function (password) {
-//     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-// };
-
-// Checking if password is valid
-// UserSchema.methods.validPassword = function (password) {
-//     console.log(`Password validations! ${password}`);
-//     console.log(this);
-//     return bcrypt.compareSync(password, this.local.password);
-// };
+UserSchema.methods.generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
 module.exports = mongoose.model('UserModel', UserSchema);
 
@@ -613,7 +590,7 @@ module.exports = new PassportLocalStrategy({
     session: false,
     passReqToCallback: true
 }, function (req, email, password, done) {
-    return User.findOne({ email: email }, function (err, user) {
+    return User.findOne({ 'local.email': email }, function (err, user) {
         if (err) {
             return done(err);
         }
@@ -644,7 +621,7 @@ module.exports = new PassportLocalStrategy({
 
             var token = jwt.sign(payload, config.jwtSecret);
             var data = {
-                email: user.email
+                email: user.local.email
             };
 
             return done(null, token, data);
