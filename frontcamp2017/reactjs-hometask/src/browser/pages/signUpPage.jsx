@@ -14,7 +14,7 @@ class SignUpPage extends React.Component {
 
         return (
             <div className="row">
-                <div className="col-md-4 col-md-offset-4">
+                <div className="mx-auto" style={{width: '400px', marginTop: '100px'}}>
                     <SignUpForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage}/>
                 </div>
             </div>

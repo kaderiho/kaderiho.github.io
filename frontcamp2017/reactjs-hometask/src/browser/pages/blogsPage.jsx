@@ -6,7 +6,7 @@ import ArticleAdding from '../components/article/article-adding';
 import ArticleList from '../components/article/articles-list';
 
 const BlogsPage = () => (
-    <div>
+    <div style={{ marginTop: '20px' }}>
         <ArticleAdding/>
         <ArticleList/>
         <ArticleFilter/>

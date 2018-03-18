@@ -16,7 +16,7 @@ class ArticlesFilter extends React.Component {
             this.setState({
                 [e.target.name] : e.target.value
             });
-            this.props.onChange(e.target.value);
+            this.props.visibilityFilter(e.target.value);
         };
     }
 
@@ -33,7 +33,7 @@ class ArticlesFilter extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onChange: (filterText) => {
+        visibilityFilter: (filterText) => {
             dispatch(visibilityFilter(filterText));
         }
     }

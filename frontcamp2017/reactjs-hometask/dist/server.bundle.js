@@ -797,6 +797,8 @@ var visibilityFilter = function visibilityFilter() {
 
     switch (action.type) {
         case 'SEARCH_TEXT_FILTER':
+            console.log(action);
+
             return action.filterText;
         default:
             return state;
@@ -1208,7 +1210,7 @@ var HomePage = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { style: { marginTop: '20px' } },
                 _react2.default.createElement(
                     'h1',
                     null,
@@ -1257,7 +1259,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var BlogsPage = function BlogsPage() {
     return _react2.default.createElement(
         'div',
-        null,
+        { style: { marginTop: '20px' } },
         _react2.default.createElement(_articleAdding2.default, null),
         _react2.default.createElement(_articlesList2.default, null),
         _react2.default.createElement(_articlesFilter2.default, null)
@@ -1333,7 +1335,7 @@ var LoginPage = function (_React$Component) {
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 col-md-off-set-4' },
+                    { className: 'mx-auto', style: { width: '400px', marginTop: '100px' } },
                     _react2.default.createElement(_loginForm2.default, null)
                 )
             );
@@ -1561,7 +1563,7 @@ var SignUpPage = function (_React$Component) {
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 col-md-offset-4' },
+                    { className: 'mx-auto', style: { width: '400px', marginTop: '100px' } },
                     _react2.default.createElement(_signupForm2.default, { userSignupRequest: userSignupRequest, addFlashMessage: addFlashMessage })
                 )
             );
@@ -2530,7 +2532,7 @@ var ArticlesFilter = function (_React$Component) {
 
         _this.onChange = function (e) {
             _this.setState(_defineProperty({}, e.target.name, e.target.value));
-            _this.props.onChange(e.target.value);
+            _this.props.visibilityFilter(e.target.value);
         };
         return _this;
     }
@@ -2551,7 +2553,7 @@ var ArticlesFilter = function (_React$Component) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onChange: function onChange(filterText) {
+        visibilityFilter: function visibilityFilter(filterText) {
             dispatch((0, _filter.visibilityFilter)(filterText));
         }
     };
@@ -2607,7 +2609,7 @@ var ArticlesList = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'articlesList' },
-                this.props.blogs ? this.props.blogs.map(function (articleItem) {
+                this.props.articles ? this.props.articles.map(function (articleItem) {
                     return _react2.default.createElement(_articleItem2.default, { key: articleItem.id, blog: articleItem });
                 }) : ''
             );
@@ -2619,8 +2621,8 @@ var ArticlesList = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        blogs: state.visibilityFilter ? state.blogs.filter(function (blog) {
-            return blog.text.indexOf(state.visibilityFilter) !== -1;
+        articles: state.visibilityFilter ? state.blogs.filter(function (article) {
+            return article.message.indexOf(state.visibilityFilter) !== -1;
         }) : state.blogs
     };
 };
@@ -2689,26 +2691,34 @@ var ArticleItem = function (_React$Component) {
 
             return _react2.default.createElement(
                 'article',
-                { className: 'blogsList-blogItem' },
+                { className: 'blogsList-blogItem card', style: { marginBottom: '20px' } },
                 _react2.default.createElement(
                     'p',
-                    { className: 'blogText' },
-                    articleMessage
-                ),
-                _react2.default.createElement(
-                    'span',
-                    { className: 'blogDate' },
-                    new Date(articleDate).toLocaleTimeString()
-                ),
-                _react2.default.createElement('input', { type: 'button', value: 'x', onClick: this.removeArticle }),
-                _react2.default.createElement(
-                    'p',
-                    null,
+                    { className: 'card-header' },
                     _react2.default.createElement(
                         'b',
                         null,
                         'Author: ',
                         articleAuthor
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'card-body' },
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'blogText card-title' },
+                        articleMessage
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'blogDate card-text' },
+                        new Date(articleDate).toLocaleTimeString()
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#', onClick: this.removeArticle, className: 'btn btn-primary' },
+                        'Remove'
                     )
                 )
             );

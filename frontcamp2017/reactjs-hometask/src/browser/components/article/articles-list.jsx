@@ -11,7 +11,7 @@ class ArticlesList extends React.Component {
     render() {
         return(
             <div className="articlesList">
-                {this.props.blogs ? this.props.blogs.map((articleItem) => <ArticleItem key={articleItem.id} blog={articleItem}/>) : ''}
+                {this.props.articles ? this.props.articles.map((articleItem) => <ArticleItem key={articleItem.id} blog={articleItem}/>) : ''}
             </div>
         )
     }
@@ -19,7 +19,7 @@ class ArticlesList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        blogs: state.visibilityFilter ? state.blogs.filter((blog) => blog.text.indexOf(state.visibilityFilter) !== -1) : state.blogs
+        articles: state.visibilityFilter ? state.blogs.filter((article) => article.message.indexOf(state.visibilityFilter) !== -1) : state.blogs
     }
 };
 

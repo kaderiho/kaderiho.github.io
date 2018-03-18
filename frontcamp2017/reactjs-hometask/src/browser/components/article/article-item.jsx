@@ -21,15 +21,18 @@ class ArticleItem extends React.Component {
         const { date: articleDate, message: articleMessage, author: articleAuthor } = this.props.blog;
 
         return (
-            <article className="blogsList-blogItem">
-                <p className="blogText">
-                    {articleMessage}
-                </p>
-                <span className="blogDate">{new Date(articleDate).toLocaleTimeString()}</span>
-                <input type="button" value="x" onClick={this.removeArticle}/>
-                <p>
+            <article className="blogsList-blogItem card" style={{ marginBottom: '20px' }}>
+                <p className="card-header">
                     <b>Author: {articleAuthor}</b>
                 </p>
+
+                <div className="card-body">
+                    <p className="blogText card-title">
+                        {articleMessage}
+                    </p>
+                    <p className="blogDate card-text">{new Date(articleDate).toLocaleTimeString()}</p>
+                    <a href="#" onClick={this.removeArticle} className="btn btn-primary">Remove</a>
+                </div>
             </article>
         )
     }
