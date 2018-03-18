@@ -19,7 +19,7 @@ class ArticlesList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        articles: state.visibilityFilter ? state.blogs.filter((article) => article.message.indexOf(state.visibilityFilter) !== -1) : state.blogs
+        articles: state.visibilityFilter ? state.articles.filter((article) => article.message.indexOf(state.visibilityFilter) !== -1) : state.articles
     }
 };
 

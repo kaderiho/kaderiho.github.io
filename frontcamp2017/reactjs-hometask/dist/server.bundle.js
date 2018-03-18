@@ -692,20 +692,20 @@ var _filter = __webpack_require__(30);
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _articles = __webpack_require__(103);
+
+var _articles2 = _interopRequireDefault(_articles);
+
 var _auth = __webpack_require__(31);
 
 var _auth2 = _interopRequireDefault(_auth);
-
-var _blogs = __webpack_require__(32);
-
-var _blogs2 = _interopRequireDefault(_blogs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
     visibilityFilter: _filter2.default,
     flashMessages: _flashMessages2.default,
-    blogs: _blogs2.default,
+    articles: _articles2.default,
     auth: _auth2.default
 });
 
@@ -827,39 +827,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _types = __webpack_require__(6);
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var blogs = function blogs() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments[1];
-
-    switch (action.type) {
-        case _types.ADD_ARTICLE:
-            return [].concat(_toConsumableArray(state), [action.payLoad]);
-        case _types.REMOVE_ARTICLE:
-            return state.filter(function (article) {
-                return article.id != action.payLoad.id;
-            });
-        default:
-            return state;
-    }
-};
-
-exports.default = blogs;
-
-/***/ }),
+/* 32 */,
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1909,7 +1877,7 @@ var router = _express2.default.Router();
 
 router.get('/', function (req, res) {
     Article.find({}).then(function (articlesList) {
-        res.send((0, _renderedApp2.default)(req, 'blogs', articlesList));
+        res.send((0, _renderedApp2.default)(req, 'articles', articlesList));
     }, function (err) {});
 });
 
@@ -2614,9 +2582,9 @@ var ArticlesList = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        articles: state.visibilityFilter ? state.blogs.filter(function (article) {
+        articles: state.visibilityFilter ? state.articles.filter(function (article) {
             return article.message.indexOf(state.visibilityFilter) !== -1;
-        }) : state.blogs
+        }) : state.articles
     };
 };
 
@@ -5195,6 +5163,39 @@ module.exports = {
         cookieKey: "thisissomeprivatecookiekey"
     }
 };
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _types = __webpack_require__(6);
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var blogs = function blogs() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _types.ADD_ARTICLE:
+            return [].concat(_toConsumableArray(state), [action.payLoad]);
+        case _types.REMOVE_ARTICLE:
+            return state.filter(function (article) {
+                return article.id != action.payLoad.id;
+            });
+        default:
+            return state;
+    }
+};
+
+exports.default = blogs;
 
 /***/ })
 /******/ ]);

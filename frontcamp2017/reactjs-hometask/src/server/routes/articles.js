@@ -6,7 +6,7 @@ let router = express.Router();
 
 router.get('/', (req, res) => {
     Article.find({}).then((articlesList) => {
-        res.send(renderedApp(req, 'blogs', articlesList))
+        res.send(renderedApp(req, 'articles', articlesList))
     }, (err) => {});
 });
 

@@ -32333,20 +32333,20 @@ var _filter = __webpack_require__(265);
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _articles = __webpack_require__(575);
+
+var _articles2 = _interopRequireDefault(_articles);
+
 var _auth = __webpack_require__(561);
 
 var _auth2 = _interopRequireDefault(_auth);
-
-var _blogs = __webpack_require__(266);
-
-var _blogs2 = _interopRequireDefault(_blogs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
     visibilityFilter: _filter2.default,
     flashMessages: _flashMessages2.default,
-    blogs: _blogs2.default,
+    articles: _articles2.default,
     auth: _auth2.default
 });
 
@@ -32375,39 +32375,7 @@ var visibilityFilter = function visibilityFilter() {
 exports.default = visibilityFilter;
 
 /***/ }),
-/* 266 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _types = __webpack_require__(282);
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var blogs = function blogs() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments[1];
-
-    switch (action.type) {
-        case _types.ADD_ARTICLE:
-            return [].concat(_toConsumableArray(state), [action.payLoad]);
-        case _types.REMOVE_ARTICLE:
-            return state.filter(function (article) {
-                return article.id != action.payLoad.id;
-            });
-        default:
-            return state;
-    }
-};
-
-exports.default = blogs;
-
-/***/ }),
+/* 266 */,
 /* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36730,9 +36698,9 @@ var ArticlesList = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        articles: state.visibilityFilter ? state.blogs.filter(function (article) {
+        articles: state.visibilityFilter ? state.articles.filter(function (article) {
             return article.message.indexOf(state.visibilityFilter) !== -1;
-        }) : state.blogs
+        }) : state.articles
     };
 };
 
@@ -36874,6 +36842,39 @@ var addArticle = exports.addArticle = function addArticle(article) {
         payLoad: article
     };
 };
+
+/***/ }),
+/* 575 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _types = __webpack_require__(282);
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var blogs = function blogs() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _types.ADD_ARTICLE:
+            return [].concat(_toConsumableArray(state), [action.payLoad]);
+        case _types.REMOVE_ARTICLE:
+            return state.filter(function (article) {
+                return article.id != action.payLoad.id;
+            });
+        default:
+            return state;
+    }
+};
+
+exports.default = blogs;
 
 /***/ })
 /******/ ]);
