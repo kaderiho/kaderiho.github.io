@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angularjs TodoApp</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+</head>
+<body>
+    <div id="app" ng-app="todoApp">
+        <div class="todoAdding" ng-controller="todoAdding">
+            <form ng-submit="todoAddClick()">
+                <input placeholder="Put your todo there"
+                       ng-model="addingTodo.title"
+                       required
+                       type="text">
+                <input type="submit">
+            </form>
+        </div>
+
+        <div class="todoList" ng-controller="todoList">
+            <ul>
+                <li class="todoList-item" ng-repeat="todo in todoList">
+                    <span class="todoList-itemText">{{todo.title}}</span>
+                    <button>&times;</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="todoFilter" ng-controller="todoFilter">
+            <label>Filter:</label>
+            <input type="text">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="./services/todoService.js"></script>
+    <script src="./controllers/todoAdding.js"></script>
+    <script src="./controllers/todoFilter.js"></script>
+    <script src="./controllers/todoList.js"></script>
+</body>
+</html>
