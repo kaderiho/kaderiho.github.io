@@ -21,14 +21,15 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="todoAdding mt-5" ng-controller="todoAdding">
-                    <form ng-submit="todoAddClick()">
+                    <form name="form" ng-submit="todoAddClick()">
                         <div class="input-group">
                             <input placeholder="Text for your todo..."
                                    ng-model="addingTodo.title"
                                    class="form-control"
+                                   ka-min-length="20"
                                    type="text"
                                    required>
-                            <input type="submit" class="btn btn-primary">
+                            <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
                         </div>
                     </form>
                 </div>
@@ -40,7 +41,7 @@
                 <div class="todoList mt-2" ng-controller="todoList">
                     <ul class="list-group list-group-flush">
                         <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
-                            ng-repeat="todo in todoList" style="padding: 10px 0;"
+                            ng-repeat="todo in todoList | orderBy:['title', '-date']" style="padding: 10px 0;"
                             class="todoList-item list-group-item">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -86,5 +87,6 @@
     <script src="./controllers/todoAdding.js"></script>
     <script src="./controllers/todoFilter.js"></script>
     <script src="./controllers/todoList.js"></script>
+    <script src="./directives/min-length.js"></script>
 </body>
 </html>
