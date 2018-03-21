@@ -8,6 +8,7 @@
     <title>Angularjs TodoApp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./common.css">
 </head>
 <body>
     <div id="app" ng-app="todoApp" class="container">
@@ -38,15 +39,26 @@
             <div class="col-md-6 offset-md-3">
                 <div class="todoList mt-2" ng-controller="todoList">
                     <ul class="list-group list-group-flush">
-                        <li class="todoList-item list-group-item" ng-repeat="todo in todoList" style="padding: 10px 0;">
+                        <li class="todoList-item list-group-item"
+                            ng-repeat="todo in todoList" style="padding: 10px 0;"
+                            ng-class="{'todoList-item--editing': todo.isEditing}">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <input type="checkbox">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control">
-                                <!--<span class="todoList-itemText">{{todo.title}}</span>-->
+                                <input class="todoList-itemTextInput form-control"
+                                       ng-blur="doneEditTodoItem(todo)"
+                                       ng-show="todo.isEditing"
+                                       ng-model="todo.title"
+                                       type="text"
+                                       autofocus>
+                                <span class="todoList-itemText form-control"
+                                      ng-dblclick="editTodoItem(todo)"
+                                      ng-hide="todo.isEditing">
+                                    {{todo.title}}
+                                </span>
                                 <button class="btn btn-link">&times;</button>
                             </div>
                         </li>

@@ -1,0 +1,20 @@
+.todoList-item .input-group-text {
+    border: none;
+    background: none;
+}
+
+.todoList-itemText {
+    border: none;
+}
+
+.todoList-item .todoList-itemTextInput {
+    display: none;
+}
+
+.todoList-item.todoList-item--editing .todoList-itemTextInput {
+    display: block;
+}
+
+.todoList-item.todoList-item--editing .todoList-itemText {
+    display: none;
+}
