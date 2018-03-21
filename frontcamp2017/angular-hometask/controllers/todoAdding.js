@@ -1,12 +1,12 @@
 app.controller('todoAdding', function($scope, todoService) {
     $scope.addingTodo = {
-        status: 0,
+        completed: false,
         title: ''
     };
 
     $scope.todoAddClick = function() {
         todoService.addTodo({
-            status: $scope.addingTodo.status,
+            completed: $scope.addingTodo.completed,
             title: $scope.addingTodo.title,
             isEditing: false,
             date: Date.now()

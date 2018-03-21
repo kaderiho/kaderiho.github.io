@@ -18,3 +18,7 @@
 .todoList-item.todoList-item--editing .todoList-itemText {
     display: none;
 }
+
+.todoList-item--completed .todoList-itemText {
+    text-decoration: line-through;
+}

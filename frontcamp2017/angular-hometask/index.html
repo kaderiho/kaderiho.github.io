@@ -39,27 +39,30 @@
             <div class="col-md-6 offset-md-3">
                 <div class="todoList mt-2" ng-controller="todoList">
                     <ul class="list-group list-group-flush">
-                        <li class="todoList-item list-group-item"
+                        <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
                             ng-repeat="todo in todoList" style="padding: 10px 0;"
-                            ng-class="{'todoList-item--editing': todo.isEditing}">
+                            class="todoList-item list-group-item">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="checkbox">
+                                        <input type="checkbox" ng-change="toggleCompeteTodo(todo)" ng-model="todo.status">
                                     </div>
                                 </div>
                                 <input class="todoList-itemTextInput form-control"
-                                       ng-blur="doneEditTodoItem(todo)"
+                                       ng-blur="doneEditTodo(todo)"
                                        ng-show="todo.isEditing"
                                        ng-model="todo.title"
                                        type="text"
                                        autofocus>
                                 <span class="todoList-itemText form-control"
-                                      ng-dblclick="editTodoItem(todo)"
+                                      ng-dblclick="editTodo(todo)"
                                       ng-hide="todo.isEditing">
                                     {{todo.title}}
                                 </span>
-                                <button class="btn btn-link">&times;</button>
+                                <button ng-click="deleteTodo(todo)"
+                                        class="btn btn-link">
+                                    &times;
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -71,7 +74,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="todoFilter mt-2" ng-controller="todoFilter">
                     <div class="input-group">
-                        <input type="text" placeholder="Filter by days" class="form-control">
+                        <input type="text" placeholder="Filter by how old in days" class="form-control" ng-change="filterTodo()" ng-model="filterText">
                     </div>
                 </div>
             </div>
