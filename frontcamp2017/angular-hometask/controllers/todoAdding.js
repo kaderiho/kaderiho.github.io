@@ -7,7 +7,8 @@ app.controller('todoAdding', function($scope, todoService) {
     $scope.todoAddClick = function() {
         todoService.addTodo({
             status: $scope.addingTodo.status,
-            title: $scope.addingTodo.title
+            title: $scope.addingTodo.title,
+            date: Date.now()
         });
         $scope.addingTodo.title = '';
     };
