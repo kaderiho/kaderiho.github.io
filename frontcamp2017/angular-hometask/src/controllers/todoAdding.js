@@ -1,4 +1,4 @@
-app.controller('todoAdding', function($scope, todoService) {
+export default function($scope, todoService) {
     $scope.addingTodo = {
         completed: false,
         title: ''
@@ -13,4 +13,4 @@ app.controller('todoAdding', function($scope, todoService) {
         });
         $scope.addingTodo.title = '';
     };
-});
+};

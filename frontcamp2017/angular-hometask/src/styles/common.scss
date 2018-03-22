@@ -1,0 +1,12 @@
+.todoList-item .input-group-text {
+    border: none;
+    background: none;
+}
+
+.todoList-itemText {
+    border: none;
+}
+
+.todoList-item--completed .todoList-itemText {
+    text-decoration: line-through;
+}

@@ -1,4 +1,4 @@
-app.service('todoService', function() {
+export default function() {
     this.filteredTodoList = [];
     this.filterText = '';
     this.todoList = [];
@@ -57,4 +57,4 @@ app.service('todoService', function() {
 
         this.filteredTodoList = this.todoList.filter(todoItem => todoItem.date <= timeRange);
     }
-});
+};

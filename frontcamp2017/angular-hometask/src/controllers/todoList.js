@@ -1,4 +1,4 @@
-app.controller('todoList', function ($scope, todoService) {
+export default function ($scope, todoService) {
     $scope.todoList = todoService.filteredTodoList;
 
     $scope.editTodo = function (todoItem) {
@@ -25,4 +25,4 @@ app.controller('todoList', function ($scope, todoService) {
             $scope.todoList = todoService.filteredTodoList;
         }
     });
-});
+};
