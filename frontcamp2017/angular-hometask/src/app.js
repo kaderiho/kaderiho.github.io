@@ -7,12 +7,11 @@ import todoService from './services/todoService';
 import kaMinLength from './directives/min-length';
 import './styles/common.scss'
 
-
 const app = angular.module('todoApp', []);
 
-
-app.service('todoService', todoService);
-app.directive('kaMinLength', kaMinLength);
-app.controller('todoAdding', ['$scope', 'todoService', todoList]);
+app.controller('todoFilter', ['$scope', 'todoService', todoFilter]);
 app.controller('todoAdding', ['$scope', 'todoService', todoAdding]);
-app.controller('todoAdding', ['$scope', 'todoService', todoFilter]);
+app.controller('todoList', ['$scope', 'todoService', todoList]);
+
+app.directive('kaMinLength', kaMinLength);
+app.service('todoService', todoService);
