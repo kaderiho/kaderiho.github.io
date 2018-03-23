@@ -16,7 +16,7 @@
 
 // app.service('todoService', todoService);
 
-window.app = angular.module('todoApp', ['ngRoute']);
+window.app = angular.module('todoApp', ['ngRoute', 'ngResource']);
 
 window.app.config(function($routeProvider) {
     const routeConfig = {

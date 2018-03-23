@@ -1,8 +1,7 @@
-app.controller('todoCtrl', function($scope, todoService, $routeParams, $location) {
-    todoService.getTodos().then((res) => {
-        $scope.todoList = res.data;
-    });
+app.controller('todoCtrl', function($scope, todoService, TodoStorage, $routeParams, $location) {
+    todoService.getTodos();
 
+    $scope.todoList = $scope.filteredTodoList;
     $scope.newTodoTitle = '';
     $scope.filterText = '';
 

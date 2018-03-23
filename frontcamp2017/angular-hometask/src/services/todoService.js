@@ -1,18 +1,11 @@
-app.service('todoService', function($q, $http) {
+app.service('todoService', function($resource, TodoStorage) {
+    this.filteredTodoList = [];
     this.filterText = '';
     this.todoList = [];
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // API methods
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    const deferred = $q.defer();
-
-    $http.get('data/todos.json').then((res) => {
-        deferred.resolve(res);
-    });
-
+    // GET - retrieve list of todos
     this.getTodos = function() {
-        return deferred.promise
+        this.filteredTodoList = this.todoList = TodoStorage.query();
     };
 
     this.addTodo = function(todoItem) {
