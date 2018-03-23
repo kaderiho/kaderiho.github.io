@@ -1,4 +1,4 @@
-export default function() {
+app.directive('kaMinLength', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -7,6 +7,7 @@ export default function() {
 
             ctrl.$parsers.unshift(function(viewValue) {
                 var len = viewValue ? viewValue.length - (viewValue.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g)||[]).length : 0;
+
                 if (len <= min) {
                     ctrl.$setValidity("minlength", false);
                     return undefined;
@@ -17,4 +18,4 @@ export default function() {
             });
         }
     };
-};
+});

@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "angular": "^1.6.9",
+    "angular-route": "^1.6.9",
     "uirouter/angularjs": "^1.0.3"
   }
 }

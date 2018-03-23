@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Angularjs TodoApp</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./styles/common.css">
 </head>
 <body>
     <div id="app" ng-app="todoApp" class="container">
@@ -25,8 +24,7 @@
                             <input placeholder="Text for your todo..."
                                    ng-model="addingTodo.title"
                                    class="form-control"
-                                   minLength="20"
-                                   ka-min-length
+                                   ka-min-length="20"
                                    type="text"
                                    required>
                             <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
@@ -81,16 +79,5 @@
             </div>
         </div>
     </div>
-
-    <script src="../node_modules/angular/angular.js"></script>
-    <script src="../node_modules/angular-route/angular-route.js"></script>
-    <script src="../node_modules/angular-resource/angular-resource.js"></script>
-
-    <script src="app.js"></script>
-    <script src="./directives/min-length.js"></script>
-    <script src="./controllers/todoAdding.js"></script>
-    <script src="./controllers/todoFilter.js"></script>
-    <script src="./controllers/todoList.js"></script>
-    <script src="./services/todoService.js"></script>
-</body>
+<script type="text/javascript" src="app.bundle.js"></script></body>
 </html>
