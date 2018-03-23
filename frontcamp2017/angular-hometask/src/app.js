@@ -19,6 +19,25 @@
 window.app = angular.module('todoApp', ['ngRoute']);
 
 window.app.config(function($routeProvider) {
-    const routeConfig = {}
+    const routeConfig = {
+        controller: 'todoCtrl',
+        templateUrl: 'todoApp.html'
+
+        // resolve: {
+        //     store: function (todoStorage) {
+        //         return todoStorage.then((module) => {
+        //             module.get();
+        //             return module;
+        //         })
+        //     }
+        // }
+    };
+
+    $routeProvider
+        .when('/add', routeConfig)
+        .when('/:id/edit', routeConfig)
+        .otherwise({
+            redirectTo: '/add'
+        });
 });
 

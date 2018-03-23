@@ -10,14 +10,16 @@ app.service('todoService', function() {
         this.filterTodo(this.filterText);
     };
 
-    this.editTodo = function(editingTodo) {
+    this.editTodo = function(todoId) {
         this.todoList = this.todoList.map((todoItem) => {
-            if (editingTodo.date === todoItem.date) {
+            if (todoId === todoItem.date) {
                 todoItem.isEditing = true;
             }
 
             return todoItem;
         });
+
+        this.filterTodo(this.filterText);
     };
 
     this.doneEditTodo = function(editingTodo) {
