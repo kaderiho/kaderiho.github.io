@@ -22,15 +22,6 @@ window.app.config(function($routeProvider) {
     const routeConfig = {
         controller: 'todoCtrl',
         templateUrl: 'todoApp.html'
-
-        // resolve: {
-        //     store: function (todoStorage) {
-        //         return todoStorage.then((module) => {
-        //             module.get();
-        //             return module;
-        //         })
-        //     }
-        // }
     };
 
     $routeProvider

@@ -1,7 +1,19 @@
-app.service('todoService', function() {
-    this.filteredTodoList = [];
+app.service('todoService', function($q, $http) {
     this.filterText = '';
     this.todoList = [];
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // API methods
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    const deferred = $q.defer();
+
+    $http.get('data/todos.json').then((res) => {
+        deferred.resolve(res);
+    });
+
+    this.getTodos = function() {
+        return deferred.promise
+    };
 
     this.addTodo = function(todoItem) {
         this.todoList.push(todoItem);
