@@ -7,7 +7,6 @@
 // import kaMinLength from './directives/min-length';
 // import './styles/common.css'
 //
-window.app = angular.module('todoApp', []);
 //
 // app.controller('todoFilter', ['$scope', 'todoService', todoFilter]);
 // app.controller('todoAdding', ['$scope', 'todoService', todoAdding]);
@@ -16,4 +15,10 @@ window.app = angular.module('todoApp', []);
 // app.directive('kaMinLength', kaMinLength);
 
 // app.service('todoService', todoService);
+
+window.app = angular.module('todoApp', ['ngRoute']);
+
+window.app.config(function($routeProvider) {
+    const routeConfig = {}
+});
 

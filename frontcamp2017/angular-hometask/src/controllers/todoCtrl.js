@@ -1,4 +1,25 @@
-app.controller('todoList', function ($scope, todoService) {
+app.controller('todoCtrl', function($scope, todoService) {
+    $scope.addingTodo = {
+        completed: false,
+        title: ''
+    };
+
+    $scope.todoAddClick = function() {
+        todoService.addTodo({
+            completed: $scope.addingTodo.completed,
+            title: $scope.addingTodo.title,
+            isEditing: false,
+            date: Date.now()
+        });
+        $scope.addingTodo.title = '';
+    };
+
+    $scope.filterText = '';
+
+    $scope.filterTodo = function() {
+        todoService.filterTodo(parseInt($scope.filterText));
+    }
+
     $scope.todoList = todoService.filteredTodoList;
 
     $scope.editTodo = function (todoItem) {

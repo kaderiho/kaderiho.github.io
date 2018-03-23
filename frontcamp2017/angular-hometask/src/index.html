@@ -17,65 +17,67 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="todoAdding mt-5" ng-controller="todoAdding">
-                    <form name="form" ng-submit="todoAddClick()">
-                        <div class="input-group">
-                            <input placeholder="Text for your todo..."
-                                   ng-model="addingTodo.title"
-                                   class="form-control"
-                                   minLength="20"
-                                   ka-min-length
-                                   type="text"
-                                   required>
-                            <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
-                        </div>
-                    </form>
+        <div ng-controller="todoCtrl">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="todoAdding mt-5">
+                        <form name="form" ng-submit="todoAddClick()">
+                            <div class="input-group">
+                                <input placeholder="Text for your todo..."
+                                       ng-model="addingTodo.title"
+                                       class="form-control"
+                                       minLength="20"
+                                       ka-min-length
+                                       type="text"
+                                       required>
+                                <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="todoList mt-2" ng-controller="todoList">
-                    <ul class="list-group list-group-flush">
-                        <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
-                            ng-repeat="todo in todoList | orderBy:['title', '-date']" style="padding: 10px 0;"
-                            class="todoList-item list-group-item">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" ng-change="toggleCompeteTodo(todo)" ng-model="todo.status">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="todoList mt-2">
+                        <ul class="list-group list-group-flush">
+                            <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
+                                ng-repeat="todo in todoList | orderBy:['title', '-date']" style="padding: 10px 0;"
+                                class="todoList-item list-group-item">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" ng-change="toggleCompeteTodo(todo)" ng-model="todo.status">
+                                        </div>
                                     </div>
-                                </div>
-                                <input class="todoList-itemTextInput form-control"
-                                       ng-blur="doneEditTodo(todo)"
-                                       ng-show="todo.isEditing"
-                                       ng-model="todo.title"
-                                       type="text"
-                                       autofocus>
-                                <span class="todoList-itemText form-control"
-                                      ng-dblclick="editTodo(todo)"
-                                      ng-hide="todo.isEditing">
+                                    <input class="todoList-itemTextInput form-control"
+                                           ng-blur="doneEditTodo(todo)"
+                                           ng-show="todo.isEditing"
+                                           ng-model="todo.title"
+                                           type="text"
+                                           autofocus>
+                                    <span class="todoList-itemText form-control"
+                                          ng-dblclick="editTodo(todo)"
+                                          ng-hide="todo.isEditing">
                                     {{todo.title}}
                                 </span>
-                                <button ng-click="deleteTodo(todo)"
-                                        class="btn btn-link">
-                                    &times;
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
+                                    <button ng-click="deleteTodo(todo)"
+                                            class="btn btn-link">
+                                        &times;
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="todoFilter mt-2" ng-controller="todoFilter">
-                    <div class="input-group">
-                        <input type="text" placeholder="Filter by how old in days" class="form-control" ng-change="filterTodo()" ng-model="filterText">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="todoFilter mt-2">
+                        <div class="input-group">
+                            <input type="text" placeholder="Filter by how old in days" class="form-control" ng-change="filterTodo()" ng-model="filterText">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,9 +90,7 @@
 
     <script src="app.js"></script>
     <script src="./directives/min-length.js"></script>
-    <script src="./controllers/todoAdding.js"></script>
-    <script src="./controllers/todoFilter.js"></script>
-    <script src="./controllers/todoList.js"></script>
+    <script src="./controllers/todoCtrl.js"></script>
     <script src="./services/todoService.js"></script>
 </body>
 </html>
