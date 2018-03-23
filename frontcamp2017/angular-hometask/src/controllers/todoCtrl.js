@@ -41,8 +41,8 @@ app.controller('todoCtrl', function($scope, todoService, $routeParams, $location
         todoService.filterTodo(parseInt($scope.filterText));
     };
 
-    $scope.toggleCompeteTodo = function (todoItem) {
-        todoService.toggleCompeteTodo(todoItem);
+    $scope.toggleCompleteTodo = function (todoItem) {
+        todoService.toggleCompleteTodo(todoItem);
     };
 
     // TODO: may be there is a better solution instead of using $watch
