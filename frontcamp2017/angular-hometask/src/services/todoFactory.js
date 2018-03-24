@@ -20,18 +20,12 @@ app.factory('TodoFactory', function($resource) {
             todosList.push(todoItem);
         },
 
-        editTodo: function(todoId) {
-            todosList = todosList.map((todoItem) => {
-                if (todoItem.date === todoId) {
-                    todoItem.isEditing = true;
-                }
-
-                return todoItem;
-            });
+        editTodo: function(editedTodoItem) {
+            todosList[todosList.indexOf(editedTodoItem)].isEditing = true;
         },
 
         doneEditTodo: function(editedTodoItem) {
-            todosList[todosList.indexOf(editedTodoItem)].isEditing = !editedTodoItem.isEditing;
+            todosList[todosList.indexOf(editedTodoItem)].isEditing = false;
         },
 
         deleteTodo: function(todoItem) {

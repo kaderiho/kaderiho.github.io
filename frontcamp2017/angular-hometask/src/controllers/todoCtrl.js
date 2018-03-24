@@ -1,7 +1,6 @@
 app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams',
     function($scope, TodoFactory, $location, $routeParams) {
         $scope.todoList = TodoFactory.getTodos();
-        $scope.filteredItems = $scope.todoList;
         $scope.newTodoTitle = '';
         $scope.filterText = '';
 
@@ -49,6 +48,6 @@ app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams'
         };
 
         if ($routeParams.id) {
-            TodoFactory.editTodo(+$routeParams.id);
+            TodoFactory.editTodo($scope.todoList.filter((todoItem) => todoItem.date === +$routeParams.id)[0]);
         }
 }]);
