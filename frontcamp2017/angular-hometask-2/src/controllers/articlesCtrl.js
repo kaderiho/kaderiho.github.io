@@ -3,11 +3,18 @@ app.controller('articlesCtrl', ['$scope', 'ArticlesFactory', '$location', '$rout
 
     $scope.isArticleFormVisible = $location.path().indexOf('/add') !== -1;
     $scope.articlesList = ArticlesFactory.getArticles();
-
     $scope.articleForm = {
         description: '',
         title: '',
         date: null
+    };
+
+    $scope.totalPagesCount = Math.ceil($scope.articlesList.length / $scope.itemsPerPage);
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 1;
+
+    $scope.navigate = function(nextPage) {
+        $scope.currentPage = nextPage;
     };
 
     $scope.updateArticle = function() {
