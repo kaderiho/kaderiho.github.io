@@ -27,7 +27,7 @@ app.factory('TodoFactory', function($resource) {
                 }
 
                 return todoItem;
-            })
+            });
         },
 
         doneEditTodo: function(editedTodoItem) {
@@ -45,8 +45,7 @@ app.factory('TodoFactory', function($resource) {
         },
 
         toggleCompleteTodo: function(todoItem) {
-            let toggledTodoIndex = todosList.indexOf(todoItem);
-            todosList[toggledTodoIndex].completed = !todosList[toggledTodoIndex].completed;
+            todosList[todosList.indexOf(todoItem)].completed = !todoItem.completed;
         }
     }
 });

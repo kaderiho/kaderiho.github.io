@@ -1,8 +1,8 @@
 app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams',
     function($scope, TodoFactory, $location, $routeParams) {
+        $scope.todoList = TodoFactory.getTodos();
         $scope.newTodoTitle = '';
         $scope.filterText = '';
-        $scope.todoList = TodoFactory.getTodos();
 
         $scope.addTodo = function() {
             if (!$scope.newTodoTitle) {
