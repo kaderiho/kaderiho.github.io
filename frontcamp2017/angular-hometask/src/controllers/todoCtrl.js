@@ -1,8 +1,18 @@
 app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams',
     function($scope, TodoFactory, $location, $routeParams) {
         $scope.todoList = TodoFactory.getTodos();
+        $scope.filteredItems = $scope.todoList;
         $scope.newTodoTitle = '';
         $scope.filterText = '';
+
+        // Filter todoItem by date: the date have to be in the range of inputed date
+        $scope.searchDate = function(todoItem) {
+            if (isNaN($scope.filterText) || !$scope.filterText) {
+                return todoItem;
+            }
+
+            return todoItem.date < Date.now() - $scope.filterText * 1000 * 60 * 60 * 24
+        };
 
         $scope.addTodo = function() {
             if (!$scope.newTodoTitle) {
@@ -36,16 +46,6 @@ app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams'
         $scope.doneEditTodo = function (todoItem) {
             TodoFactory.doneEditTodo(todoItem);
             $location.path(`add/`);
-        };
-
-        $scope.filterTodo = function() {
-            if (isNaN($scope.filterText) || !$scope.filterText) {
-                $scope.todoList = TodoFactory.getTodos();
-            }
-
-            let timeRange = Date.now() - $scope.filterText * 1000 * 60 * 60 * 24;
-
-            $scope.todoList = $scope.todoList.filter(todoItem => todoItem.date <= timeRange)
         };
 
         if ($routeParams.id) {

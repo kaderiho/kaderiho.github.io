@@ -29,12 +29,13 @@
             <div class="todoList mt-2">
                 <ul class="list-group list-group-flush">
                     <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
-                        ng-repeat="todo in todoList | orderBy:['title', '-date']" style="padding: 10px 0;"
-                        class="todoList-item list-group-item">
+                        ng-repeat="todo in todoList | orderBy:['title', '-date'] | filter: searchDate"
+                        class="todoList-item list-group-item"
+                        style="padding: 10px 0;">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <input type="checkbox" ng-change="toggleCompeteTodo(todo)" ng-model="todo.status">
+                                    <input type="checkbox" ng-change="toggleCompleteTodo(todo)" ng-model="todo.status">
                                 </div>
                             </div>
                             <input class="todoList-itemTextInput form-control"
