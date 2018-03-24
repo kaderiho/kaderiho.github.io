@@ -1,18 +1,18 @@
 app.service('todoService', function($resource, TodoStorage) {
-    this.filteredTodoList = [];
+    // this.filteredTodoList = [];
     this.filterText = '';
     this.todoList = [];
 
     // GET - retrieve list of todos
-    this.getTodos = function() {
-        this.filteredTodoList = this.todoList = TodoStorage.query();
-    };
+    // this.getTodos = function() {
+    //     this.filteredTodoList = this.todoList = TodoStorage.query();
+    // };
 
     this.addTodo = function(todoItem) {
         this.todoList.push(todoItem);
 
         // TODO: for making obervables list its possible to user RxJs
-        this.filterTodo(this.filterText);
+        // this.filterTodo(this.filterText);
     };
 
     this.editTodo = function(todoId) {
@@ -52,16 +52,16 @@ app.service('todoService', function($resource, TodoStorage) {
         this.filterTodo(this.filterText);
     };
 
-    this.filterTodo = function(filterText) {
-        this.filterText = filterText || '';
-
-        if (isNaN(this.filterText) || !this.filterText) {
-            this.filteredTodoList = this.todoList;
-            return;
-        }
-
-        let timeRange = Date.now() - filterText * 1000 * 60 * 60 * 24;
-
-        this.filteredTodoList = this.todoList.filter(todoItem => todoItem.date <= timeRange);
-    }
+    // this.filterTodo = function(filterText) {
+    //     this.filterText = filterText || '';
+    //
+    //     if (isNaN(this.filterText) || !this.filterText) {
+    //         this.filteredTodoList = this.todoList;
+    //         return;
+    //     }
+    //
+    //     let timeRange = Date.now() - filterText * 1000 * 60 * 60 * 24;
+    //
+    //     this.filteredTodoList = this.todoList.filter(todoItem => todoItem.date <= timeRange);
+    // }
 });
