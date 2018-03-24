@@ -1,5 +1,15 @@
-app.factory('TodoFactory', function() {
-    let todosList = [];
+app.factory('TodoFactory', function($resource) {
+    let TodoModel = $resource('data/todos.json', null,
+        {
+            'get': {method: 'GET'},
+            'save': {method: 'POST'},
+            'query': {method: 'GET', isArray: true},
+            'remove': {method: 'DELETE'},
+            'delete': {method: 'DELETE'}
+        }
+    );
+
+    let todosList = TodoModel.query();
 
     return {
         getTodos: function() {
