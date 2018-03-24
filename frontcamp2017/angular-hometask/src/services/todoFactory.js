@@ -31,13 +31,7 @@ app.factory('TodoFactory', function($resource) {
         },
 
         doneEditTodo: function(editedTodoItem) {
-            todosList = todosList.map((todoItem) => {
-                if (todoItem.date === editedTodoItem.date) {
-                    todoItem.isEditing = false;
-                }
-
-                return todoItem;
-            })
+            todosList[todosList.indexOf(editedTodoItem)].isEditing = !editedTodoItem.isEditing;
         },
 
         deleteTodo: function(todoItem) {
