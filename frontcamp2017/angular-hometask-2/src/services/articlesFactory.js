@@ -17,6 +17,21 @@ app.factory('ArticlesFactory', function($resource) {
 
         addArticle: function(article) {
             articlesList.push(article);
+        },
+
+        getArticle: function(articleId) {
+            return articlesList.filter((article) => article.date === articleId)[0];
+        },
+
+        updateArticle: function(article) {
+            articlesList.map((articleItem) => {
+                if (articleItem.date === article.date) {
+                    articleItem.description = article.description;
+                    articleItem.title = article.title;
+                }
+
+                return articleItem;
+            });
         }
     }
 });

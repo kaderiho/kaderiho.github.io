@@ -18,17 +18,17 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="todoAdding mt-5">
-                <form name="form" ng-submit="addArticle()" ng-show="isArticleFormVisible">
+                <form name="form" ng-submit="articleForm.date ? addArticle() : addArticle()" ng-show="isArticleFormVisible">
                     <div class="form-group">
                         <input placeholder="Title for your article"
-                               ng-model="newArticleTitle"
+                               ng-model="articleForm.title"
                                class="form-control"
                                type="text"
                                required>
                     </div>
                     <div class="form-group">
                         <textarea placeholder="Description for your article"
-                                  ng-model="newArticleDescription"
+                                  ng-model="articleForm.description"
                                   class="form-control"
                                   minLength="20"
                                   ka-min-length
@@ -52,7 +52,7 @@
                     <li ng-repeat="article in articlesList | orderBy: ['-date']"
                         class="todoList-item list-group-item"
                         style="padding: 10px 0;">
-                        <h2 ng-dblclick="editArticle()">{{article.title}}</h2>
+                        <h2 ng-dblclick="editArticle(article)">{{article.title}}</h2>
                         <p>{{article.description}}</p>
                     </li>
                 </ul>

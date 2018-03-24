@@ -7,10 +7,11 @@ window.app.config(function($routeProvider) {
     };
 
     $routeProvider
+        .when('/', routeConfig)
         .when('/add', routeConfig)
         .when('/:id/edit', routeConfig)
         .otherwise({
-            redirectTo: '/add'
+            redirectTo: '/'
         });
 });
 
