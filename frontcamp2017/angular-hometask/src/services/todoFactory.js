@@ -1,5 +1,5 @@
 app.factory('TodoFactory', function($resource) {
-    let TodoModel = $resource('data/todos.json', null,
+    let TodoModel = $resource('data/articles.json', null,
         {
             'get': {method: 'GET'},
             'save': {method: 'POST'},
