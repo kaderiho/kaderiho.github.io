@@ -1,6 +1,5 @@
 app.controller('articlesCtrl', ['$scope', 'ArticlesFactory', '$location', '$routeParams',
     function($scope, ArticlesFactory, $location, $routeParams) {
-
     $scope.isArticleFormVisible = $location.path().indexOf('/add') !== -1;
     $scope.articlesList = ArticlesFactory.getArticles();
     $scope.articleForm = {
