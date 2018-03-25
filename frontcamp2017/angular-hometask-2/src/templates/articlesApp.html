@@ -6,18 +6,15 @@
 
 <div ng-controller="articlesCtrl">
     <div class="row">
-        <div class="col-md-12 text-center">
-            <button ng-hide="isArticleFormVisible"
-                    ng-click="showArticleForm()"
-                    style="margin: 50px 0 0;"
-                    class="btn btn-primary">
-                    Add an article
-            </button>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="todoAdding mt-5">
+            <div class="mt-5 mb-3" style="text-align: right;">
+                <button ng-hide="isArticleFormVisible"
+                        ng-click="showArticleForm()"
+                        style="margin: 0 auto;display:inherit;"
+                        class="btn btn-primary">
+                    Add an article
+                </button>
+
                 <form name="form" ng-submit="articleForm.date ? updateArticle() : addArticle()" ng-show="isArticleFormVisible">
                     <div class="form-group">
                         <input placeholder="Title for your article"
@@ -36,7 +33,7 @@
                                   rows="3">
                         </textarea>
                     </div>
-                    <input class="btn btn-primary float-right"
+                    <input class="btn btn-primary"
                            ng-disabled="form.$invalid"
                            type="submit">
                 </form>
@@ -60,18 +57,18 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 offset-md-3" style="text-align: center;">
-            <nav style="display: inline-block;margin: 20px 0 0 0;">
-                <ul class="pagination">
-                    <li class="page-item" ng-hide="currentPage === 1">
+        <div class="col-md-6 offset-md-3">
+            <nav style="margin: 20px 0 0 0;">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" ng-class="{disabled: currentPage === 1}">
                         <a class="page-link" ng-click="navigate(currentPage - 1)">Previous</a>
                     </li>
-                    <li class="page-item" ng-repeat="page in [] | range:totalPagesCount">
+                    <li class="page-item" ng-class="{active: $index === currentPage - 1}" ng-repeat="page in [] | range:totalPagesCount">
                         <a class="page-link" ng-click="navigate($index + 1)">
                             {{$index + 1}}
                         </a>
                     </li>
-                    <li class="page-item" ng-hide="currentPage === totalPagesCount">
+                    <li class="page-item" ng-class="{disabled: currentPage === totalPagesCount}">
                         <a class="page-link" ng-click="navigate(currentPage + 1)">Next</a>
                     </li>
                 </ul>
