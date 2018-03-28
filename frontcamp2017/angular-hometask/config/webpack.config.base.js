@@ -9,11 +9,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        chunkFilename: 'channels.bundle.js',
         path: path.resolve(__dirname, '../dist'),
-    },
-    resolveLoader: {
-        modules: ['node_modules', path.resolve(__dirname, '../loaders')]
     },
     resolve: {
         extensions: ['.js'],
@@ -96,6 +92,10 @@ module.exports = {
             {
                 from: 'data/',
                 to: '../dist/data'
+            },
+            {
+                from: 'templates',
+                to: '../dist/templates'
             }
         ])
     ]

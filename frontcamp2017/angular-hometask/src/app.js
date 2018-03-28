@@ -1,16 +1,18 @@
-window.app = angular.module('todoApp', ['ngRoute', 'ngResource']);
+import 'angular';
+import 'angular-route';
+import 'angular-resource';
+import TodoFactory from './services/todoFactory';
+import TodoCtrl from './controllers/todoCtrl';
+import kaMinLength from './directives/min-length';
+import Routes from './routes';
+import './styles/bootstrap.min.scss';
+import './styles/common.scss';
 
-window.app.config(function($routeProvider) {
-    const routeConfig = {
-        controller: 'todoCtrl',
-        templateUrl: 'todoApp.html'
-    };
+const app = angular.module('todoApp', ['ngRoute', 'ngResource']);
 
-    $routeProvider
-        .when('/add', routeConfig)
-        .when('/:id/edit', routeConfig)
-        .otherwise({
-            redirectTo: '/add'
-        });
-});
+app.config(['$routeProvider', Routes]);
+app.factory('TodoFactory', ['$resource', TodoFactory]);
+app.controller('todoCtrl', ['$scope', 'TodoFactory', '$location', '$routeParams', TodoCtrl]);
+app.directive('kaMinLength', kaMinLength);
+
 

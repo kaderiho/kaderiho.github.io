@@ -1,5 +1,5 @@
-app.factory('TodoFactory', function($resource) {
-    let TodoModel = $resource('data/articles.json', null,
+const TodoFactory = function($resource) {
+    let TodoModel = $resource('data/todos.json', null,
         {
             'get': {method: 'GET'},
             'save': {method: 'POST'},
@@ -36,4 +36,6 @@ app.factory('TodoFactory', function($resource) {
             todosList[todosList.indexOf(todoItem)].completed = !todoItem.completed;
         }
     }
-});
+};
+
+export default TodoFactory
