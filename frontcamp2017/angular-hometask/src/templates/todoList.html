@@ -1,0 +1,29 @@
+<ul class="list-group list-group-flush">
+    <li ng-class="{'todoList-item--editing' : todo.isEditing, 'todoList-item--completed' : todo.status}"
+        ng-repeat="todo in todoList | orderBy:['title', '-date'] | filter: searchDate"
+        class="todoList-item list-group-item"
+        style="padding: 10px 0;">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" ng-change="toggleCompleteTodo(todo)" ng-model="todo.status">
+                </div>
+            </div>
+            <input class="todoList-itemTextInput form-control"
+                   ng-blur="doneEditTodo(todo)"
+                   ng-show="todo.isEditing"
+                   ng-model="todo.title"
+                   type="text"
+                   autofocus>
+            <span class="todoList-itemText form-control"
+                  ng-dblclick="editTodo(todo)"
+                  ng-hide="todo.isEditing">
+                  {{todo.title}}
+            </span>
+            <button ng-click="deleteTodo(todo)"
+                    class="btn btn-link">
+                &times;
+            </button>
+        </div>
+    </li>
+</ul>

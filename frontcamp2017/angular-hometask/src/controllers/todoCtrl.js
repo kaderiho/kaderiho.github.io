@@ -1,6 +1,8 @@
 const TodoCtrl = function ($scope, TodoFactory, $location, $routeParams) {
     $scope.todoList = TodoFactory.getTodos();
-    $scope.newTodoTitle = '';
+    $scope.addTodoForm = {
+        title: ''
+    };
     $scope.filterText = '';
 
     // Filter todoItem by date: the date have to be in the range of inputed date
@@ -13,12 +15,12 @@ const TodoCtrl = function ($scope, TodoFactory, $location, $routeParams) {
     };
 
     $scope.addTodo = function () {
-        if (!$scope.newTodoTitle) {
+        if (!$scope.addTodoForm.title) {
             return;
         }
 
         const newTodo = {
-            title: $scope.newTodoTitle,
+            title: $scope.addTodoForm.title,
             completed: false,
             isEditing: false,
             date: Date.now()
@@ -26,7 +28,7 @@ const TodoCtrl = function ($scope, TodoFactory, $location, $routeParams) {
 
         TodoFactory.addTodo(newTodo);
 
-        $scope.newTodoTitle = '';
+        $scope.addTodoForm.title = '';
     };
 
     $scope.deleteTodo = function (deletedTodo) {

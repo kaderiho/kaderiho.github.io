@@ -1,0 +1,11 @@
+<form name="form" ng-submit="addTodo()">
+    <div class="input-group">
+        <input placeholder="Text for your todo..."
+               ng-model="addTodoForm.title"
+               class="form-control"
+               ka-min-length="20"
+               type="text"
+               required>
+        <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+    </div>
+</form>
