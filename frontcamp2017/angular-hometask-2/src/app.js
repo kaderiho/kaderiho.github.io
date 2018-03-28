@@ -1,35 +1,19 @@
-window.app = angular.module('articlesApp', ['ngRoute', 'ngResource']);
+import 'angular';
+import 'angular-route';
+import 'angular-resource';
+import ArticlesFactory from './services/ArticlesFactory';
+import articlesCtrl from './controllers/articlesCtrl';
+import kaMinLength from './directives/min-length';
+import { startFrom, range } from './filters';
+import './styles/bootstrap.min.scss';
+import Routes from './routes';
 
-window.app.config(function($routeProvider) {
-    const routeConfig = {
-        controller: 'articlesCtrl',
-        templateUrl: 'articlesApp.html'
-    };
+const app = angular.module('articlesApp', ['ngRoute', 'ngResource']);
 
-    $routeProvider
-        .when('/', routeConfig)
-        .when('/add', routeConfig)
-        .when('/:id/edit', routeConfig)
-        .otherwise({
-            redirectTo: '/'
-        });
-});
-
-window.app
-    .filter('startFrom', function() {
-        return function(data, startFrom) {
-            return data.slice(startFrom);
-        }
-    })
-    .filter('range', function() {
-        return function(input, total) {
-            total = parseInt(total);
-
-            for (let i= 0; i <total; i++) {
-                input.push(i);
-            }
-
-            return input;
-        };
-    });
+app.config(['$routeProvider', Routes]);
+app.factory('ArticlesFactory', ['$resource', ArticlesFactory]);
+app.controller('articlesCtrl', ['$scope', 'ArticlesFactory', '$location', '$routeParams', articlesCtrl]);
+app.directive('kaMinLength', kaMinLength);
+app.filter('startFrom', startFrom);
+app.filter('range', range);
 

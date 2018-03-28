@@ -1,0 +1,8 @@
+<ul class="list-group list-group-flush">
+    <li ng-repeat="article in articlesList | orderBy: ['-date'] | startFrom:(currentPage - 1) * itemsPerPage | limitTo: itemsPerPage"
+        class="todoList-item list-group-item"
+        style="padding: 10px 0;">
+        <h2 ng-dblclick="editArticle(article)">{{article.title}}</h2>
+        <p>{{article.description}}</p>
+    </li>
+</ul>

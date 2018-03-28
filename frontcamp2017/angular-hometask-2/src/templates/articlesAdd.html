@@ -1,0 +1,29 @@
+<button ng-hide="isArticleFormVisible"
+        ng-click="showArticleForm()"
+        style="margin: 0 auto;display:inherit;"
+        class="btn btn-primary">
+    Add an article
+</button>
+
+<form name="form" ng-submit="articleForm.date ? updateArticle() : addArticle()" ng-show="isArticleFormVisible">
+    <div class="form-group">
+        <input placeholder="Title for your article"
+               ng-model="articleForm.title"
+               class="form-control"
+               type="text"
+               required>
+    </div>
+    <div class="form-group">
+        <textarea placeholder="Description for your article"
+                  ng-model="articleForm.description"
+                  class="form-control"
+                  ka-min-length="20"
+                  required
+                  cols="30"
+                  rows="3">
+        </textarea>
+    </div>
+    <input class="btn btn-primary"
+           ng-disabled="form.$invalid"
+           type="submit">
+</form>

@@ -1,5 +1,4 @@
-app.controller('articlesCtrl', ['$scope', 'ArticlesFactory', '$location', '$routeParams',
-    function($scope, ArticlesFactory, $location, $routeParams) {
+const articlesCtrl = function($scope, ArticlesFactory, $location, $routeParams) {
     $scope.isArticleFormVisible = $location.path().indexOf('/add') !== -1;
     $scope.articlesList = ArticlesFactory.getArticles();
     $scope.articleForm = {
@@ -63,4 +62,6 @@ app.controller('articlesCtrl', ['$scope', 'ArticlesFactory', '$location', '$rout
 
         $scope.isArticleFormVisible = true;
     }
-}]);
+};
+
+export default articlesCtrl;

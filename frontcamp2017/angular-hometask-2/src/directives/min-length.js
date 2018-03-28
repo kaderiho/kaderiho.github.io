@@ -1,4 +1,4 @@
-app.directive('kaMinLength', function() {
+const kaMinLength = function() {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -18,4 +18,6 @@ app.directive('kaMinLength', function() {
             });
         }
     };
-});
+};
+
+export default kaMinLength;

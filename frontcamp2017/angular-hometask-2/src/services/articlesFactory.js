@@ -1,4 +1,4 @@
-app.factory('ArticlesFactory', function($resource) {
+const ArticlesFactory = function($resource) {
     let ArticlesModel = $resource('data/articles.json', null,
         {
             'get': {method: 'GET'},
@@ -34,4 +34,6 @@ app.factory('ArticlesFactory', function($resource) {
             });
         }
     }
-});
+};
+
+export default ArticlesFactory;
