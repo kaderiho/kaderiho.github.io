@@ -3,7 +3,7 @@ import { ADD_ARTICLE, REMOVE_ARTICLE } from '../../src/browser/actions/types';
 
 describe('Articles Reducer', () => {
 
-    it('has a default state', () => {
+    it('Has a default state', () => {
         expect(articlesReducer(undefined, { type: 'unexpected' })).toEqual([]);
     });
 
