@@ -50,7 +50,7 @@ class ArticleAdding extends React.Component {
         const { message, author } = this.state;
 
         return (
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className="addingTodoForm">
                 <TextFieldGroup label="Your article message"
                                 onChange={this.onChange}
                                 field="message"

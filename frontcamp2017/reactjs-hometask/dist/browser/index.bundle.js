@@ -30017,7 +30017,7 @@ var ArticleAdding = function (_React$Component) {
 
             return _react2.default.createElement(
                 'form',
-                { onSubmit: this.onSubmit },
+                { onSubmit: this.onSubmit, className: 'addingTodoForm' },
                 _react2.default.createElement(_textFieldGroup2.default, { label: 'Your article message',
                     onChange: this.onChange,
                     field: 'message',
