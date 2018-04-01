@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1522600194650" clover="3.2.0">
-  <project timestamp="1522600194650" name="All files">
-    <metrics statements="14" coveredstatements="14" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3" elements="25" coveredelements="24" complexity="0" loc="14" ncloc="14" packages="2" files="3" classes="3">
+<coverage generated="1522603491269" clover="3.2.0">
+  <project timestamp="1522603491269" name="All files">
+    <metrics statements="17" coveredstatements="17" conditionals="10" coveredconditionals="8" methods="4" coveredmethods="4" elements="31" coveredelements="29" complexity="0" loc="17" ncloc="17" packages="3" files="4" classes="4">
       <package name="actions">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <file name="types.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\actions\types.js">
@@ -11,6 +11,15 @@
           <line num="3" count="2" type="stmt"/>
           <line num="4" count="2" type="stmt"/>
           <line num="5" count="2" type="stmt"/>
+        </file>
+      </package>
+      <package name="components.common">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <file name="text-field-group.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\components\common\text-field-group.js">
+          <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="2" type="stmt"/>
+          <line num="17" count="1" type="stmt"/>
         </file>
       </package>
       <package name="reducers">
