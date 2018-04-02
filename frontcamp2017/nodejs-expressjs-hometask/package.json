@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "mocha --timeout 10000",
     "dev": "cross-env NODE_ENV=development nodemon ./app.js",
     "prod": "cross-env NODE_ENV=production node ./app.js"
   },
@@ -12,9 +12,12 @@
   "license": "ISC",
   "devDependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "connect-flash": "^0.1.1",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
+    "mocha": "^5.0.5",
     "mongoose": "^5.0.3",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",

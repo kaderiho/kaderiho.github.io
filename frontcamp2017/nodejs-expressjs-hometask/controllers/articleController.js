@@ -1,4 +1,4 @@
-const Article = require('../models/ArticleModel');
+const Article = require('../models/articleModel');
 
 const getArticles = (req, res, next) => {
     Article.find({})
@@ -8,7 +8,7 @@ const getArticles = (req, res, next) => {
 };
 
 const getArticle = (req, res, next) => {
-    Article.find({ id: +req.params.id })
+    Article.find({ _id: req.params.id })
         .then((data) => res.json(data), (err) => {
             next(err);
         });
@@ -16,7 +16,7 @@ const getArticle = (req, res, next) => {
 
 const updateArticle = (req, res, next) => {
     Article.findByIdAndUpdate(
-        { id: +req.params.id },
+        req.params.id,
         { description: req.body.description, title: req.body.title })
         .then((data) => res.json(data), (err) => {
             next(err);

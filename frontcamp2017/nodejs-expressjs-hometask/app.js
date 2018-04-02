@@ -56,7 +56,7 @@ app.use(flash());
 
 app.use('/auth/', authRoutes);
 app.use('/signup/', signUpRoutes);
-app.use('/blogs/', loggedInHandler, blogRoutes);
+app.use('/blogs/', /* loggedInHandler, */ blogRoutes);
 
 // Routes on application level
 app.get('/', (req, res) => {
@@ -77,3 +77,5 @@ app.use(errorHandlers.productionErrors);
 app.listen('3000', () => {
     console.dir('App is listening for request on port 3000')
 });
+
+module.exports = app;
