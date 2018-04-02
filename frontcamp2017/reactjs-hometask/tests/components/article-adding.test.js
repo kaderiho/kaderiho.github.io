@@ -10,7 +10,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('<ArticleAdding />', () => {
     const mockStore = configureStore();
-    const initialState = {};
+    const initialState = {
+        author: '',
+        message: ''
+    };
     let store, componentContainer;
 
     beforeEach(() => {
@@ -35,13 +38,21 @@ describe('<ArticleAdding />', () => {
         expect(componentContainer.find('button').length).toEqual(1);
     });
 
-    // UI actions testing
-    it('simulates click events', () => {
-        // const callback = spy();
-        // const wrapper = mount(<ArticleAdding store={store} onSubmit={callback}/> );
-        //
-        // componentContainer.find('form').simulate('submit');
-        // expect(callback).to.have.been.called();
-        // expect(onButtonClick).to.have.property('callCount', 1);
-    });
+    // TODO: UI actions testing
+    // it('Simulates change event on author input', () => {
+        // componentContainer.find('input[name="author"]').simulate('change', {
+        //     target: { value: 'My new value', name: 'author'}
+        // });
+
+        // componentContainer.setState({
+        //     author: '',
+        //     message: ''
+        // });
+
+        // const usernameInput = componentContainer.find('input[name="author"]');
+        //       usernameInput.instance().value = "correctUsername";
+        //       usernameInput.simulate('change');
+
+        // console.log(componentContainer.state());
+    // });
 });
