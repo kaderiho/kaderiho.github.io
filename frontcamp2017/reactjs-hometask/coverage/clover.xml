@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1522606626855" clover="3.2.0">
-  <project timestamp="1522606626855" name="All files">
-    <metrics statements="37" coveredstatements="20" conditionals="14" coveredconditionals="8" methods="14" coveredmethods="5" elements="65" coveredelements="33" complexity="0" loc="37" ncloc="37" packages="4" files="6" classes="6">
+<coverage generated="1522676878162" clover="3.2.0">
+  <project timestamp="1522676878162" name="All files">
+    <metrics statements="37" coveredstatements="30" conditionals="14" coveredconditionals="10" methods="14" coveredmethods="8" elements="65" coveredelements="48" complexity="0" loc="37" ncloc="37" packages="4" files="6" classes="6">
       <package name="actions">
         <metrics statements="9" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <file name="articles.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\actions\articles.js">
@@ -21,25 +21,25 @@
         </file>
       </package>
       <package name="components.article">
-        <metrics statements="16" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="1"/>
+        <metrics statements="16" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="4"/>
         <file name="article-adding.jsx" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\components\article\article-adding.jsx">
-          <metrics statements="16" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="1"/>
-          <line num="11" count="0" type="stmt"/>
-          <line num="13" count="0" type="stmt"/>
-          <line num="18" count="0" type="stmt"/>
+          <metrics statements="16" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="4"/>
+          <line num="11" count="6" type="stmt"/>
+          <line num="13" count="6" type="stmt"/>
+          <line num="18" count="6" type="stmt"/>
           <line num="19" count="0" type="stmt"/>
-          <line num="24" count="0" type="stmt"/>
-          <line num="25" count="0" type="stmt"/>
-          <line num="27" count="0" type="stmt"/>
-          <line num="29" count="0" type="cond" truecount="0" falsecount="4"/>
-          <line num="30" count="0" type="stmt"/>
+          <line num="24" count="6" type="stmt"/>
+          <line num="25" count="1" type="stmt"/>
+          <line num="27" count="1" type="stmt"/>
+          <line num="29" count="1" type="cond" truecount="2" falsecount="2"/>
+          <line num="30" count="1" type="stmt"/>
           <line num="33" count="0" type="stmt"/>
           <line num="39" count="0" type="stmt"/>
           <line num="42" count="0" type="stmt"/>
-          <line num="50" count="0" type="stmt"/>
-          <line num="52" count="0" type="stmt"/>
-          <line num="66" count="2" type="stmt"/>
-          <line num="68" count="0" type="stmt"/>
+          <line num="50" count="6" type="stmt"/>
+          <line num="52" count="6" type="stmt"/>
+          <line num="78" count="6" type="stmt"/>
+          <line num="80" count="0" type="stmt"/>
         </file>
       </package>
       <package name="components.common">
@@ -47,7 +47,7 @@
         <file name="text-field-group.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\components\common\text-field-group.js">
           <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
           <line num="3" count="2" type="stmt"/>
-          <line num="4" count="2" type="stmt"/>
+          <line num="4" count="14" type="stmt"/>
           <line num="17" count="2" type="stmt"/>
         </file>
       </package>
