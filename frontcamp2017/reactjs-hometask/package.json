@@ -8,9 +8,10 @@
     "build:server:dev": "webpack --config config/webpack.config.server.js --watch",
     "server:webpack:dev": "webpack-dev-server --config config/webpack.config.dev.js --hot",
     "server:dev": "nodemon dist/server.bundle.js",
-    "test:watch": "npm run test -- --watch",
+    "test": "jest --coverage",
     "test:coverage": "nyc npm run test",
-    "test": "jest --coverage"
+    "test:watch": "npm run test -- --watch",
+    "test:update-snapshots": "jest --updateSnapshot"
   },
   "author": "",
   "license": "ISC",

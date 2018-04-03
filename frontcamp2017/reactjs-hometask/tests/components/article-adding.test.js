@@ -1,14 +1,14 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import { mount } from 'enzyme';
-import { spy } from 'sinon';
 import Adapter from 'enzyme-adapter-react-16';
 import ArticleAdding from '../../src/browser/components/article/article-adding';
 import configureStore from 'redux-mock-store';
+import renderer from 'react-test-renderer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('<ArticleAdding />', () => {
+describe('<ArticleAdding UI testing/>', () => {
     const mockStore = configureStore();
     const initialState = {
         author: '',
@@ -21,7 +21,7 @@ describe('<ArticleAdding />', () => {
         componentContainer = mount(<ArticleAdding store={store}/> );
     });
 
-    // Markup testing
+    /** Mockup testing using Jest **/
     it('Rendered a component', () => {
         expect(componentContainer.length).toEqual(1);
     });
@@ -38,21 +38,34 @@ describe('<ArticleAdding />', () => {
         expect(componentContainer.find('button').length).toEqual(1);
     });
 
+    // jest.fn - check with spy that action happened
+
     // TODO: UI actions testing
     // it('Simulates change event on author input', () => {
-        // componentContainer.find('input[name="author"]').simulate('change', {
-        //     target: { value: 'My new value', name: 'author'}
-        // });
-
-        // componentContainer.setState({
-        //     author: '',
-        //     message: ''
-        // });
-
-        // const usernameInput = componentContainer.find('input[name="author"]');
-        //       usernameInput.instance().value = "correctUsername";
-        //       usernameInput.simulate('change');
-
-        // console.log(componentContainer.state());
+    //     componentContainer.find('input[name="author"]').simulate('change', {
+    //         target: { value: 'My new value', name: 'author'}
+    //     });
+    //
+    //     componentContainer.setState({
+    //         author: '',
+    //         message: ''
+    //     });
+    //
+    //     const usernameInput = componentContainer.find('input[name="author"]');
+    //           usernameInput.instance().value = "correctUsername";
+    //           usernameInput.simulate('change');
+    //
+    //     console.log(componentContainer.state());
     // });
+
+    /** Snapshot testing **/
+    it('Rendering component', () => {
+        const mockStore = configureStore();
+        const store = mockStore(initialState);
+        const tree = renderer
+            .create(<ArticleAdding store={store}/>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 });
+
