@@ -7043,7 +7043,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
 
     // To make comparing ReactElements easier for testing purposes, we make
     // the validation flag non-enumerable (where possible, which should
-    // include every environment we run test in), so the test framework
+    // include every environment we run tests in), so the test framework
     // ignores it.
     Object.defineProperty(element._store, 'validated', {
       configurable: false,
@@ -9654,7 +9654,7 @@ function accumulateDirectionalDispatches(inst, phase, event) {
 
 /**
  * Collect dispatches (must be entirely collected before dispatching - see unit
- * test). Lazily allocate the array to conserve memory.  We must loop through
+ * tests). Lazily allocate the array to conserve memory.  We must loop through
  * each event and perform the traversal for each one. We cannot perform a
  * single traversal for the entire collection of events because each event may
  * have a different target.
@@ -10751,7 +10751,7 @@ function trackValueOnNode(node) {
   // if someone has already defined a value or Safari, then bail
   // and don't track value will cause over reporting of changes,
   // but it's better then a hard failure
-  // (needed for certain test that spyOn input values and Safari)
+  // (needed for certain tests that spyOn input values and Safari)
   if (node.hasOwnProperty(valueField) || typeof descriptor.get !== 'function' || typeof descriptor.set !== 'function') {
     return;
   }
@@ -29975,7 +29975,19 @@ var ArticleAdding = function (_React$Component) {
         };
 
         _this.onChange = function (e) {
+            console.log('INITIAL STATE');
+            console.log(_this.state);
+
+            console.log('Simulation onChange!!!!!!');
+            console.log(_defineProperty({}, e.target.name, e.target.value));
+
+            console.log('SET STATE FUNCTION');
+
+            console.log(_this.setState);
             _this.setState(_defineProperty({}, e.target.name, e.target.value));
+
+            console.log('UPDATED STATE!!!!!!');
+            console.log(_this.state);
         };
 
         _this.onSubmit = function (e) {

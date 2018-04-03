@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1522754605902" clover="3.2.0">
-  <project timestamp="1522754605903" name="All files">
-    <metrics statements="37" coveredstatements="26" conditionals="14" coveredconditionals="8" methods="14" coveredmethods="7" elements="65" coveredelements="41" complexity="0" loc="37" ncloc="37" packages="4" files="6" classes="6">
+<coverage generated="1522773388325" clover="3.2.0">
+  <project timestamp="1522773388325" name="All files">
+    <metrics statements="38" coveredstatements="28" conditionals="14" coveredconditionals="8" methods="14" coveredmethods="8" elements="66" coveredelements="44" complexity="0" loc="38" ncloc="38" packages="4" files="6" classes="6">
       <package name="actions">
         <metrics statements="9" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <file name="articles.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\actions\articles.js">
@@ -21,25 +21,26 @@
         </file>
       </package>
       <package name="components.article">
-        <metrics statements="16" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="3"/>
+        <metrics statements="17" coveredstatements="9" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="4"/>
         <file name="article-adding.jsx" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\components\article\article-adding.jsx">
-          <metrics statements="16" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="3"/>
-          <line num="11" count="6" type="stmt"/>
-          <line num="13" count="6" type="stmt"/>
-          <line num="18" count="6" type="stmt"/>
-          <line num="19" count="0" type="stmt"/>
-          <line num="24" count="6" type="stmt"/>
-          <line num="25" count="0" type="stmt"/>
-          <line num="27" count="0" type="stmt"/>
-          <line num="29" count="0" type="cond" truecount="0" falsecount="4"/>
-          <line num="30" count="0" type="stmt"/>
-          <line num="33" count="0" type="stmt"/>
-          <line num="39" count="0" type="stmt"/>
-          <line num="42" count="0" type="stmt"/>
-          <line num="50" count="6" type="stmt"/>
-          <line num="52" count="6" type="stmt"/>
-          <line num="78" count="6" type="stmt"/>
-          <line num="80" count="0" type="stmt"/>
+          <metrics statements="17" coveredstatements="9" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="4"/>
+          <line num="11" count="7" type="stmt"/>
+          <line num="13" count="7" type="stmt"/>
+          <line num="18" count="7" type="stmt"/>
+          <line num="19" count="1" type="stmt"/>
+          <line num="20" count="1" type="stmt"/>
+          <line num="25" count="7" type="stmt"/>
+          <line num="26" count="0" type="stmt"/>
+          <line num="28" count="0" type="stmt"/>
+          <line num="30" count="0" type="cond" truecount="0" falsecount="4"/>
+          <line num="31" count="0" type="stmt"/>
+          <line num="34" count="0" type="stmt"/>
+          <line num="40" count="0" type="stmt"/>
+          <line num="43" count="0" type="stmt"/>
+          <line num="51" count="8" type="stmt"/>
+          <line num="53" count="8" type="stmt"/>
+          <line num="79" count="7" type="stmt"/>
+          <line num="81" count="0" type="stmt"/>
         </file>
       </package>
       <package name="components.common">
@@ -47,7 +48,7 @@
         <file name="text-field-group.js" path="D:\Projects\kaderiho.github.io\frontcamp2017\reactjs-hometask\src\browser\components\common\text-field-group.js">
           <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
           <line num="3" count="2" type="stmt"/>
-          <line num="4" count="14" type="stmt"/>
+          <line num="4" count="19" type="stmt"/>
           <line num="17" count="2" type="stmt"/>
         </file>
       </package>
