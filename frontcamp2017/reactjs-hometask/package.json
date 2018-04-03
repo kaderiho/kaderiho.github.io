@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
     "build:client:dev": "webpack --config config/webpack.config.base.js --watch",
     "build:server:dev": "webpack --config config/webpack.config.server.js --watch",
     "server:webpack:dev": "webpack-dev-server --config config/webpack.config.dev.js --hot",
     "server:dev": "nodemon dist/server.bundle.js",
+    "stryker": "stryker run",
     "test": "jest --coverage",
     "test:coverage": "nyc npm run test",
     "test:watch": "npm run test -- --watch",
@@ -62,6 +66,11 @@
     "serialize-javascript": "^1.4.0",
     "shortid": "^2.2.8",
     "sinon": "^4.5.0",
+    "stryker": "^0.20.1",
+    "stryker-api": "^0.14.0",
+    "stryker-babel-transpiler": "^0.3.4",
+    "stryker-javascript-mutator": "^0.4.3",
+    "stryker-jest-runner": "^0.5.1",
     "validator": "^9.4.1",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0"
