@@ -14,25 +14,26 @@ class Cache {
         return JSON.parse(localStorage.getItem(itemName));
     }
 
+    static updateList(data) {
+        let outputList = [];
+
+        if (Object.prototype.toString.call(data) === '[object Array]') {
+            outputList = outputList.concat(data);
+        } else {
+            outputList.push(data);
+        }
+
+        return outputList
+    }
+
     /**
      * Composite method that able to set single item or list of items to the cache store
      * @param itemName {string} - the name of store in cache
      * @param data - the stored data
      */
     setItem (itemName, data) {
-        let cache = this.getItem(itemName);
-        let outputData = [];
-
-        // Check if store wasn't created for this item
-        if (!cache) {
-            cache = [];
-        }
-
-        if (Object.prototype.toString.call(data) !== '[object Array]') {
-            outputData.push(data);
-        } else {
-            outputData = outputData.concat(data);
-        }
+        let cache = this.getItem(itemName) || [];
+        let outputData = Cache.updateList(data);
 
         localStorage.setItem(itemName, JSON.stringify(cache.concat(outputData)));
     }
