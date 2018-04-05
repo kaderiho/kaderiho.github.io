@@ -1,5 +1,6 @@
 import articlesReducer from '../../src/browser/reducers/articles';
 import { ADD_ARTICLE, REMOVE_ARTICLE } from '../../src/browser/actions/types';
+import deepFreeze from 'deep-freeze';
 
 describe('Articles Reducer', () => {
 
@@ -10,12 +11,12 @@ describe('Articles Reducer', () => {
     it('ADD_ARTICLE action works fine', () => {
         const newArticle = { id: 1, author: 'author', message: 'title' };
 
-        expect(articlesReducer([], {type: ADD_ARTICLE, payLoad: newArticle})).toEqual([newArticle]);
+        expect(articlesReducer(deepFreeze([]), {type: ADD_ARTICLE, payLoad: newArticle})).toEqual([newArticle]);
     });
 
     it('REMOVE_ARTICLE action works fine', () => {
         const removedArticle = { id: 1, author: 'author', message: 'title' };
 
-        expect(articlesReducer([removedArticle], {type: REMOVE_ARTICLE, payLoad: removedArticle})).toEqual([]);
+        expect(articlesReducer(deepFreeze([removedArticle]), {type: REMOVE_ARTICLE, payLoad: removedArticle})).toEqual([]);
     })
 });
