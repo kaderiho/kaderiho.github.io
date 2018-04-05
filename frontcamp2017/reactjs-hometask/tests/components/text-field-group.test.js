@@ -3,7 +3,6 @@ import Enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import TextFieldGroup from '../../src/browser/components/common/text-field-group';
-import sinon from 'sinon';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,11 +22,10 @@ describe('<TextFieldGroup />', () => {
 
     /** UI actions testing **/
     it('Simulate onChange events', () => {
-        const onChange = sinon.spy();
-        const wrapper = mount((
-            <TextFieldGroup onChange={onChange} />
-        ));
-        wrapper.find('input').simulate('change');
-        expect(onChange.calledOnce).toEqual(true);
+        const onChange = jest.fn();
+        const component = mount(<TextFieldGroup onChange={onChange} />);
+
+        component.find('input').simulate('change');
+        expect(onChange).toBeCalled();
     });
 });
