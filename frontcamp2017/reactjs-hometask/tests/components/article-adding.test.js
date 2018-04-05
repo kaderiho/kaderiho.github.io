@@ -38,22 +38,6 @@ describe('<ArticleAdding UI testing/>', () => {
         expect(componentContainer.find('button').length).toEqual(1);
     });
 
-    // jest.fn - check with spy that action happened
-
-    // TODO: UI actions testing
-    it('Simulates change event on author input', () => {
-        componentContainer.find('input[name="author"]').simulate('change', {
-            target: { value: 'My new value', name: 'author'}
-        });
-
-        // componentContainer.instance().forceUpdate();
-        // componentContainer.update();
-
-        // setTimeout(() => {
-        //     console.log(componentContainer.state());
-        // }, 0);
-    });
-
     /** Snapshot testing **/
     it('Rendering component', () => {
         const mockStore = configureStore();
