@@ -1,5 +1,5 @@
-import authReducer from '../../src/browser/reducers/auth';
-import { SET_CURRENT_USER } from '../../src/browser/actions/types';
+import authReducer from '../../web-app/client/src/reducers/auth';
+import { SET_CURRENT_USER } from '../../web-app/client/src/actions/types';
 import deepFreeze from 'deep-freeze';
 
 describe('Auth Reducer', () => {

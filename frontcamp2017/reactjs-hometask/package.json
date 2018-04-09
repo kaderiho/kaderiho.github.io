@@ -10,8 +10,7 @@
     "build:client:dev": "webpack --config config/webpack.config.base.js --watch",
     "build:server:dev": "webpack --config config/webpack.config.server.js --watch",
     "server:webpack:dev": "webpack-dev-server --config config/webpack.config.dev.js --hot",
-    "server:dev": "nodemon dist/server.bundle.js",
-    "stryker": "stryker run",
+    "server:dev": "babel-node --presets=react,env,stage-0 web-app/server/server.js",
     "test": "jest --coverage",
     "test:coverage": "nyc npm run test",
     "test:watch": "npm run test -- --watch",
@@ -43,6 +42,7 @@
   "devDependencies": {
     "axios": "^0.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",

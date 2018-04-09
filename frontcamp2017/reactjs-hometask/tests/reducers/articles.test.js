@@ -1,5 +1,5 @@
-import articlesReducer from '../../src/browser/reducers/articles';
-import { ADD_ARTICLE, REMOVE_ARTICLE } from '../../src/browser/actions/types';
+import articlesReducer from '../../web-app/client/src/reducers/articles';
+import { ADD_ARTICLE, REMOVE_ARTICLE } from '../../web-app/client/src/actions/types';
 import deepFreeze from 'deep-freeze';
 
 describe('Articles Reducer', () => {

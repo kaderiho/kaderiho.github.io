@@ -2,7 +2,7 @@ module.exports = function(config) {
   config.set({
     files: [
       {
-        pattern: "src/**/*.js",
+        pattern: "web-app/**/*.js",
         mutated: true,
         included: false
       },

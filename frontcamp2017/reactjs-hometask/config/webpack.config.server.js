@@ -3,7 +3,7 @@ const webpack       = require('webpack');
 const path          = require('path');
 
 module.exports = {
-    context: path.resolve(__dirname, '../src/server'),
+    context: path.resolve(__dirname, '../web-app/server'),
 
     entry: {
         server: './server.js'

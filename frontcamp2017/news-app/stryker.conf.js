@@ -2,7 +2,7 @@ module.exports = function (config) {
     config.set({
         files: [
             {
-                pattern: "src/js/services/CACHE_SERVICE.js",
+                pattern: "web-app/js/services/CACHE_SERVICE.js",
                 mutated: true,
                 included: false
             },

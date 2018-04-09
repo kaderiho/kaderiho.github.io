@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import ArticleAdding from '../../src/browser/components/article/article-adding';
+import ArticleAdding from '../../web-app/client/src/components/article/article-adding';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 

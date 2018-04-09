@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import TextFieldGroup from '../../src/browser/components/common/text-field-group';
+import TextFieldGroup from '../../web-app/client/src/components/common/text-field-group';
 
 Enzyme.configure({ adapter: new Adapter() });
 

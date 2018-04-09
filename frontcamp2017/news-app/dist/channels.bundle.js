@@ -178,7 +178,7 @@ var Channels = function () {
     }, {
         key: 'getChannelHTML',
         value: function getChannelHTML(channelItem) {
-            return '<li class="channelsList-item" data-key="' + channelItem.key + '">\n                    <img src="' + channelItem.logoPath + '" class="channelLogo" alt=""/>\n                    <p class="channelTitle">' + channelItem.title + '</p>\n                 </li>';
+            return '<li class="channelsList-item" data-key="' + channelItem.key + '">\n                    <img web-app="' + channelItem.logoPath + '" class="channelLogo" alt=""/>\n                    <p class="channelTitle">' + channelItem.title + '</p>\n                 </li>';
         }
     }]);
 
