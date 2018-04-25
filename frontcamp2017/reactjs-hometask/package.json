@@ -7,8 +7,7 @@
     "verbose": true
   },
   "scripts": {
-    "build:client:dev": "webpack --config config/webpack.config.base.js --watch",
-    "build:server:dev": "webpack --config config/webpack.config.server.js --watch",
+    "build:client:dev": "webpack --config config/webpack.config.base.js",
     "server:webpack:dev": "webpack-dev-server --config config/webpack.config.dev.js --hot",
     "server:dev": "babel-node --presets=react,env,stage-0 web-app/server/server.js",
     "test": "jest --coverage",
