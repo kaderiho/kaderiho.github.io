@@ -6547,7 +6547,7 @@ var preloadedState = window.__INITIAL_DATA__;
 
 delete window.__INITIAL_DATA__;
 
-var store = (0, _redux.createStore)(_index2.default, preloadedState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.devToolsExtension() ? window.devToolsExtension() : function (f) {
+var store = (0, _redux.createStore)(_index2.default, preloadedState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
     return f;
 }));
 

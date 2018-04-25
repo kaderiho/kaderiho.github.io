@@ -18,7 +18,7 @@ delete window.__INITIAL_DATA__;
 let store = createStore(
     allReducers,
     preloadedState,
-    compose(applyMiddleware(thunk), window.devToolsExtension() ? window.devToolsExtension() : f => f)
+    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
 if (localStorage.jwtToken) {
